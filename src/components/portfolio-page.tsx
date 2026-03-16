@@ -61,7 +61,35 @@ const navItems = [
   { id: "experience", label: "Clubs & Non-profit Work" },
 ] as const
 
-const researchProjects = [
+type ProjectAction = {
+  label: string
+  href?: string
+  kind?: "github" | "publication" | "website"
+  disabled?: boolean
+}
+
+type ResearchProject = {
+  id: string
+  title: string
+  subtitle: string
+  description: string
+  image: StaticImageData
+  logoLabel: string
+  accent: string
+  actions: ProjectAction[]
+}
+
+type PillarSlide = {
+  title: string
+  copy: string
+  images: StaticImageData[]
+  logos?: { src: StaticImageData; alt: string }[]
+  titleMedia?: { src: StaticImageData; alt: string }
+  imageClassName?: string
+  actions?: ProjectAction[]
+}
+
+const researchProjects: readonly ResearchProject[] = [
   {
     id: "chamtern",
     title: "Software & Research Intern",
@@ -110,8 +138,6 @@ const researchProjects = [
     actions: [{ label: "GitHub", href: "https://github.com/v1shay/sentinel-LLM", kind: "github" }],
   },
 ] as const
-
-type ResearchProject = (typeof researchProjects)[number]
 
 function toExternalHref(href: string) {
   return /^https?:\/\//i.test(href) ? href : `https://${href.replace(/^\/+/, "")}`
@@ -628,7 +654,7 @@ function ResearchShowcase() {
                         </button>
                         <div className="research-card-actions">
                           {project.actions.map((action) =>
-                            action.disabled ? (
+                            action.disabled || !action.href ? (
                               <span
                                 key={`${project.id}-${action.label}`}
                                 className="research-card-action research-card-action-disabled"
@@ -697,19 +723,7 @@ function InteractivePillar({
   className,
   isLarge = false,
 }: {
-  slides: {
-    title: string
-    copy: string
-    images: StaticImageData[]
-    logos?: { src: StaticImageData; alt: string }[]
-    titleMedia?: { src: StaticImageData; alt: string }
-    imageClassName?: string
-    actions?: {
-      label: string
-      href?: string
-      disabled?: boolean
-    }[]
-  }[]
+  slides: PillarSlide[]
   className?: string
   isLarge?: boolean
 }) {
@@ -759,7 +773,7 @@ function InteractivePillar({
               {currentSlide.actions?.length ? (
                 <div className="pillar-actions">
                   {currentSlide.actions.map((action) =>
-                    action.disabled ? (
+                    action.disabled || !action.href ? (
                       <span
                         key={`${currentSlide.title}-${action.label}`}
                         className="pillar-action pillar-action-disabled"
