@@ -1,13 +1,12 @@
 import type { Metadata } from "next"
-import { Bodoni_Moda, Space_Grotesk } from "next/font/google"
+import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google"
 import { ShaderBackground } from "@/components/shader-background"
 import "./globals.css"
 
-const displayFont = Bodoni_Moda({
+const displayFont = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-display-google",
-  weight: ["500", "600", "700", "800", "900"],
-  style: ["normal", "italic"],
+  weight: ["500", "600", "700", "800"],
 })
 
 const bodyFont = Space_Grotesk({

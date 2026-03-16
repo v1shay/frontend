@@ -257,11 +257,6 @@ const heroPortraitMaskMobileStyle: CSSProperties = {
 }
 
 const heroTitleLines = ["Vishay", "Agarwal"] as const
-const heroSignalPills = ["ML Systems", "Research Builds", "Frontend Polish"] as const
-const heroFloatingCards = [
-  { kicker: "Now building", value: "Research to product" },
-  { kicker: "Favorite loop", value: "Design, test, refine" },
-] as const
 
 function useActiveSection(sectionIds: readonly string[]) {
   const [activeSection, setActiveSection] = useState(sectionIds[0] ?? "")
@@ -517,6 +512,8 @@ function HeroSection() {
               transition={{ duration: 0.76, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
               className="hero-subtext"
             >
+              
+              
               Hi, I&apos;m Vishay, freshman at Lynbrook High whos obsessed with all things systems. Whether it&apos;s ML pipelines, LEGOs, basketball, or just NBA2K, I see a system in everything. I&apos;m passionate about turning research ideas into real-world solutions!
             </motion.p>
             <div className="hero-actions">
@@ -539,19 +536,6 @@ function HeroSection() {
               >
                 View projects
               </motion.a>
-            </div>
-            <div className="hero-signal-row">
-              {heroSignalPills.map((signal, index) => (
-                <motion.div
-                  key={signal}
-                  initial={{ opacity: 0, y: 22, scale: 0.96 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  transition={{ duration: 0.56, delay: 0.48 + index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                  className="hero-signal-pill"
-                >
-                  {signal}
-                </motion.div>
-              ))}
             </div>
           </motion.div>
 
@@ -582,21 +566,6 @@ function HeroSection() {
               }
               transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
             />
-            {heroFloatingCards.map((card, index) => (
-              <motion.div
-                key={card.value}
-                initial={{ opacity: 0, y: 28, scale: 0.94, filter: "blur(10px)" }}
-                animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-                transition={{ duration: 0.72, delay: 0.45 + index * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className={cn(
-                  "hero-floating-card liquid-panel",
-                  index === 0 ? "hero-floating-card-top" : "hero-floating-card-bottom"
-                )}
-              >
-                <span className="hero-floating-card-kicker">{card.kicker}</span>
-                <span className="hero-floating-card-value">{card.value}</span>
-              </motion.div>
-            ))}
             <div className="hero-portrait-shell">
               <motion.div
                 className="hero-portrait-mask"
@@ -1479,7 +1448,7 @@ export function PortfolioPage() {
         }
 
         .hero-title {
-          font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
+          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
           font-weight: 500;
           font-optical-sizing: auto;
           margin-top: 1.5rem;
@@ -1519,34 +1488,6 @@ export function PortfolioPage() {
           margin-top: 2rem;
         }
 
-        .hero-signal-row {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.8rem;
-          margin-top: 1.3rem;
-        }
-
-        .hero-signal-pill {
-          display: inline-flex;
-          align-items: center;
-          min-height: 2.45rem;
-          padding: 0.68rem 0.95rem;
-          border-radius: 999px;
-          border: 1px solid rgb(255 255 255 / 0.12);
-          background:
-            linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.05)),
-            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 56%);
-          backdrop-filter: blur(18px);
-          box-shadow:
-            inset 0 1px 0 rgb(255 255 255 / 0.16),
-            0 12px 24px rgb(0 0 0 / 0.08);
-          font-size: 0.78rem;
-          font-weight: 600;
-          letter-spacing: 0.08em;
-          text-transform: uppercase;
-          color: rgb(255 255 255 / 0.76);
-        }
-
         .hero-portrait-wrap {
           display: flex;
           align-items: center;
@@ -1554,39 +1495,6 @@ export function PortfolioPage() {
           position: relative;
           min-height: 100%;
           padding-right: clamp(1rem, 4vw, 4rem);
-        }
-
-        .hero-floating-card {
-          position: absolute;
-          z-index: 3;
-          display: grid;
-          gap: 0.35rem;
-          min-width: 12rem;
-          padding: 0.9rem 1rem;
-          border-radius: 1.55rem;
-        }
-
-        .hero-floating-card-top {
-          top: 9%;
-          left: 4%;
-        }
-
-        .hero-floating-card-bottom {
-          right: 3%;
-          bottom: 10%;
-        }
-
-        .hero-floating-card-kicker {
-          font-size: 0.65rem;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: rgb(255 255 255 / 0.56);
-        }
-
-        .hero-floating-card-value {
-          font-size: 1rem;
-          line-height: 1.35;
-          color: rgb(255 255 255 / 0.84);
         }
 
         .hero-portrait-shell {
@@ -1721,7 +1629,7 @@ export function PortfolioPage() {
 
         .research-editorial-title {
           margin-top: 0.85rem;
-          font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
+          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
           font-size: clamp(2rem, 3.2vw, 3.4rem);
           line-height: 1;
           letter-spacing: -0.05em;
@@ -1908,7 +1816,7 @@ export function PortfolioPage() {
         .research-card-title,
         .research-modal-title {
           margin-top: 0.34rem;
-          font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
+          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
           font-size: clamp(1.45rem, 1.5vw, 1.8rem);
           font-optical-sizing: auto;
           line-height: 1.04;
@@ -2507,7 +2415,7 @@ export function PortfolioPage() {
         }
 
         .pillar-title {
-          font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
+          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
           font-size: clamp(1.6rem, 2vw, 2.2rem);
           color: white;
           margin-bottom: 0.8rem;
@@ -2515,7 +2423,7 @@ export function PortfolioPage() {
         }
 
         .pillar-title-large {
-          font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
+          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
           font-size: clamp(2rem, 2.65vw, 2.9rem);
           color: white;
           margin-bottom: 0.8rem;
@@ -2626,7 +2534,7 @@ export function PortfolioPage() {
         }
 
         .projects-page-card-title {
-          font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
+          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
           font-size: clamp(1.8rem, 2vw, 2.35rem);
           line-height: 0.98;
           letter-spacing: -0.05em;
@@ -2786,7 +2694,7 @@ export function PortfolioPage() {
         }
 
         .contact-panel-title {
-          font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
+          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
           font-size: clamp(2rem, 2.6vw, 3rem);
           line-height: 0.98;
           letter-spacing: -0.05em;
@@ -2898,20 +2806,6 @@ export function PortfolioPage() {
 
           .hero-portrait-mask {
             height: min(48vh, 28rem);
-          }
-
-          .hero-floating-card {
-            display: none;
-          }
-
-          .hero-signal-row {
-            gap: 0.55rem;
-            margin-top: 1rem;
-          }
-
-          .hero-signal-pill {
-            font-size: 0.72rem;
-            padding: 0.6rem 0.82rem;
           }
 
           .research-editorial-panel,
