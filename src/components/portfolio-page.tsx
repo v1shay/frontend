@@ -434,7 +434,7 @@ function HeroSection() {
             </div>
             <h1 className="hero-title mt-6">Vishay Agarwal</h1>
             <p className="hero-subtext">
-              Hi, I&apos;m Vishay, freshman at Lynbrook High whos obsessed with all things systems. Wether it&apos;s ML pipelines, LEGOs, basketball, or just NBA2K, I see a system in everything. I&apos;m passionate about turning research ideas into real-world solutions!
+              Hi, I&apos;m Vishay, freshman at Lynbrook High whos obsessed with all things systems. Whether it&apos;s ML pipelines, LEGOs, basketball, or just NBA2K, I see a system in everything. I&apos;m passionate about turning research ideas into real-world solutions!
             </p>
             <div className="hero-actions">
               <a href="#research" className="hero-cta-primary">
@@ -1097,9 +1097,9 @@ function ContactSection() {
           <div className="contact-panel liquid-panel">
             <div className="contact-panel-header">
               <span className="contact-panel-kicker">Connect</span>
-              <h3 className="contact-panel-title">Reach out, follow along, or explore the work.</h3>
+              <h3 className="contact-panel-title">Feel free to reach out!</h3>
               <p className="contact-panel-copy">
-                A clean contact hub with direct links across projects, profiles, and the places I&apos;m building.
+                If you have an idea, research opportunity, collaboration, or even just a question, I'm always happy to connect
               </p>
             </div>
 
