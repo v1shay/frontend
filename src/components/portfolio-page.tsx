@@ -16,12 +16,12 @@ import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynb
 import athletes from "../../images/image copy 15.png"
 import cs from "../../images/image copy 14.png"
 import nova from "../../images/image copy 16.png"
-import githubLogo from "../../images/image copy 17.png"
-import linkedInLogo from "../../images/image copy 18.png"
-import emailLogo from "../../images/image copy 19.png"
+import githubLogo from "../../images/image copy 31.png"
+import linkedInLogo from "../../images/image copy 30.png"
+import emailLogo from "../../images/image copy 24.png"
 import projectLogo from "../../images/image copy 20.png"
-import portfolioLogo from "../../images/image copy 21.png"
-import additionalLogo from "../../images/image copy 22.png"
+import portfolioLogo from "../../images/image copy 27.png"
+import additionalLogo from "../../images/image copy 28.png"
 import contactImage from "../../images/contact.jpeg"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
@@ -50,7 +50,16 @@ import deVargasStemLogo from "../../images/image copy 8.png"             // De V
 import goodSamaritanPenguinLogo from "../../images/image copy 9.png"     // Good Samaritan Preschool penguin logo
 import goodSamaritanLogo from "../../images/image.png"                   // Good Samaritan Preschool text logo
 import { useEffect, useRef, useState, type CSSProperties } from "react"
-import { motion, useInView, useScroll, useMotionValueEvent, AnimatePresence } from "motion/react"
+import {
+  motion,
+  useInView,
+  useScroll,
+  useMotionValueEvent,
+  AnimatePresence,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "motion/react"
 import {
   ArrowRight,
   ChevronRight,
@@ -215,7 +224,7 @@ const contactButtons = [
     href: "https://docs.google.com/document/d/17_go6arOIviQ2X_M8XTwY88k7OC9EA-g/edit",
   },
   {
-    label: "UPLIFTART FOUNDATION",
+    label: "UPLIFT ART FOUNDATION",
     image: projectLogo,
     href: "https://uplift-art.vercel.app",
   },
@@ -246,6 +255,13 @@ const heroPortraitMaskMobileStyle: CSSProperties = {
   height: "min(40vh, 22rem)",
   maxHeight: "22rem",
 }
+
+const heroTitleLines = ["Vishay", "Agarwal"] as const
+const heroSignalPills = ["ML Systems", "Research Builds", "Frontend Polish"] as const
+const heroFloatingCards = [
+  { kicker: "Now building", value: "Research to product" },
+  { kicker: "Favorite loop", value: "Design, test, refine" },
+] as const
 
 function useActiveSection(sectionIds: readonly string[]) {
   const [activeSection, setActiveSection] = useState(sectionIds[0] ?? "")
@@ -420,43 +436,173 @@ function StickyNavbar() {
 }
 
 function HeroSection() {
+  const heroRef = useRef<HTMLElement | null>(null)
+  const reduceMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  })
+
+  const portraitY = useSpring(useTransform(scrollYProgress, [0, 1], [0, 62]), {
+    stiffness: 120,
+    damping: 24,
+    mass: 0.55,
+  })
+  const portraitRotate = useTransform(scrollYProgress, [0, 1], [0, -5])
+  const copyY = useSpring(useTransform(scrollYProgress, [0, 1], [0, -18]), {
+    stiffness: 140,
+    damping: 28,
+    mass: 0.5,
+  })
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.96, 0.84])
+
   return (
     <section
+      ref={heroRef}
       id="hero"
       className="hero-section snap-section"
     >
+      <div className="hero-ambient-stage" aria-hidden="true">
+        <motion.div
+          className="hero-ambient-ribbon hero-ambient-ribbon-one"
+          animate={
+            reduceMotion
+              ? undefined
+              : { x: [0, 26, -20, 0], y: [0, -22, 12, 0], rotate: [0, 4, -3, 0] }
+          }
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="hero-ambient-ribbon hero-ambient-ribbon-two"
+          animate={
+            reduceMotion
+              ? undefined
+              : { x: [0, -20, 18, 0], y: [0, 16, -12, 0], rotate: [0, -5, 3, 0] }
+          }
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
       <div className="hero-inner">
         <div className="hero-grid">
-          <Reveal className="hero-copy-column" delay={0.08}>
-            <div className="hero-kicker">
+          <motion.div
+            className="hero-copy-column"
+            style={reduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.62, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
+              className="hero-kicker hero-kicker-animated"
+            >
+              <span className="hero-kicker-sheen" aria-hidden="true" />
               <Sparkles className="h-3.5 w-3.5" />
               DIGITAL RESUME
-            </div>
-            <h1 className="hero-title mt-6">Vishay Agarwal</h1>
-            <p className="hero-subtext">
+            </motion.div>
+            <h1 className="hero-title mt-6" aria-label="Vishay Agarwal">
+              {heroTitleLines.map((line, index) => (
+                <motion.span
+                  key={line}
+                  initial={{ opacity: 0, y: 54, filter: "blur(14px)" }}
+                  animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                  transition={{ duration: 0.82, delay: 0.12 + index * 0.11, ease: [0.18, 1, 0.3, 1] }}
+                  className={cn("hero-title-line", index === 1 && "hero-title-line-accent")}
+                >
+                  {line}
+                </motion.span>
+              ))}
+            </h1>
+            <motion.p
+              initial={{ opacity: 0, y: 24, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.76, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="hero-subtext"
+            >
               Hi, I&apos;m Vishay, freshman at Lynbrook High whos obsessed with all things systems. Whether it&apos;s ML pipelines, LEGOs, basketball, or just NBA2K, I see a system in everything. I&apos;m passionate about turning research ideas into real-world solutions!
-            </p>
+            </motion.p>
             <div className="hero-actions">
-              <a href="#research" className="hero-cta-primary">
+              <motion.a
+                initial={{ opacity: 0, y: 22, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.62, delay: 0.36, ease: [0.22, 1, 0.36, 1] }}
+                href="#research"
+                className="hero-cta-primary"
+              >
                 Explore research
                 <ArrowRight className="h-4 w-4" />
-              </a>
-              <a href="#research" className="hero-cta-secondary">
+              </motion.a>
+              <motion.a
+                initial={{ opacity: 0, y: 22, scale: 0.96 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.62, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
+                href="#research"
+                className="hero-cta-secondary"
+              >
                 View projects
-              </a>
+              </motion.a>
             </div>
-          </Reveal>
+            <div className="hero-signal-row">
+              {heroSignalPills.map((signal, index) => (
+                <motion.div
+                  key={signal}
+                  initial={{ opacity: 0, y: 22, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ duration: 0.56, delay: 0.48 + index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                  className="hero-signal-pill"
+                >
+                  {signal}
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
 
           <motion.div
             initial={{ opacity: 0, y: -90, scale: 0.93, rotateX: 14 }}
             animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
             transition={{ duration: 0.92, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            style={reduceMotion ? undefined : { y: portraitY, rotateZ: portraitRotate }}
             className="hero-portrait-wrap"
           >
-            <div className="hero-portrait-orb hero-portrait-orb-one" aria-hidden="true" />
-            <div className="hero-portrait-orb hero-portrait-orb-two" aria-hidden="true" />
+            <motion.div
+              className="hero-portrait-orb hero-portrait-orb-one"
+              aria-hidden="true"
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { scale: [1, 1.08, 0.98, 1], x: [0, 10, -6, 0], y: [0, -12, 8, 0] }
+              }
+              transition={{ duration: 11, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="hero-portrait-orb hero-portrait-orb-two"
+              aria-hidden="true"
+              animate={
+                reduceMotion
+                  ? undefined
+                  : { scale: [1, 0.94, 1.05, 1], x: [0, -8, 4, 0], y: [0, 10, -8, 0] }
+              }
+              transition={{ duration: 13, repeat: Infinity, ease: "easeInOut" }}
+            />
+            {heroFloatingCards.map((card, index) => (
+              <motion.div
+                key={card.value}
+                initial={{ opacity: 0, y: 28, scale: 0.94, filter: "blur(10px)" }}
+                animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                transition={{ duration: 0.72, delay: 0.45 + index * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                className={cn(
+                  "hero-floating-card liquid-panel",
+                  index === 0 ? "hero-floating-card-top" : "hero-floating-card-bottom"
+                )}
+              >
+                <span className="hero-floating-card-kicker">{card.kicker}</span>
+                <span className="hero-floating-card-value">{card.value}</span>
+              </motion.div>
+            ))}
             <div className="hero-portrait-shell">
-              <div className="hero-portrait-mask">
+              <motion.div
+                className="hero-portrait-mask"
+                animate={reduceMotion ? undefined : { y: [0, -8, 0, 6, 0] }}
+                transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+              >
                 <Image
                   src={heroImage}
                   alt="Portrait placeholder for Vishay Agarwal"
@@ -464,7 +610,8 @@ function HeroSection() {
                   className="hero-image"
                 />
                 <div className="hero-image-wash" aria-hidden="true" />
-              </div>
+                <div className="hero-image-sheen" aria-hidden="true" />
+              </motion.div>
             </div>
             <style jsx>{`
               @media (max-width: 767px) {
@@ -1099,7 +1246,7 @@ function ContactSection() {
               <span className="contact-panel-kicker">Connect</span>
               <h3 className="contact-panel-title">Feel free to reach out!</h3>
               <p className="contact-panel-copy">
-                If you have an idea, research opportunity, collaboration, or even just a question, I'm always happy to connect
+                If you have an idea, research opportunity, collaboration, or even just a question, I&apos;m always happy to connect
               </p>
             </div>
 
@@ -1204,6 +1351,42 @@ export function PortfolioPage() {
           max-height: 100vh;
           padding: calc(92px + 1.5rem) 2rem 3rem;
           overflow: hidden;
+          position: relative;
+          isolation: isolate;
+        }
+
+        .hero-ambient-stage {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          overflow: hidden;
+          z-index: 0;
+        }
+
+        .hero-ambient-ribbon {
+          position: absolute;
+          border-radius: 999px;
+          filter: blur(46px);
+          mix-blend-mode: screen;
+          opacity: 0.68;
+        }
+
+        .hero-ambient-ribbon-one {
+          top: 10%;
+          left: 6%;
+          width: 18rem;
+          height: 18rem;
+          background:
+            radial-gradient(circle at center, rgb(255 255 255 / 0.22), rgb(255 255 255 / 0.02) 70%, transparent 100%);
+        }
+
+        .hero-ambient-ribbon-two {
+          right: 8%;
+          bottom: 9%;
+          width: 22rem;
+          height: 22rem;
+          background:
+            radial-gradient(circle at center, rgb(219 186 149 / 0.22), rgb(219 186 149 / 0.02) 70%, transparent 100%);
         }
 
         .section-anchor {
@@ -1246,6 +1429,8 @@ export function PortfolioPage() {
           align-items: center;
           min-height: 100%;
           width: 100%;
+          position: relative;
+          z-index: 1;
         }
 
         .hero-grid {
@@ -1273,6 +1458,24 @@ export function PortfolioPage() {
           text-transform: uppercase;
           letter-spacing: 0.3em;
           color: rgb(255 255 255 / 0.8);
+          position: relative;
+          overflow: hidden;
+        }
+
+        .hero-kicker-animated {
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.18),
+            0 12px 28px rgb(0 0 0 / 0.12);
+        }
+
+        .hero-kicker-sheen {
+          position: absolute;
+          inset: -20% auto -20% -40%;
+          width: 38%;
+          background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.36), transparent);
+          transform: skewX(-20deg);
+          animation: hero-kicker-sheen 6.8s ease-in-out infinite;
+          pointer-events: none;
         }
 
         .hero-title {
@@ -1285,6 +1488,20 @@ export function PortfolioPage() {
           line-height: 0.88;
           letter-spacing: -0.07em;
           color: white;
+        }
+
+        .hero-title-line {
+          display: block;
+          position: relative;
+          text-shadow: 0 10px 38px rgb(0 0 0 / 0.16);
+        }
+
+        .hero-title-line-accent {
+          background: linear-gradient(180deg, rgb(255 255 255 / 0.98), rgb(225 205 178 / 0.9));
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          filter: drop-shadow(0 10px 30px rgb(225 205 178 / 0.14));
         }
 
         .hero-subtext {
@@ -1302,6 +1519,34 @@ export function PortfolioPage() {
           margin-top: 2rem;
         }
 
+        .hero-signal-row {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.8rem;
+          margin-top: 1.3rem;
+        }
+
+        .hero-signal-pill {
+          display: inline-flex;
+          align-items: center;
+          min-height: 2.45rem;
+          padding: 0.68rem 0.95rem;
+          border-radius: 999px;
+          border: 1px solid rgb(255 255 255 / 0.12);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.05)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 56%);
+          backdrop-filter: blur(18px);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.16),
+            0 12px 24px rgb(0 0 0 / 0.08);
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: rgb(255 255 255 / 0.76);
+        }
+
         .hero-portrait-wrap {
           display: flex;
           align-items: center;
@@ -1309,6 +1554,39 @@ export function PortfolioPage() {
           position: relative;
           min-height: 100%;
           padding-right: clamp(1rem, 4vw, 4rem);
+        }
+
+        .hero-floating-card {
+          position: absolute;
+          z-index: 3;
+          display: grid;
+          gap: 0.35rem;
+          min-width: 12rem;
+          padding: 0.9rem 1rem;
+          border-radius: 1.55rem;
+        }
+
+        .hero-floating-card-top {
+          top: 9%;
+          left: 4%;
+        }
+
+        .hero-floating-card-bottom {
+          right: 3%;
+          bottom: 10%;
+        }
+
+        .hero-floating-card-kicker {
+          font-size: 0.65rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgb(255 255 255 / 0.56);
+        }
+
+        .hero-floating-card-value {
+          font-size: 1rem;
+          line-height: 1.35;
+          color: rgb(255 255 255 / 0.84);
         }
 
         .hero-portrait-shell {
@@ -1357,6 +1635,46 @@ export function PortfolioPage() {
             ),
             radial-gradient(circle at center, transparent 42%, rgb(9 11 20 / 0.12) 68%, rgb(9 11 20 / 0.34) 100%);
           filter: blur(14px);
+        }
+
+        .hero-image-sheen {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(120deg, transparent 24%, rgb(255 255 255 / 0.18) 40%, transparent 56%),
+            linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent 18%);
+          mix-blend-mode: screen;
+          opacity: 0.72;
+          animation: hero-image-sheen 8.2s ease-in-out infinite;
+          pointer-events: none;
+        }
+
+        @keyframes hero-kicker-sheen {
+          0%, 14% {
+            transform: translateX(0) skewX(-20deg);
+            opacity: 0;
+          }
+          22% {
+            opacity: 1;
+          }
+          36%, 100% {
+            transform: translateX(380%) skewX(-20deg);
+            opacity: 0;
+          }
+        }
+
+        @keyframes hero-image-sheen {
+          0%, 16% {
+            transform: translateX(-24%);
+            opacity: 0;
+          }
+          28% {
+            opacity: 0.72;
+          }
+          44%, 100% {
+            transform: translateX(24%);
+            opacity: 0;
+          }
         }
 
         .research-editorial-shell {
@@ -2580,6 +2898,20 @@ export function PortfolioPage() {
 
           .hero-portrait-mask {
             height: min(48vh, 28rem);
+          }
+
+          .hero-floating-card {
+            display: none;
+          }
+
+          .hero-signal-row {
+            gap: 0.55rem;
+            margin-top: 1rem;
+          }
+
+          .hero-signal-pill {
+            font-size: 0.72rem;
+            padding: 0.6rem 0.82rem;
           }
 
           .research-editorial-panel,
