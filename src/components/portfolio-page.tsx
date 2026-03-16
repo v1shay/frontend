@@ -15,6 +15,7 @@ import vishayDribbling from "../../images/athletes.jpeg"                 // Vish
 import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynbrook freshman basketball team group photo
 import athletes from "../../images/image copy 15.png"
 import cs from "../../images/image copy 14.png"
+import nova from "../../images/image copy 16.png"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
 import tkdBlockBreaking from "../../images/tkd.png"                      // Vishay breaking concrete blocks at belt test
@@ -46,6 +47,7 @@ import { motion, useInView, useScroll, useMotionValueEvent, AnimatePresence } fr
 import {
   ArrowRight,
   ChevronRight,
+  ExternalLink,
   Menu,
   Sparkles,
   X,
@@ -69,6 +71,7 @@ const researchProjects = [
     image: softwareintern,
     logoLabel: "C.U",
     accent: "from-[#f0f4ff]/40 via-[#dcb58f]/18 to-transparent",
+    actions: [{ label: "GitHub", href: "https://github.com/v1shay/substack", kind: "github" }],
   },
   {
     id: "neuro-sense",
@@ -79,6 +82,10 @@ const researchProjects = [
     image: neurosense,
     logoLabel: "BIO",
     accent: "from-[#fff4ea]/34 via-[#c88f6a]/18 to-transparent",
+    actions: [
+      { label: "GitHub", href: "https://github.com/v1shay/neuro-sense", kind: "github" },
+      { label: "Publication", href: "https://www.aijfr.com/research-paper.php?id=3711/", kind: "github" },
+    ],
   },
   {
     id: "phytovision",
@@ -89,6 +96,7 @@ const researchProjects = [
     image: phytovisionImage,
     logoLabel: "CV",
     accent: "from-[#d0fff2]/30 via-[#5cae9f]/16 to-transparent",
+    actions: [{ label: "GitHub", href: "https://github.com/v1shay/phyto-vision", kind: "github" }],
   },
   {
     id: "sentinel",
@@ -99,10 +107,15 @@ const researchProjects = [
     image: sentinelImage,
     logoLabel: "LLMs",
     accent: "from-[#eff3ff]/30 via-[#94a3ff]/16 to-transparent",
+    actions: [{ label: "GitHub", href: "https://github.com/v1shay/sentinel-LLM", kind: "github" }],
   },
 ] as const
 
 type ResearchProject = (typeof researchProjects)[number]
+
+function toExternalHref(href: string) {
+  return /^https?:\/\//i.test(href) ? href : `https://${href.replace(/^\/+/, "")}`
+}
 
 const heroPortraitShellMobileStyle: CSSProperties = {
   width: "min(68vw, 20rem)",
@@ -564,12 +577,19 @@ function ResearchShowcase() {
             <div className="research-card-grid">
               {researchProjects.map((project, index) => (
                 <Reveal key={project.id} delay={0.1 + index * 0.08} className="research-card-slot">
-                  <motion.button
-                    type="button"
+                  <motion.div
+                    role="button"
+                    tabIndex={0}
                     whileHover={{ y: -10, scale: 1.01, rotateX: -2, rotateY: index % 2 === 0 ? -2 : 2 }}
                     transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
                     className="research-card liquid-panel"
                     onClick={() => setActiveProjectId(project.id)}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault()
+                        setActiveProjectId(project.id)
+                      }
+                    }}
                   >
                     <div
                       className={cn(
@@ -595,13 +615,44 @@ function ResearchShowcase() {
                       <h3 className="research-card-title">{project.title}</h3>
                       <p className="research-card-copy">{project.description}</p>
                       <div className="research-card-footer">
-                        <span className="research-card-link">
+                        <button
+                          type="button"
+                          className="research-card-link research-card-detail-button"
+                          onClick={(event) => {
+                            event.stopPropagation()
+                            setActiveProjectId(project.id)
+                          }}
+                        >
                           Open detail
                           <ChevronRight className="h-4 w-4" />
-                        </span>
+                        </button>
+                        <div className="research-card-actions">
+                          {project.actions.map((action) =>
+                            action.disabled ? (
+                              <span
+                                key={`${project.id}-${action.label}`}
+                                className="research-card-action research-card-action-disabled"
+                              >
+                                {action.label}
+                              </span>
+                            ) : (
+                              <a
+                                key={`${project.id}-${action.label}`}
+                                href={toExternalHref(action.href)}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="research-card-action"
+                                onClick={(event) => event.stopPropagation()}
+                              >
+                                {action.label}
+                                <ExternalLink className="h-3.5 w-3.5" />
+                              </a>
+                            )
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </motion.button>
+                  </motion.div>
                 </Reveal>
               ))}
             </div>
@@ -651,7 +702,13 @@ function InteractivePillar({
     copy: string
     images: StaticImageData[]
     logos?: { src: StaticImageData; alt: string }[]
+    titleMedia?: { src: StaticImageData; alt: string }
     imageClassName?: string
+    actions?: {
+      label: string
+      href?: string
+      disabled?: boolean
+    }[]
   }[]
   className?: string
   isLarge?: boolean
@@ -669,7 +726,7 @@ function InteractivePillar({
             key={activeSlide}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+            exit={{ opacity: 0 , x: -20 }}
             transition={{ duration: 0.3 }}
             className="pillar-slide"
           >
@@ -684,12 +741,45 @@ function InteractivePillar({
             ) : null}
 
             <div className="pillar-text-wrap">
-              <h3 className={isLarge ? "pillar-title-large" : "pillar-title"}>
-                {currentSlide.title}
-              </h3>
+              <div className="pillar-title-row">
+                <h3 className={isLarge ? "pillar-title-large" : "pillar-title"}>
+                  {currentSlide.title}
+                </h3>
+                {currentSlide.titleMedia ? (
+                  <Image
+                    src={currentSlide.titleMedia.src}
+                    alt={currentSlide.titleMedia.alt}
+                    className="pillar-title-media"
+                  />
+                ) : null}
+              </div>
               <p className={isLarge ? "pillar-copy-large" : "pillar-copy"}>
                 {currentSlide.copy}
               </p>
+              {currentSlide.actions?.length ? (
+                <div className="pillar-actions">
+                  {currentSlide.actions.map((action) =>
+                    action.disabled ? (
+                      <span
+                        key={`${currentSlide.title}-${action.label}`}
+                        className="pillar-action pillar-action-disabled"
+                      >
+                        {action.label}
+                      </span>
+                    ) : (
+                      <a
+                        key={`${currentSlide.title}-${action.label}`}
+                        href={toExternalHref(action.href)}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="pillar-action"
+                      >
+                        {action.label}
+                      </a>
+                    )
+                  )}
+                </div>
+              ) : null}
             </div>
             <div className="pillar-gallery-wrap">
               <div
@@ -782,16 +872,24 @@ function PillarsSection() {
                 title: "NovaSTEM",
                 copy: "Founded STEM outreach; partnered with Good Samaritan Preschool and Sunday Friends, delivering hands-on workshops to 100+ students.",
                 images: [novaStemBalloonScience],
+                titleMedia: { src: nova, alt: "NovaSTEM mark" },
+                actions: [
+                  { label: "Website", href: "novastem.vercel.app", kind: "website" },
+                ],
                 logos: [
             
                   { src: sundayFriendsLogo, alt: "Sunday Friends" },
                   { src: goodSamaritanLogo, alt: "Good Samaritan" },
+
                 ],
               },
               {
                 title: "Uplift Art Foundation",
                 copy: "Led art outreach across 8 Bay Area schools; created and delivered 2,000+ cards for pediatric patients with CFHK.",
                 images: [upliftCardsSpread],
+                actions: [
+                  { label: "Website", href: "uplift-art.vercel.app", kind: "website" },
+                ],
                 logos: [
                   { src: monteVistaLogo, alt: "Uplift Art Foundation" },
                   { src: dilworthDragonsLogo, alt: "Dilworth Dragons" },
@@ -1321,7 +1419,12 @@ export function PortfolioPage() {
         }
 
         .research-card-footer {
-          padding-top: 0.1rem;
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.8rem;
+          padding-top: 0.35rem;
           align-self: end;
         }
 
@@ -1332,6 +1435,71 @@ export function PortfolioPage() {
           font-size: 0.98rem;
           font-weight: 500;
           color: rgb(255 255 255 / 0.84);
+        }
+
+        .research-card-detail-button {
+          border: 1px solid rgb(255 255 255 / 0.12);
+          border-radius: 999px;
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.05)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 55%);
+          padding: 0.62rem 0.95rem;
+          backdrop-filter: blur(18px);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.16),
+            0 10px 24px rgb(0 0 0 / 0.08);
+          transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            background 180ms ease;
+        }
+
+        .research-card-detail-button:hover {
+          transform: translateY(-1px);
+          border-color: rgb(255 255 255 / 0.2);
+        }
+
+        .research-card-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.55rem;
+          justify-content: flex-end;
+        }
+
+        .research-card-action {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          border: 1px solid rgb(255 255 255 / 0.12);
+          border-radius: 999px;
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.05)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 55%);
+          padding: 0.58rem 0.88rem;
+          font-size: 0.83rem;
+          font-weight: 600;
+          letter-spacing: 0.03em;
+          color: rgb(255 255 255 / 0.86);
+          backdrop-filter: blur(18px);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.16),
+            0 10px 24px rgb(0 0 0 / 0.08);
+          transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            background 180ms ease,
+            color 180ms ease;
+        }
+
+        .research-card-action:hover {
+          transform: translateY(-1px);
+          border-color: rgb(255 255 255 / 0.2);
+          color: white;
+        }
+
+        .research-card-action-disabled {
+          opacity: 0.62;
+          cursor: default;
         }
 
         .research-modal-backdrop {
@@ -1604,6 +1772,50 @@ export function PortfolioPage() {
           margin-bottom: 0;
         }
 
+        .pillar-actions {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 0.55rem;
+          margin-top: 0.95rem;
+        }
+
+        .pillar-action {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 6.6rem;
+          border-radius: 999px;
+          border: 1px solid rgb(255 255 255 / 0.16);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.05)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 60%);
+          padding: 0.58rem 0.9rem;
+          font-size: 0.76rem;
+          font-weight: 600;
+          letter-spacing: 0.05em;
+          color: rgb(255 255 255 / 0.86);
+          backdrop-filter: blur(18px) saturate(135%);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.18),
+            0 12px 24px rgb(0 0 0 / 0.08);
+          transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            color 180ms ease;
+        }
+
+        .pillar-action:hover {
+          transform: translateY(-1px);
+          border-color: rgb(255 255 255 / 0.22);
+          color: white;
+        }
+
+        .pillar-action-disabled {
+          opacity: 0.68;
+          cursor: default;
+        }
+
         .pillar-logo-row {
           display: flex;
           flex-wrap: wrap;
@@ -1683,8 +1895,9 @@ export function PortfolioPage() {
         }
 
         .pillar-image--cs4all {
-          max-width: 82%;
+          max-width: 88%;
         }
+
 
         .pillar-image-wash {
           position: absolute;
@@ -1756,6 +1969,23 @@ export function PortfolioPage() {
           font-weight: 600;
         }
 
+        .pillar-title-row {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.55rem;
+          max-width: 100%;
+          flex-wrap: nowrap;
+        }
+
+        .pillar-title-media {
+          width: auto;
+          height: clamp(2.7rem, 3vw, 3.35rem);
+          flex-shrink: 0;
+          object-fit: contain;
+          filter: drop-shadow(0 8px 18px rgb(0 0 0 / 0.12));
+        }
+
         .pillar-title {
           font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
           font-size: clamp(1.6rem, 2vw, 2.2rem);
@@ -1770,6 +2000,17 @@ export function PortfolioPage() {
           color: white;
           margin-bottom: 0.8rem;
           line-height: 1.1;
+        }
+
+        .pillar-title-row .pillar-title,
+        .pillar-title-row .pillar-title-large {
+          margin-bottom: 0;
+          white-space: nowrap;
+        }
+
+        .pillar-title-row + .pillar-copy,
+        .pillar-title-row + .pillar-copy-large {
+          margin-top: 0.8rem;
         }
 
         .pillar-copy {
