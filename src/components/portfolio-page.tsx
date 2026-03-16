@@ -59,7 +59,7 @@ const navItems = [
   { id: "hero", label: "Home" },
   { id: "research", label: "Research & Projects" },
   { id: "experience", label: "Clubs & Non-profit Work" },
-  { id: "projects-grid", label: "Projects" },
+  { id: "projects-grid", label: "Other Projects" },
 ] as const
 
 type ProjectAction = {
@@ -142,40 +142,46 @@ const researchProjects: readonly ResearchProject[] = [
 
 const portfolioGridProjects = [
   {
-    title: "Freelance Web Developer [Taquizas Estilo Chapala]",
+    title: "Freelance Web Developer",
     description:
-      "Built and deployed a responsive website for a Mexican catering service, creating a modern frontend and improving the business's digital presence and customer accessibility.",
+      "Built and deployed the Taquizas Estilo Chapala website, creating a responsive frontend for the Mexican catering business and improving its digital presence and customer accessibility.",
     href: "https://taquizas-chapala.vercel.app",
+    linkLabel: "Website",
   },
   {
     title: "ML-Labs",
     description:
       "Developing an agentic AutoML system that autonomously profiles datasets, selects models, and optimizes training pipelines.",
     href: "https://github.com/v1shay/ml-labs",
+    linkLabel: "GitHub",
   },
   {
     title: "Neural-Lens",
     description:
       "Developed a browser extension that runs NLP analytics and LLM inference on highlighted text to generate contextual data insights in real time.",
     href: "https://github.com/v1shay/neural-lens",
+    linkLabel: "GitHub",
   },
   {
     title: "Vox-Agent",
     description:
       "Engineered an AI agent leveraging Bluetooth Core Audio pipelines, speech-to-text, and LLM summarization to convert audio from connected devices into structured notes and actionable insights.",
     href: "https://github.com/v1shay/vox-agent",
+    linkLabel: "GitHub",
   },
   {
     title: "ArchLLM-sim",
     description:
       "Engineered a simulation framework for RAG architectures and experimental token-optimization strategies beyond standard modern LLM pipelines.",
     href: "https://github.com/v1shay/archLLM-sim",
+    linkLabel: "GitHub",
   },
   {
     title: "Jarvis",
     description:
       "Building a voice-driven AI operating system that automates structured academic workflows through agent-based planning and task orchestration.",
     href: "https://github.com/v1shay/jarvis",
+    linkLabel: "GitHub",
   },
 ] as const
 
@@ -1019,7 +1025,7 @@ function ProjectGridSection() {
                     rel="noreferrer"
                     className="projects-page-card-link"
                   >
-                    GitHub
+                    {project.linkLabel}
                     <ExternalLink className="h-4 w-4" />
                   </a>
                 </div>
