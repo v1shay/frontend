@@ -13,6 +13,8 @@ import softwareintern from "../../images/substack.png"                   // Subs
 // ── Basketball ────────────────────────────────────────────────────────────────
 import vishayDribbling from "../../images/athletes.jpeg"                 // Vishay dribbling in Lynbrook jersey mid-game
 import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynbrook freshman basketball team group photo
+import athletes from "../../images/image copy 15.png"
+import cs from "../../images/image copy 14.png"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
 import tkdBlockBreaking from "../../images/tkd.png"                      // Vishay breaking concrete blocks at belt test
@@ -54,7 +56,7 @@ import { cn } from "@/lib/utils"
 const navItems = [
   { id: "hero", label: "Home" },
   { id: "research", label: "Research & Projects" },
-  { id: "experience", label: "Experience" },
+  { id: "experience", label: "Clubs & Non-profit Work" },
 ] as const
 
 const researchProjects = [
@@ -644,7 +646,13 @@ function InteractivePillar({
   className,
   isLarge = false,
 }: {
-  slides: { title: string; copy: string; images: StaticImageData[]; logos?: { src: StaticImageData; alt: string }[] }[]
+  slides: {
+    title: string
+    copy: string
+    images: StaticImageData[]
+    logos?: { src: StaticImageData; alt: string }[]
+    imageClassName?: string
+  }[]
   className?: string
   isLarge?: boolean
 }) {
@@ -687,12 +695,11 @@ function InteractivePillar({
               <div
                 className="pillar-image-wrap cursor-pointer"
                 onClick={() => setActiveImageIndex((prev) => (prev + 1) % currentSlide.images.length)}
-                title="Click to view next image"
               >
                 <Image
                   src={currentSlide.images[activeImageIndex]}
                   alt={`${currentSlide.title} visual ${activeImageIndex + 1}`}
-                  className="pillar-image transition-opacity duration-300"
+                  className={cn("pillar-image transition-opacity duration-300", currentSlide.imageClassName)}
                 />
                 <div className="pillar-image-wash" aria-hidden="true" />
                 {/* Image counter dots */}
@@ -705,10 +712,6 @@ function InteractivePillar({
                       />
                     ))}
                   </div>
-                )}
-                {/* Tap hint */}
-                {currentSlide.images.length > 1 && (
-                  <div className="pillar-image-hint">tap to browse</div>
                 )}
               </div>
             </div>
@@ -751,7 +754,7 @@ function PillarsSection() {
               {
                 title: "Basketball",
                 copy: "Member of the Lynbrook High School freshman basketball team.",
-                images: [vishayDribbling, lynbrookTeamPhoto],
+                images: [lynbrookTeamPhoto],
                 logos: [
                   { src: vikingMascotLogo, alt: "Basketball" },
                 ],
@@ -759,7 +762,7 @@ function PillarsSection() {
               {
                 title: "TaeKwonDo",
                 copy: "Earned 1st-degree black belt; mentored junior students in technique, sparring fundamentals, and discipline.",
-                images: [tkdBlockBreaking, tkdDojanGroupPhoto],
+                images: [tkdDojanGroupPhoto],
                 logos: [
                   { src: tkdKickIcon, alt: "Taekwondo" },
                   { src: worldTaekwondoLogo, alt: "World Taekwondo" },
@@ -778,7 +781,7 @@ function PillarsSection() {
               {
                 title: "NovaSTEM",
                 copy: "Founded STEM outreach; partnered with Good Samaritan Preschool and Sunday Friends, delivering hands-on workshops to 100+ students.",
-                images: [novaStemBalloonScience, novaStemOutdoorDemo],
+                images: [novaStemBalloonScience],
                 logos: [
             
                   { src: sundayFriendsLogo, alt: "Sunday Friends" },
@@ -788,7 +791,7 @@ function PillarsSection() {
               {
                 title: "Uplift Art Foundation",
                 copy: "Led art outreach across 8 Bay Area schools; created and delivered 2,000+ cards for pediatric patients with CFHK.",
-                images: [upliftCardsSpread, upliftCardsDisplay],
+                images: [upliftCardsSpread],
                 logos: [
                   { src: monteVistaLogo, alt: "Uplift Art Foundation" },
                   { src: dilworthDragonsLogo, alt: "Dilworth Dragons" },
@@ -809,7 +812,8 @@ function PillarsSection() {
               {
                 title: "CS4All",
                 copy: "Mentored students in foundational CS concepts, guiding hands-on coding and problem-solving sessions.",
-                images: [heroImage, sentinelImage],
+                images: [athletes],
+                imageClassName: "pillar-image--cs4all",
                 logos: [
                   { src: upliftHawkLogo, alt: "Harker School" },
                   { src: dilworthDragonsLogo, alt: "Miller Middle School" },
@@ -819,7 +823,7 @@ function PillarsSection() {
               {
                 title: "Athletes4Others",
                 copy: "Guided students in community service initiatives, coordinating outreach and volunteer activities.",
-                images: [vishayDribbling, lynbrookTeamPhoto],
+                images: [cs],
                 logos: [
                   { src: goodSamaritanPenguinLogo, alt: "Sunday Friends" },
       
@@ -1603,20 +1607,25 @@ export function PortfolioPage() {
         .pillar-logo-row {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.45rem;
+          gap: 0.55rem;
           margin-top: 0.1rem;
-          margin-bottom: 0.45rem;
+          margin-bottom: 0.55rem;
           justify-content: center;
           max-width: 100%;
         }
 
         .pillar-logo-chip {
-          width: 2.15rem;
-          height: 2.15rem;
-          border-radius: 0.7rem;
-          border: 1px solid rgb(255 255 255 / 0.14);
-          background: rgb(255 255 255 / 0.1);
-          backdrop-filter: blur(12px);
+          width: 3.5rem;
+          height: 3.5rem;
+          border-radius: 1.08rem;
+          border: 1px solid rgb(255 255 255 / 0.18);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.2), rgb(255 255 255 / 0.06)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.16), transparent 60%);
+          backdrop-filter: blur(14px) saturate(135%);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.26),
+            0 10px 22px rgb(0 0 0 / 0.08);
           overflow: hidden;
           display: flex;
           align-items: center;
@@ -1628,7 +1637,7 @@ export function PortfolioPage() {
           width: 100%;
           height: 100%;
           object-fit: contain;
-          padding: 0.18rem;
+          padding: 0.28rem;
         }
 
         .pillar-gallery-wrap {
@@ -1646,43 +1655,65 @@ export function PortfolioPage() {
           width: 100%;
           height: min(100%, clamp(14.75rem, 31vh, 21rem));
           max-height: 100%;
-          border-radius: 1.25rem;
-          overflow: hidden;
+          border-radius: 2.8rem;
+          overflow: visible;
           position: relative;
-          border: 1px solid rgb(255 255 255 / 0.1);
-          background: rgb(255 255 255 / 0.05);
+          border: none;
+          background: transparent;
           flex-shrink: 1;
-        }
-
-        .pillar-image-hint {
-          position: absolute;
-          top: 0.6rem;
-          left: 0.6rem;
-          z-index: 10;
-          padding: 0.25rem 0.6rem;
-          border-radius: 999px;
-          border: 1px solid rgb(255 255 255 / 0.18);
-          background: rgb(0 0 0 / 0.38);
-          backdrop-filter: blur(12px);
-          font-size: 0.62rem;
-          letter-spacing: 0.12em;
-          text-transform: uppercase;
-          color: rgb(255 255 255 / 0.7);
-          pointer-events: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          isolation: isolate;
         }
 
         .pillar-image {
-          width: 100%;
-          height: 100%;
+          width: auto;
+          height: auto;
+          max-width: 100%;
+          max-height: 100%;
           object-fit: contain;
           object-position: center center;
-          background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.02));
+          border-radius: 2.8rem;
+          background: transparent;
+          box-shadow: 0 12px 28px rgb(0 0 0 / 0.12);
+          filter: saturate(1.02) contrast(1.03);
+          mask-image: radial-gradient(ellipse 94% 92% at center, black 58%, rgb(0 0 0 / 0.92) 76%, transparent 100%);
+          -webkit-mask-image: radial-gradient(ellipse 94% 92% at center, black 58%, rgb(0 0 0 / 0.92) 76%, transparent 100%);
+        }
+
+        .pillar-image--cs4all {
+          max-width: 82%;
         }
 
         .pillar-image-wash {
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, transparent 60%, rgb(9 11 20 / 0.8) 100%);
+          border-radius: inherit;
+          background:
+            radial-gradient(circle at center, transparent 42%, rgb(255 255 255 / 0.05) 70%, transparent 100%),
+            linear-gradient(
+              to bottom,
+              rgb(255 255 255 / 0.08) 0%,
+              rgb(255 255 255 / 0.03) 10%,
+              transparent 26%,
+              transparent 74%,
+              rgb(9 11 20 / 0.12) 88%,
+              rgb(9 11 20 / 0.34) 100%
+            ),
+            linear-gradient(
+              to right,
+              rgb(255 255 255 / 0.06) 0%,
+              rgb(255 255 255 / 0.02) 10%,
+              transparent 24%,
+              transparent 76%,
+              rgb(9 11 20 / 0.1) 90%,
+              rgb(9 11 20 / 0.28) 100%
+            );
+          filter: blur(24px);
+          mix-blend-mode: screen;
+          opacity: 0.98;
+          pointer-events: none;
         }
 
         .pillar-tabs {
