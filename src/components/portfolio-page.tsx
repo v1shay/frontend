@@ -16,6 +16,13 @@ import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynb
 import athletes from "../../images/image copy 15.png"
 import cs from "../../images/image copy 14.png"
 import nova from "../../images/image copy 16.png"
+import githubLogo from "../../images/image copy 17.png"
+import linkedInLogo from "../../images/image copy 18.png"
+import emailLogo from "../../images/image copy 19.png"
+import projectLogo from "../../images/image copy 20.png"
+import portfolioLogo from "../../images/image copy 21.png"
+import additionalLogo from "../../images/image copy 22.png"
+import contactImage from "../../images/contact.jpeg"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
 import tkdBlockBreaking from "../../images/tkd.png"                      // Vishay breaking concrete blocks at belt test
@@ -60,6 +67,7 @@ const navItems = [
   { id: "research", label: "Research & Projects" },
   { id: "experience", label: "Clubs & Non-profit Work" },
   { id: "projects-grid", label: "Other Projects" },
+  { id: "contact", label: "Contact" },
 ] as const
 
 type ProjectAction = {
@@ -185,6 +193,44 @@ const portfolioGridProjects = [
   },
 ] as const
 
+const contactButtons = [
+  {
+    label: "NOVASTEM",
+    image: nova,
+    href: "https://novastem.vercel.app",
+  },
+  {
+    label: "EMAIL",
+    image: githubLogo,
+    href: "https://mailto:v.agrwl17@gmail.com",
+  },
+  {
+    label: "GITHUB",
+    image: linkedInLogo,
+    href: "https://github.com/v1shay",
+  },
+  {
+    label: "RESUME",
+    image: emailLogo,
+    href: "https://docs.google.com/document/d/17_go6arOIviQ2X_M8XTwY88k7OC9EA-g/edit",
+  },
+  {
+    label: "UPLIFTART FOUNDATION",
+    image: projectLogo,
+    href: "https://uplift-art.vercel.app",
+  },
+  {
+    label: "HACKATHON PORTFOLIO",
+    image: portfolioLogo,
+    href: "https://devpost.com/v1shay/challenges",
+  },
+  {
+    label: "BASKETBALL",
+    image: additionalLogo,
+    href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
+  },
+] as const
+
 function toExternalHref(href: string) {
   return /^https?:\/\//i.test(href) ? href : `https://${href.replace(/^\/+/, "")}`
 }
@@ -291,14 +337,6 @@ function SectionShell({
         ) : null}
         {children}
       </Reveal>
-    </section>
-  )
-}
-
-function BlankSnapPage({ id }: { id: string }) {
-  return (
-    <section id={id} className="section-anchor snap-section blank-page" aria-hidden="true">
-      <div className="blank-page-shell" />
     </section>
   )
 }
@@ -1038,6 +1076,56 @@ function ProjectGridSection() {
   )
 }
 
+function ContactSection() {
+  return (
+    <SectionShell id="contact">
+      <div className="contact-page-shell">
+        <div className="contact-page-visual-column">
+          <div className="contact-photo-shell">
+            <div className="contact-photo-frame">
+              <Image
+                src={contactImage}
+                alt="Portrait of Vishay Agarwal"
+                className="contact-photo"
+              />
+              <div className="contact-photo-wash" aria-hidden="true" />
+            </div>
+          </div>
+        </div>
+
+        <div className="contact-page-panel-column">
+          <div className="contact-panel liquid-panel">
+            <div className="contact-panel-header">
+              <span className="contact-panel-kicker">Connect</span>
+              <h3 className="contact-panel-title">Reach out, follow along, or explore the work.</h3>
+              <p className="contact-panel-copy">
+                A clean contact hub with direct links across projects, profiles, and the places I&apos;m building.
+              </p>
+            </div>
+
+            <div className="contact-button-grid">
+              {contactButtons.map((button) => (
+                <a
+                  key={button.label}
+                  href={button.href.startsWith("#") ? button.href : toExternalHref(button.href)}
+                  target={button.href.startsWith("#") ? undefined : "_blank"}
+                  rel={button.href.startsWith("#") ? undefined : "noreferrer"}
+                  className="contact-button-tile"
+                >
+                  <div className="contact-button-image-shell">
+                    <Image src={button.image} alt={button.label} className="contact-button-image" />
+                  </div>
+                  <span className="contact-button-label">{button.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionShell>
+  )
+}
+
 export function PortfolioPage() {
   return (
     <>
@@ -1052,8 +1140,7 @@ export function PortfolioPage() {
 
         <ProjectGridSection />
 
-        <BlankSnapPage id="blank-02" />
-        <BlankSnapPage id="blank-03" />
+        <ContactSection />
       </main>
 
       <style jsx global>{`
@@ -1145,6 +1232,11 @@ export function PortfolioPage() {
         }
 
         #projects-grid.section-anchor {
+          padding-top: 92px !important;
+          padding-bottom: 1.5rem !important;
+        }
+
+        #contact.section-anchor {
           padding-top: 92px !important;
           padding-bottom: 1.5rem !important;
         }
@@ -2262,6 +2354,204 @@ export function PortfolioPage() {
           color: white;
         }
 
+        .contact-page-shell {
+          flex: 1;
+          min-height: 0;
+          height: 100%;
+          width: min(100%, 98rem);
+          margin-inline: auto;
+          display: grid;
+          grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+          gap: clamp(1.2rem, 2vw, 2rem);
+          align-items: stretch;
+        }
+
+        .contact-page-visual-column,
+        .contact-page-panel-column {
+          min-height: 0;
+          display: grid;
+          align-items: center;
+        }
+
+        .contact-photo-shell {
+          display: grid;
+          place-items: center;
+          min-height: 0;
+          height: 100%;
+          padding: clamp(1rem, 2vw, 1.5rem);
+        }
+
+        .contact-photo-frame {
+          position: relative;
+          display: grid;
+          place-items: center;
+          width: min(100%, 30rem);
+          height: min(100%, 36rem);
+          border-radius: 3rem;
+          overflow: hidden;
+          isolation: isolate;
+        }
+
+        .contact-photo {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center center;
+          border-radius: 3rem;
+          filter: saturate(1.03) contrast(1.02);
+          mask-image: radial-gradient(circle at center, black 45%, rgb(0 0 0 / 0.94) 68%, transparent 100%);
+          -webkit-mask-image: radial-gradient(circle at center, black 45%, rgb(0 0 0 / 0.94) 68%, transparent 100%);
+        }
+
+        .contact-photo-wash {
+          position: absolute;
+          inset: 0;
+          border-radius: inherit;
+          background:
+            radial-gradient(circle at center, transparent 42%, rgb(255 255 255 / 0.06) 68%, transparent 100%),
+            linear-gradient(
+              to bottom,
+              rgb(255 255 255 / 0.05) 0%,
+              transparent 18%,
+              transparent 82%,
+              rgb(9 11 20 / 0.16) 100%
+            ),
+            linear-gradient(
+              to right,
+              rgb(255 255 255 / 0.04) 0%,
+              transparent 16%,
+              transparent 84%,
+              rgb(9 11 20 / 0.14) 100%
+            );
+          filter: blur(20px);
+          mix-blend-mode: screen;
+          pointer-events: none;
+        }
+
+        .contact-panel {
+          display: grid;
+          grid-template-rows: auto minmax(0, 1fr);
+          gap: 1.4rem;
+          min-height: 0;
+          height: 100%;
+          padding: clamp(1.25rem, 1.7vw, 1.65rem);
+          border-radius: 2.2rem;
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.05)),
+            radial-gradient(circle at top left, rgb(240 244 255 / 0.16), transparent 38%);
+        }
+
+        .contact-panel-header {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          gap: 0.75rem;
+        }
+
+        .contact-panel-kicker {
+          display: inline-flex;
+          width: fit-content;
+          align-items: center;
+          min-height: 2rem;
+          padding: 0.45rem 0.8rem;
+          border-radius: 999px;
+          border: 1px solid rgb(255 255 255 / 0.12);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.05)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 58%);
+          font-size: 0.72rem;
+          font-weight: 600;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: rgb(255 255 255 / 0.74);
+          backdrop-filter: blur(16px);
+        }
+
+        .contact-panel-title {
+          font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
+          font-size: clamp(2rem, 2.6vw, 3rem);
+          line-height: 0.98;
+          letter-spacing: -0.05em;
+          color: white;
+          text-wrap: balance;
+        }
+
+        .contact-panel-copy {
+          max-width: 58ch;
+          font-size: clamp(0.98rem, 1vw, 1.08rem);
+          line-height: 1.7;
+          color: rgb(255 255 255 / 0.74);
+        }
+
+        .contact-button-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: clamp(0.85rem, 1vw, 1rem);
+          align-content: center;
+          min-height: 0;
+        }
+
+        .contact-button-tile {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          justify-items: center;
+          align-content: center;
+          gap: 0.8rem;
+          min-height: 0;
+          padding: clamp(0.85rem, 1.2vw, 1.05rem);
+          border-radius: 1.5rem;
+          border: 1px solid rgb(255 255 255 / 0.12);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.1), transparent 58%);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.16),
+            0 14px 28px rgb(0 0 0 / 0.08);
+          backdrop-filter: blur(18px);
+          transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            box-shadow 180ms ease;
+        }
+
+        .contact-button-tile:hover {
+          transform: translateY(-2px) scale(1.01);
+          border-color: rgb(255 255 255 / 0.22);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.18),
+            0 20px 32px rgb(0 0 0 / 0.1);
+        }
+
+        .contact-button-image-shell {
+          display: grid;
+          place-items: center;
+          width: clamp(3.7rem, 5vw, 4.8rem);
+          aspect-ratio: 1;
+          border-radius: 1.2rem;
+          background: transparent;
+          border: none;
+          overflow: hidden;
+        }
+
+        .contact-button-image {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          padding: 0.2rem;
+          background: transparent;
+          filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.12));
+        }
+
+        .contact-button-label {
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: rgb(255 255 255 / 0.8);
+          text-align: center;
+        }
+
         @media (max-width: 767px) {
           .nav-links {
             display: none;
@@ -2376,12 +2666,44 @@ export function PortfolioPage() {
             grid-template-rows: repeat(6, minmax(0, 1fr));
           }
 
+          .contact-page-shell {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto minmax(0, 1fr);
+            gap: 1rem;
+          }
+
+          .contact-photo-shell {
+            padding: 0.25rem 0 0;
+            height: auto;
+          }
+
+          .contact-photo-frame {
+            width: min(78vw, 19rem);
+            height: min(36vh, 19rem);
+          }
+
+          .contact-panel {
+            padding: 1rem;
+          }
+
+          .contact-button-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+          }
+
         }
 
         @media (min-width: 768px) and (max-width: 1180px) {
           .projects-page-grid {
             grid-template-columns: repeat(2, minmax(0, 1fr));
             grid-template-rows: repeat(3, minmax(0, 1fr));
+          }
+
+          .contact-page-shell {
+            grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+          }
+
+          .contact-button-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
           }
         }
       `}</style>
