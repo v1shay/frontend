@@ -59,6 +59,7 @@ const navItems = [
   { id: "hero", label: "Home" },
   { id: "research", label: "Research & Projects" },
   { id: "experience", label: "Clubs & Non-profit Work" },
+  { id: "projects-grid", label: "Projects" },
 ] as const
 
 type ProjectAction = {
@@ -136,6 +137,45 @@ const researchProjects: readonly ResearchProject[] = [
     logoLabel: "LLMs",
     accent: "from-[#eff3ff]/30 via-[#94a3ff]/16 to-transparent",
     actions: [{ label: "GitHub", href: "https://github.com/v1shay/sentinel-LLM", kind: "github" }],
+  },
+] as const
+
+const portfolioGridProjects = [
+  {
+    title: "Freelance Web Developer [Taquizas Estilo Chapala]",
+    description:
+      "Built and deployed a responsive website for a Mexican catering service, creating a modern frontend and improving the business's digital presence and customer accessibility.",
+    href: "https://taquizas-chapala.vercel.app",
+  },
+  {
+    title: "ML-Labs",
+    description:
+      "Developing an agentic AutoML system that autonomously profiles datasets, selects models, and optimizes training pipelines.",
+    href: "https://github.com/v1shay/ml-labs",
+  },
+  {
+    title: "Neural-Lens",
+    description:
+      "Developed a browser extension that runs NLP analytics and LLM inference on highlighted text to generate contextual data insights in real time.",
+    href: "https://github.com/v1shay/neural-lens",
+  },
+  {
+    title: "Vox-Agent",
+    description:
+      "Engineered an AI agent leveraging Bluetooth Core Audio pipelines, speech-to-text, and LLM summarization to convert audio from connected devices into structured notes and actionable insights.",
+    href: "https://github.com/v1shay/vox-agent",
+  },
+  {
+    title: "ArchLLM-sim",
+    description:
+      "Engineered a simulation framework for RAG architectures and experimental token-optimization strategies beyond standard modern LLM pipelines.",
+    href: "https://github.com/v1shay/archLLM-sim",
+  },
+  {
+    title: "Jarvis",
+    description:
+      "Building a voice-driven AI operating system that automates structured academic workflows through agent-based planning and task orchestration.",
+    href: "https://github.com/v1shay/jarvis",
   },
 ] as const
 
@@ -949,6 +989,49 @@ function PillarsSection() {
   )
 }
 
+function ProjectGridSection() {
+  return (
+    <SectionShell id="projects-grid">
+      <div className="projects-page-shell">
+        <div className="projects-page-grid" role="list" aria-label="Portfolio projects">
+          {portfolioGridProjects.map((project, index) => (
+            <Reveal key={project.title} delay={0.04 + index * 0.03} className="projects-page-card-slot">
+              <motion.article
+                role="listitem"
+                whileHover={{ y: -8, scale: 1.01 }}
+                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                className="projects-page-card liquid-panel liquid-hover"
+              >
+                <div className="projects-page-card-topline">
+                  <span className="projects-page-chip">Project</span>
+                  <span className="projects-page-index">{String(index + 1).padStart(2, "0")}</span>
+                </div>
+
+                <div className="projects-page-card-body">
+                  <h3 className="projects-page-card-title">{project.title}</h3>
+                  <p className="projects-page-card-copy">{project.description}</p>
+                </div>
+
+                <div className="projects-page-card-footer">
+                  <a
+                    href={project.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="projects-page-card-link"
+                  >
+                    GitHub
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                </div>
+              </motion.article>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </SectionShell>
+  )
+}
+
 export function PortfolioPage() {
   return (
     <>
@@ -960,6 +1043,8 @@ export function PortfolioPage() {
         <ResearchShowcase />
 
         <PillarsSection />
+
+        <ProjectGridSection />
 
         <BlankSnapPage id="blank-02" />
         <BlankSnapPage id="blank-03" />
@@ -1051,6 +1136,11 @@ export function PortfolioPage() {
 
         #research.section-anchor {
           padding-top: 92px !important;
+        }
+
+        #projects-grid.section-anchor {
+          padding-top: 92px !important;
+          padding-bottom: 1.5rem !important;
         }
 
         .hero-inner {
@@ -2039,6 +2129,133 @@ export function PortfolioPage() {
           line-height: 1.5;
         }
 
+        .projects-page-shell {
+          flex: 1;
+          min-height: 0;
+          height: 100%;
+          width: min(100%, 98rem);
+          margin-inline: auto;
+          display: grid;
+          align-items: stretch;
+        }
+
+        .projects-page-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-template-rows: repeat(2, minmax(0, 1fr));
+          gap: clamp(0.95rem, 1.2vw, 1.3rem);
+          width: 100%;
+          height: 100%;
+          min-height: 0;
+        }
+
+        .projects-page-card-slot {
+          min-height: 0;
+          height: 100%;
+        }
+
+        .projects-page-card {
+          display: grid;
+          grid-template-rows: auto minmax(0, 1fr) auto;
+          gap: 1rem;
+          height: 100%;
+          min-height: 0;
+          padding: clamp(1.1rem, 1.45vw, 1.45rem);
+          border-radius: 2rem;
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
+            radial-gradient(circle at top left, rgb(240 244 255 / 0.12), transparent 40%);
+        }
+
+        .projects-page-card-topline,
+        .projects-page-card-footer {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 0.8rem;
+        }
+
+        .projects-page-chip {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 2rem;
+          padding: 0.45rem 0.8rem;
+          border-radius: 999px;
+          border: 1px solid rgb(255 255 255 / 0.12);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.05)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 58%);
+          font-size: 0.7rem;
+          font-weight: 600;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          color: rgb(255 255 255 / 0.74);
+          backdrop-filter: blur(16px);
+        }
+
+        .projects-page-index {
+          font-size: 0.76rem;
+          letter-spacing: 0.16em;
+          color: rgb(255 255 255 / 0.5);
+        }
+
+        .projects-page-card-body {
+          display: grid;
+          align-content: center;
+          gap: 0.9rem;
+          min-height: 0;
+        }
+
+        .projects-page-card-title {
+          font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
+          font-size: clamp(1.8rem, 2vw, 2.35rem);
+          line-height: 0.98;
+          letter-spacing: -0.05em;
+          color: white;
+          text-wrap: balance;
+        }
+
+        .projects-page-card-copy {
+          font-size: clamp(0.98rem, 1.02vw, 1.12rem);
+          line-height: 1.72;
+          color: rgb(255 255 255 / 0.74);
+        }
+
+        .projects-page-card-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.55rem;
+          min-height: 2.7rem;
+          padding: 0.72rem 1rem;
+          border-radius: 999px;
+          border: 1px solid rgb(255 255 255 / 0.14);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.05)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 58%);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.16),
+            0 12px 24px rgb(0 0 0 / 0.08);
+          color: rgb(255 255 255 / 0.88);
+          font-size: 0.86rem;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          backdrop-filter: blur(18px);
+          transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            color 180ms ease;
+        }
+
+        .projects-page-card-link:hover {
+          transform: translateY(-1px);
+          border-color: rgb(255 255 255 / 0.22);
+          color: white;
+        }
+
         @media (max-width: 767px) {
           .nav-links {
             display: none;
@@ -2148,6 +2365,18 @@ export function PortfolioPage() {
             height: min(100%, clamp(10.75rem, 40vw, 16rem));
           }
 
+          .projects-page-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(6, minmax(0, 1fr));
+          }
+
+        }
+
+        @media (min-width: 768px) and (max-width: 1180px) {
+          .projects-page-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: repeat(3, minmax(0, 1fr));
+          }
         }
       `}</style>
     </>
