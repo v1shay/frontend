@@ -1,6 +1,6 @@
 "use client"
 
-import Image from "next/image"
+import Image, { type StaticImageData } from "next/image"
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
 import heroImage from "../../images/hero.jpeg"
@@ -10,8 +10,6 @@ import neurosense from "../../images/neuro.png"                          // Neur
 import phytovisionImage from "../../images/tomato.png"                   // Phyto-Vision tomato leaf CNN
 import sentinelImage from "../../images/hallucination-leaderboard.png"   // Sentinel-LLM hallucination leaderboard chart
 import softwareintern from "../../images/substack.png"                   // Substack graph crawler / Chapman internship
-import chapmanuniversity from "../../images/image copy 2.png"
-
 // ── Basketball ────────────────────────────────────────────────────────────────
 import vishayDribbling from "../../images/athletes.jpeg"                 // Vishay dribbling in Lynbrook jersey mid-game
 import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynbrook freshman basketball team group photo
@@ -646,19 +644,14 @@ function InteractivePillar({
   className,
   isLarge = false,
 }: {
-  slides: { title: string; copy: string; images: any[]; logos?: { src: any; alt: string }[] }[];
-  className?: string;
-  isLarge?: boolean;
+  slides: { title: string; copy: string; images: StaticImageData[]; logos?: { src: StaticImageData; alt: string }[] }[]
+  className?: string
+  isLarge?: boolean
 }) {
-  const [activeSlide, setActiveSlide] = useState(0);
-  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0)
+  const [activeImageIndex, setActiveImageIndex] = useState(0)
 
-  // When changing slides, reset the active image index to 0
-  useEffect(() => {
-    setActiveImageIndex(0);
-  }, [activeSlide]);
-
-  const currentSlide = slides[activeSlide];
+  const currentSlide = slides[activeSlide]
 
   return (
     <div className={cn("pillar liquid-panel", className)}>
@@ -672,6 +665,16 @@ function InteractivePillar({
             transition={{ duration: 0.3 }}
             className="pillar-slide"
           >
+            {currentSlide.logos?.length ? (
+              <div className="pillar-logo-row">
+                {currentSlide.logos.map((logo) => (
+                  <div key={`${currentSlide.title}-${logo.alt}`} className="pillar-logo-chip" aria-hidden="true">
+                    <Image src={logo.src} alt={logo.alt} className="pillar-logo-img" />
+                  </div>
+                ))}
+              </div>
+            ) : null}
+
             <div className="pillar-text-wrap">
               <h3 className={isLarge ? "pillar-title-large" : "pillar-title"}>
                 {currentSlide.title}
@@ -694,7 +697,7 @@ function InteractivePillar({
                 <div className="pillar-image-wash" aria-hidden="true" />
                 {/* Image counter dots */}
                 {currentSlide.images.length > 1 && (
-                  <div className="absolute bottom-2 right-2 flex gap-1 z-10">
+                  <div className="absolute bottom-2 right-2 z-10 flex gap-1">
                     {currentSlide.images.map((_, idx) => (
                       <div
                         key={idx}
@@ -721,7 +724,10 @@ function InteractivePillar({
               key={i}
               type="button"
               className={cn("pillar-tab", activeSlide === i && "pillar-tab-active")}
-              onClick={() => setActiveSlide(i)}
+              onClick={() => {
+                setActiveSlide(i)
+                setActiveImageIndex(0)
+              }}
               aria-label={`Switch to ${slide.title}`}
             >
               {slide.title}
@@ -730,7 +736,7 @@ function InteractivePillar({
         </div>
       )}
     </div>
-  );
+  )
 }
 
 function PillarsSection() {
@@ -1517,7 +1523,7 @@ export function PortfolioPage() {
           width: 100%;
           flex: 1;
           min-height: 0;
-          max-height: calc(100vh - 92px - 7rem);
+          max-height: calc(100vh - 92px - 8.25rem);
         }
 
         .pillar-wrap {
@@ -1541,7 +1547,7 @@ export function PortfolioPage() {
           align-items: center;
           justify-content: flex-start;
           text-align: center;
-          padding: clamp(1rem, 1.8vw, 1.5rem);
+          padding: clamp(0.9rem, 1.45vw, 1.25rem);
           border-radius: 2rem;
           border: 1px solid rgb(255 255 255 / 0.16);
           background:
@@ -1572,6 +1578,7 @@ export function PortfolioPage() {
           flex-direction: column;
           width: 100%;
           position: relative;
+          min-height: 0;
         }
 
         .pillar-slide {
@@ -1581,6 +1588,8 @@ export function PortfolioPage() {
           justify-content: flex-start;
           width: 100%;
           height: 100%;
+          min-height: 0;
+          gap: 0.45rem;
         }
 
         .pillar-text-wrap {
@@ -1590,15 +1599,17 @@ export function PortfolioPage() {
           flex-direction: column;
           align-items: center;
           justify-content: flex-start;
-          margin-bottom: 0.6rem;
+          margin-bottom: 0;
         }
 
         .pillar-logo-row {
           display: flex;
           flex-wrap: wrap;
           gap: 0.35rem;
-          margin-top: 0.6rem;
+          margin-top: 0.1rem;
+          margin-bottom: 0.35rem;
           justify-content: center;
+          max-width: 100%;
         }
 
         .pillar-logo-chip {
@@ -1623,22 +1634,26 @@ export function PortfolioPage() {
         }
 
         .pillar-gallery-wrap {
-          flex: 1;
+          flex: 1 1 auto;
           display: flex;
           flex-direction: column;
+          align-items: stretch;
+          justify-content: flex-start;
           width: 100%;
-          margin-bottom: 0.5rem;
+          margin-bottom: 0;
           min-height: 0;
         }
 
         .pillar-image-wrap {
           width: 100%;
-          height: 100%;
+          height: min(100%, clamp(12.5rem, 27vh, 19rem));
+          max-height: 100%;
           border-radius: 1.25rem;
           overflow: hidden;
           position: relative;
           border: 1px solid rgb(255 255 255 / 0.1);
           background: rgb(255 255 255 / 0.05);
+          flex-shrink: 1;
         }
 
         .pillar-image-hint {
@@ -1661,7 +1676,9 @@ export function PortfolioPage() {
         .pillar-image {
           width: 100%;
           height: 100%;
-          object-fit: cover;
+          object-fit: contain;
+          object-position: center center;
+          background: linear-gradient(180deg, rgb(255 255 255 / 0.06), rgb(255 255 255 / 0.02));
         }
 
         .pillar-image-wash {
@@ -1674,7 +1691,7 @@ export function PortfolioPage() {
           display: flex;
           gap: 0.5rem;
           margin-top: auto;
-          padding-top: 0.6rem;
+          padding-top: 0.95rem;
           padding-bottom: 0.1rem;
           flex-shrink: 0;
           width: 100%;
@@ -1720,9 +1737,9 @@ export function PortfolioPage() {
 
         .pillar-title-large {
           font-family: var(--font-display-google), "Bodoni Moda", "Didot", "Iowan Old Style", "Times New Roman", serif !important;
-          font-size: clamp(2.2rem, 3vw, 3.2rem);
+          font-size: clamp(2rem, 2.65vw, 2.9rem);
           color: white;
-          margin-bottom: 1rem;
+          margin-bottom: 0.8rem;
           line-height: 1.1;
         }
 
@@ -1733,9 +1750,9 @@ export function PortfolioPage() {
         }
 
         .pillar-copy-large {
-          font-size: clamp(1rem, 1.1vw, 1.15rem);
+          font-size: clamp(0.96rem, 1vw, 1.08rem);
           color: rgb(255 255 255 / 0.82);
-          line-height: 1.6;
+          line-height: 1.5;
         }
 
         @media (max-width: 767px) {
@@ -1841,6 +1858,10 @@ export function PortfolioPage() {
             min-height: 14rem;
             margin-top: 0;
             padding: 1.5rem;
+          }
+
+          .pillar-image-wrap {
+            height: min(100%, clamp(10rem, 38vw, 15rem));
           }
 
         }
