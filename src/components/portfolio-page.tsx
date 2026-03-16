@@ -753,8 +753,7 @@ function PillarsSection() {
                 copy: "Member of the Lynbrook High School freshman basketball team.",
                 images: [vishayDribbling, lynbrookTeamPhoto],
                 logos: [
-                  { src: tkdKickIcon, alt: "Taekwondo" },
-                  { src: worldTaekwondoLogo, alt: "World Taekwondo" },
+                  { src: vikingMascotLogo, alt: "Basketball" },
                 ],
               },
               {
@@ -781,7 +780,7 @@ function PillarsSection() {
                 copy: "Founded STEM outreach; partnered with Good Samaritan Preschool and Sunday Friends, delivering hands-on workshops to 100+ students.",
                 images: [novaStemBalloonScience, novaStemOutdoorDemo],
                 logos: [
-                  { src: goodSamaritanPenguinLogo, alt: "Good Samaritan Preschool" },
+            
                   { src: sundayFriendsLogo, alt: "Sunday Friends" },
                   { src: goodSamaritanLogo, alt: "Good Samaritan" },
                 ],
@@ -791,11 +790,11 @@ function PillarsSection() {
                 copy: "Led art outreach across 8 Bay Area schools; created and delivered 2,000+ cards for pediatric patients with CFHK.",
                 images: [upliftCardsSpread, upliftCardsDisplay],
                 logos: [
-                  { src: upliftHawkLogo, alt: "Uplift Art Foundation" },
+                  { src: monteVistaLogo, alt: "Uplift Art Foundation" },
                   { src: dilworthDragonsLogo, alt: "Dilworth Dragons" },
                   { src: vikingMascotLogo, alt: "Viking School" },
                   { src: millerMustangsLogo, alt: "Miller Middle School" },
-                  { src: deVargasStemLogo, alt: "De Vargas STEM" },
+                  { src: harkerLogo, alt: "De Vargas STEM" },
                 ],
               },
             ]}
@@ -812,9 +811,9 @@ function PillarsSection() {
                 copy: "Mentored students in foundational CS concepts, guiding hands-on coding and problem-solving sessions.",
                 images: [heroImage, sentinelImage],
                 logos: [
-                  { src: harkerLogo, alt: "Harker School" },
-                  { src: millerMustangsLogo, alt: "Miller Middle School" },
-                  { src: monteVistaLogo, alt: "Monte Vista" },
+                  { src: upliftHawkLogo, alt: "Harker School" },
+                  { src: dilworthDragonsLogo, alt: "Miller Middle School" },
+                  { src: deVargasStemLogo, alt: "Monte Vista" },
                 ],
               },
               {
@@ -822,9 +821,8 @@ function PillarsSection() {
                 copy: "Guided students in community service initiatives, coordinating outreach and volunteer activities.",
                 images: [vishayDribbling, lynbrookTeamPhoto],
                 logos: [
-                  { src: sundayFriendsLogo, alt: "Sunday Friends" },
-                  { src: upliftHawkLogo, alt: "Uplift Art Foundation" },
-                  { src: goodSamaritanPenguinLogo, alt: "Good Samaritan Preschool" },
+                  { src: goodSamaritanPenguinLogo, alt: "Sunday Friends" },
+      
                 ],
               },
             ]}
@@ -1605,17 +1603,17 @@ export function PortfolioPage() {
         .pillar-logo-row {
           display: flex;
           flex-wrap: wrap;
-          gap: 0.35rem;
+          gap: 0.45rem;
           margin-top: 0.1rem;
-          margin-bottom: 0.35rem;
+          margin-bottom: 0.45rem;
           justify-content: center;
           max-width: 100%;
         }
 
         .pillar-logo-chip {
-          width: 1.75rem;
-          height: 1.75rem;
-          border-radius: 0.55rem;
+          width: 2.15rem;
+          height: 2.15rem;
+          border-radius: 0.7rem;
           border: 1px solid rgb(255 255 255 / 0.14);
           background: rgb(255 255 255 / 0.1);
           backdrop-filter: blur(12px);
@@ -1630,7 +1628,7 @@ export function PortfolioPage() {
           width: 100%;
           height: 100%;
           object-fit: contain;
-          padding: 0.2rem;
+          padding: 0.18rem;
         }
 
         .pillar-gallery-wrap {
@@ -1638,7 +1636,7 @@ export function PortfolioPage() {
           display: flex;
           flex-direction: column;
           align-items: stretch;
-          justify-content: flex-start;
+          justify-content: center;
           width: 100%;
           margin-bottom: 0;
           min-height: 0;
@@ -1646,7 +1644,7 @@ export function PortfolioPage() {
 
         .pillar-image-wrap {
           width: 100%;
-          height: min(100%, clamp(12.5rem, 27vh, 19rem));
+          height: min(100%, clamp(14.75rem, 31vh, 21rem));
           max-height: 100%;
           border-radius: 1.25rem;
           overflow: hidden;
@@ -1861,7 +1859,7 @@ export function PortfolioPage() {
           }
 
           .pillar-image-wrap {
-            height: min(100%, clamp(10rem, 38vw, 15rem));
+            height: min(100%, clamp(10.75rem, 40vw, 16rem));
           }
 
         }
