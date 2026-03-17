@@ -1,6 +1,6 @@
 import type { Metadata } from "next"
 import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google"
-import { ShaderBackground } from "@/components/shader-background"
+import { ShaderBackground, ShaderPaletteProvider } from "@/components/shader-background"
 import "./globals.css"
 
 const displayFont = Plus_Jakarta_Sans({
@@ -28,12 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body className={`${bodyFont.className} min-h-screen antialiased`}>
-        <div className="site-shell">
-          <ShaderBackground />
-          <div className="site-overlay" aria-hidden="true" />
-          <div className="site-noise" aria-hidden="true" />
-          <div className="site-content">{children}</div>
-        </div>
+        <ShaderPaletteProvider>
+          <div className="site-shell">
+            <ShaderBackground />
+            <div className="site-overlay" aria-hidden="true" />
+            <div className="site-noise" aria-hidden="true" />
+            <div className="site-content">{children}</div>
+          </div>
+        </ShaderPaletteProvider>
       </body>
     </html>
   )

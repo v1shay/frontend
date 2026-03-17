@@ -69,6 +69,7 @@ import {
   X,
 } from "lucide-react"
 
+import { useShaderPalette } from "@/components/shader-background"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -356,6 +357,7 @@ function StickyNavbar() {
   const activeSection = useActiveSection(navItems.map((item) => item.id))
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { controls, cycleColor } = useShaderPalette()
   const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -393,14 +395,36 @@ function StickyNavbar() {
           ))}
         </nav>
 
-        <button
-          type="button"
-          className="nav-mobile-toggle"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          onClick={() => setMobileOpen((open) => !open)}
-        >
-          {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-        </button>
+        <div className="nav-actions">
+          <div className="nav-palette-controls" aria-label="Shader palette controls">
+            {controls.map((control) => (
+              <button
+                key={control.key}
+                type="button"
+                className={cn("nav-palette-button", control.step > 0 && "nav-palette-button-active")}
+                aria-label={`Cycle ${control.label} shader color`}
+                onClick={() => cycleColor(control.key)}
+              >
+                <span
+                  className="nav-palette-swatch"
+                  aria-hidden="true"
+                  style={{
+                    background: control.swatch,
+                  }}
+                />
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            className="nav-mobile-toggle"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMobileOpen((open) => !open)}
+          >
+            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+        </div>
       </div>
 
       <motion.div
@@ -414,6 +438,28 @@ function StickyNavbar() {
         className="nav-mobile-wrap"
       >
         <div className="liquid-panel nav-mobile-panel">
+          <div className="nav-mobile-palettes" aria-label="Shader palette controls">
+            {controls.map((control) => (
+              <button
+                key={control.key}
+                type="button"
+                className={cn(
+                  "nav-mobile-palette-button",
+                  control.step > 0 && "nav-mobile-palette-button-active"
+                )}
+                onClick={() => cycleColor(control.key)}
+              >
+                <span
+                  className="nav-palette-swatch"
+                  aria-hidden="true"
+                  style={{
+                    background: control.swatch,
+                  }}
+                />
+                {control.label}
+              </button>
+            ))}
+          </div>
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -1286,10 +1332,107 @@ export function PortfolioPage() {
           min-width: 0;
         }
 
+        .nav-actions {
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 0.75rem;
+        }
+
+        .nav-palette-controls {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.35rem;
+          border-radius: 999px;
+          border: 1px solid rgb(255 255 255 / 0.12);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.04)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.06), transparent 58%);
+          backdrop-filter: blur(18px) saturate(140%);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.16),
+            0 10px 24px rgb(0 0 0 / 0.08);
+        }
+
+        .nav-palette-button,
+        .nav-mobile-palette-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 999px;
+          border: 1px solid transparent;
+          background: transparent;
+          transition:
+            transform 180ms ease,
+            border-color 180ms ease,
+            box-shadow 180ms ease;
+        }
+
+        .nav-palette-button {
+          width: 2.25rem;
+          height: 2.25rem;
+          padding: 0.24rem;
+        }
+
+        .nav-palette-button:hover,
+        .nav-mobile-palette-button:hover {
+          transform: translateY(-1px);
+          border-color: rgb(255 255 255 / 0.18);
+        }
+
+        .nav-palette-button-active,
+        .nav-mobile-palette-button-active {
+          border-color: rgb(255 255 255 / 0.28);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.16),
+            0 10px 22px rgb(0 0 0 / 0.1);
+        }
+
+        .nav-palette-swatch {
+          display: block;
+          width: 100%;
+          height: 100%;
+          border-radius: 999px;
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.35),
+            0 8px 18px rgb(0 0 0 / 0.12);
+        }
+
         .nav-link {
           padding: 0.72rem 1rem;
           border-radius: 999px;
           color: rgb(255 255 255 / 0.76);
+        }
+
+        .nav-mobile-palettes {
+          display: none;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 0.55rem;
+          margin-bottom: 0.35rem;
+        }
+
+        .nav-mobile-palette-button {
+          gap: 0.55rem;
+          justify-content: flex-start;
+          padding: 0.8rem 0.9rem;
+          border-radius: 1rem;
+          border-color: rgb(255 255 255 / 0.12);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.04)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.06), transparent 58%);
+          color: rgb(255 255 255 / 0.82);
+          font-size: 0.78rem;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          backdrop-filter: blur(16px);
+        }
+
+        .nav-mobile-palette-button .nav-palette-swatch {
+          width: 1.4rem;
+          height: 1.4rem;
+          flex-shrink: 0;
         }
 
         html {
@@ -2781,6 +2924,14 @@ export function PortfolioPage() {
         @media (max-width: 767px) {
           .nav-links {
             display: none;
+          }
+
+          .nav-palette-controls {
+            display: none;
+          }
+
+          .nav-mobile-palettes {
+            display: grid;
           }
 
           .hero-grid {
