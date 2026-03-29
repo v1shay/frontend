@@ -69,7 +69,7 @@ import {
   X,
 } from "lucide-react"
 
-import { useShaderPalette } from "@/components/shader-background"
+
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -357,7 +357,6 @@ function StickyNavbar() {
   const activeSection = useActiveSection(navItems.map((item) => item.id))
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const { controls, cycleColor } = useShaderPalette()
   const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -396,26 +395,6 @@ function StickyNavbar() {
         </nav>
 
         <div className="nav-actions">
-          <div className="nav-palette-controls" aria-label="Shader palette controls">
-            {controls.map((control) => (
-              <button
-                key={control.key}
-                type="button"
-                className={cn("nav-palette-button", control.step > 0 && "nav-palette-button-active")}
-                aria-label={`Cycle ${control.label} shader color`}
-                onClick={() => cycleColor(control.key)}
-              >
-                <span
-                  className="nav-palette-swatch"
-                  aria-hidden="true"
-                  style={{
-                    background: control.swatch,
-                  }}
-                />
-              </button>
-            ))}
-          </div>
-
           <button
             type="button"
             className="nav-mobile-toggle"
@@ -438,28 +417,6 @@ function StickyNavbar() {
         className="nav-mobile-wrap"
       >
         <div className="liquid-panel nav-mobile-panel">
-          <div className="nav-mobile-palettes" aria-label="Shader palette controls">
-            {controls.map((control) => (
-              <button
-                key={control.key}
-                type="button"
-                className={cn(
-                  "nav-mobile-palette-button",
-                  control.step > 0 && "nav-mobile-palette-button-active"
-                )}
-                onClick={() => cycleColor(control.key)}
-              >
-                <span
-                  className="nav-palette-swatch"
-                  aria-hidden="true"
-                  style={{
-                    background: control.swatch,
-                  }}
-                />
-                {control.label}
-              </button>
-            ))}
-          </div>
           {navItems.map((item) => (
             <a
               key={item.id}
