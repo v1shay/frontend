@@ -195,9 +195,9 @@ const portfolioGridProjects = [
     linkLabel: "GitHub",
   },
   {
-    title: "Jarvis",
+    title: "Echo-OS",
     description:
-      "Building a voice-driven AI operating system that automates structured academic workflows through agent-based planning and task orchestration.",
+      "Engineered an autonomous voice-operating system to operate your computer for you, completing tasks intelligently and automating workflows; built for the visually impaired.",
     href: "https://github.com/v1shay/jarvis",
     linkLabel: "GitHub",
   },
@@ -515,8 +515,8 @@ function HeroSection() {
               transition={{ duration: 0.76, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
               className="hero-subtext"
             >
-              
-              
+
+
               Hi, I&apos;m Vishay, freshman at Lynbrook High whos obsessed with all things systems. Whether it&apos;s ML pipelines, LEGOs, basketball, or just NBA2K, I see a system in everything. I&apos;m passionate about turning research ideas into real-world solutions!
             </motion.p>
             <div className="hero-actions">
@@ -943,7 +943,7 @@ function InteractivePillar({
             key={activeSlide}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0 , x: -20 }}
+            exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.3 }}
             className="pillar-slide"
           >
@@ -1094,7 +1094,7 @@ function PillarsSection() {
                   { label: "Website", href: "novastem.vercel.app", kind: "website" },
                 ],
                 logos: [
-            
+
                   { src: sundayFriendsLogo, alt: "Sunday Friends" },
                   { src: goodSamaritanLogo, alt: "Good Samaritan" },
 
@@ -1141,7 +1141,7 @@ function PillarsSection() {
                 images: [cs],
                 logos: [
                   { src: goodSamaritanPenguinLogo, alt: "Sunday Friends" },
-      
+
                 ],
               },
             ]}
