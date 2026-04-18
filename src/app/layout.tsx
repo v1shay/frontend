@@ -15,9 +15,19 @@ const bodyFont = Space_Grotesk({
   weight: ["400", "500", "600", "700"],
 })
 
+import type { Viewport } from "next"
+
 export const metadata: Metadata = {
   title: "Vishay Agarwal",
   description: "A hyper-reactive portfolio foundation with a global ShaderGradient background.",
+}
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#0b0e18",
 }
 
 export default function RootLayout({
@@ -26,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
-      <body className={`${bodyFont.className} min-h-screen antialiased`}>
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`} style={{ overflowX: 'hidden' }}>
+      <body className={`${bodyFont.className} min-h-dvh antialiased overflow-x-hidden`}>
         <ShaderPaletteProvider>
           <div className="site-shell">
             <ShaderBackground />
