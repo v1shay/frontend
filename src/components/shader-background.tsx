@@ -152,12 +152,12 @@ function ShaderScene({ colorSteps }: { colorSteps: Record<ShaderColorKey, number
   )
 
   return (
-    <div className="fixed inset-0 z-0">
+    <div className="fixed inset-0 z-0" style={{ transform: 'translateZ(0)', willChange: 'auto' }}>
       <ShaderGradientCanvas
         pointerEvents="none"
-        pixelDensity={1}
+        pixelDensity={0.75}
         fov={45}
-        style={{ width: "100%", height: "100%" }}
+        style={{ width: "100%", height: "100%", transform: 'translateZ(0)' }}
       >
         <ShaderGradient
           {...(paletteConfig as unknown as ShaderGradientProps)}
