@@ -387,7 +387,7 @@ function StickyNavbar() {
             <a
               key={item.id}
               href={`#${item.id}`}
-              className={cn("nav-link", activeSection === item.id && "nav-link-active")}
+              className="nav-link"
             >
               {item.label}
             </a>
@@ -421,7 +421,7 @@ function StickyNavbar() {
             <a
               key={item.id}
               href={`#${item.id}`}
-              className={cn("nav-mobile-link", activeSection === item.id && "nav-mobile-link-active")}
+              className="nav-mobile-link"
               onClick={() => setMobileOpen(false)}
             >
               {item.label}
