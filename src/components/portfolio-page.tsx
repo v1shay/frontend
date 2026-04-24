@@ -16,12 +16,12 @@ import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynb
 import athletes from "../../images/image copy 15.png"
 import cs from "../../images/image copy 14.png"
 import nova from "../../images/image copy 16.png"
-import githubLogo from "../../images/image copy 31.png"
-import linkedInLogo from "../../images/image copy 30.png"
-import emailLogo from "../../images/image copy 24.png"
+import githubLogo from "../../images/image copy 30.png"
+import gmailLogo from "../../images/image copy 31.png"
+import resumeLogo from "../../images/image copy 24.png"
+import basketballLogo from "../../images/image copy 22.png"
+import hackathonLogo from "../../images/image copy 28.png"
 import projectLogo from "../../images/image copy 20.png"
-import portfolioLogo from "../../images/image copy 27.png"
-import additionalLogo from "../../images/image copy 28.png"
 import contactImage from "../../images/contact.jpeg"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
@@ -256,34 +256,34 @@ const contactButtons = [
     href: "https://novastem.vercel.app",
   },
   {
-    label: "EMAIL",
-    image: githubLogo,
-    href: "https://mailto:v.agrwl17@gmail.com",
-  },
-  {
-    label: "GITHUB",
-    image: linkedInLogo,
-    href: "https://github.com/v1shay",
-  },
-  {
-    label: "RESUME",
-    image: emailLogo,
-    href: "https://docs.google.com/document/d/17_go6arOIviQ2X_M8XTwY88k7OC9EA-g/edit",
-  },
-  {
     label: "UPLIFT ART FOUNDATION",
     image: projectLogo,
     href: "https://uplift-art.vercel.app",
   },
   {
+    label: "BASKETBALL",
+    image: basketballLogo,
+    href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
+  },
+  {
+    label: "RESUME",
+    image: resumeLogo,
+    href: "https://docs.google.com/document/d/17_go6arOIviQ2X_M8XTwY88k7OC9EA-g/edit",
+  },
+  {
+    label: "GITHUB",
+    image: githubLogo,
+    href: "https://github.com/v1shay",
+  },
+  {
     label: "HACKATHON PORTFOLIO",
-    image: portfolioLogo,
+    image: hackathonLogo,
     href: "https://devpost.com/v1shay/challenges",
   },
   {
-    label: "BASKETBALL",
-    image: additionalLogo,
-    href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
+    label: "EMAIL",
+    image: gmailLogo,
+    href: "mailto:v.agrwl17@gmail.com",
   },
 ] as const
 
@@ -2914,10 +2914,17 @@ export function PortfolioPage() {
 
         .contact-button-grid {
           display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: clamp(0.85rem, 1vw, 1rem);
+          grid-template-columns: repeat(12, minmax(0, 1fr));
+          gap: clamp(0.85rem, 1vw, 1.25rem);
           align-content: center;
           min-height: 0;
+        }
+
+        .contact-button-tile:nth-child(-n+3) {
+          grid-column: span 4;
+        }
+        .contact-button-tile:nth-child(n+4) {
+          grid-column: span 3;
         }
 
         .contact-button-tile {
@@ -3123,7 +3130,7 @@ export function PortfolioPage() {
           }
 
           .contact-button-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(12, minmax(0, 1fr));
           }
 
         }
@@ -3139,7 +3146,7 @@ export function PortfolioPage() {
           }
 
           .contact-button-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
+            grid-template-columns: repeat(12, minmax(0, 1fr));
           }
         }
       `}</style>
