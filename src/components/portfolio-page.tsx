@@ -8,7 +8,7 @@ import heroImage from "../../images/hero.jpeg"
 // ── Research / ML projects ────────────────────────────────────────────────────
 import neurosense from "../../images/neuro.png"                          // NeuroSense confusion-matrix paper figure
 import phytovisionImage from "../../images/tomato.png"                   // Phyto-Vision tomato leaf CNN
-import sentinelImage from "../../images/hallucination-leaderboard.png"   // Sentinel-LLM hallucination leaderboard chart
+import sentinelImage from "../../images/image copy 33.png"   // Sentinel-LLM hallucination leaderboard chart
 import softwareintern from "../../images/substack.png"                   // Substack graph crawler / Chapman internship
 // ── Basketball ────────────────────────────────────────────────────────────────
 import vishayDribbling from "../../images/athletes.jpeg"                 // Vishay dribbling in Lynbrook jersey mid-game
@@ -91,7 +91,8 @@ type ResearchProject = {
   id: string
   title: string
   subtitle: string
-  description: string
+  hook: string
+  metrics: { stat: string; label: string }[]
   image: StaticImageData
   logoLabel: string
   accent: string
@@ -113,8 +114,12 @@ const researchProjects: readonly ResearchProject[] = [
     id: "chamtern",
     title: "Software & Research Intern",
     subtitle: "CHAMPMAN UNIVERSITY",
-    description:
-      "Engineered Substack API endpoint ingestion and implemented BFS graph traversal + PageRank-style network analysis, adding comment-edge tracking and increasing crawler throughput ~10× while scaling the dataset to 170K+ nodes for influence and trend metrics.",
+    hook: "Built a linear-algebra–driven ingestion system for large-scale Substack networks at Chapman University.",
+    metrics: [
+      { stat: "+30%", label: "SPEED" },
+      { stat: "+20%", label: "PERF" },
+      { stat: "PGSQL", label: "BACKEND" },
+    ],
     image: softwareintern,
     logoLabel: "C.U",
     accent: "from-[#f0f4ff]/40 via-[#dcb58f]/18 to-transparent",
@@ -123,9 +128,12 @@ const researchProjects: readonly ResearchProject[] = [
   {
     id: "neuro-sense",
     title: "Neuro-Sense",
-    subtitle: "Machine Learning for Neurogenerative Disease Screening",
-    description:
-      "Developed NeuroSense, a voice-based neurological risk classifier using Python, audio signal processing, and ML pipelines, achieving 91% validation accuracy on UCI repository datasets and resulting in a peer-reviewed publication in the Advanced International Journal of Research.",
+    subtitle: "Machine Learning",
+    hook: "Published and built a voice-based Parkinson’s detection pipeline cited by Google Scholar and ResearchGate.",
+    metrics: [
+      { stat: "91%", label: "ACCURACY" },
+      { stat: "195", label: "TRIALS" },
+    ],
     image: neurosense,
     logoLabel: "BIO",
     accent: "from-[#fff4ea]/34 via-[#c88f6a]/18 to-transparent",
@@ -137,69 +145,107 @@ const researchProjects: readonly ResearchProject[] = [
   {
     id: "phytovision",
     title: "Phyto-Vision",
-    subtitle: "The use of Neural Networks and Computer Vision to detect diseases in plants",
-    description:
-      "Built PhytoVision, a neural-network–based plant stress detection system using computer vision and ML pipelines, achieving 95% validation accuracy and presented to UCSC researchers for greenhouse deployment.",
+    subtitle: "Neural Networks / Computer Vision",
+    hook: "Built a neural network for plant disease detection, presented to UCSC professors for greenhouse deployment.",
+    metrics: [
+      { stat: "95%+", label: "ACCURACY" },
+      { stat: "395K+", label: "IMAGES TRAINED ON" },
+      { stat: "5", label: "DISEASE CLASSES TESTED" },
+    ],
     image: phytovisionImage,
     logoLabel: "CV",
     accent: "from-[#d0fff2]/30 via-[#5cae9f]/16 to-transparent",
     actions: [{ label: "GitHub", href: "https://github.com/v1shay/phyto-vision", kind: "github" }],
   },
   {
-    id: "sentinel",
-    title: "Sentinel-LLM",
-    subtitle: "NLP for the flagging of hallucinatory content in LLMs",
-    description:
-      "Designed Sentinel-LLM, an LLM-powered threat detection system leveraging NLP and TF-IDF vectorization to classify and surface signals across large-scale text streams.",
+    id: "echo-os",
+    title: "Echo-OS",
+    subtitle: "ElevenLabs 2026 Hackathon Winner | March 2026",
+    hook: "Built an autonomous voice agent, winning an ElevenLabs-backed hackathon.",
+    metrics: [
+      { stat: "1ST", label: "PLACE" },
+      { stat: "120+", label: "TEAMS" },
+      { stat: "VECTOR-DB RAG", label: "MEMORY" },
+    ],
     image: sentinelImage,
-    logoLabel: "LLMs",
+    logoLabel: "AI Agent",
     accent: "from-[#eff3ff]/30 via-[#94a3ff]/16 to-transparent",
-    actions: [{ label: "GitHub", href: "https://github.com/v1shay/sentinel-LLM", kind: "github" }],
+    actions: [{ label: "GitHub", href: "https://github.com/v1shay/jarvis", kind: "github" }],
   },
 ] as const
 
 const portfolioGridProjects = [
   {
-    title: "Freelance Web Developer",
-    description:
-      "Built and deployed the Taquizas Estilo Chapala website, creating a responsive frontend for the Mexican catering business and improving its digital presence and customer accessibility.",
-    href: "https://taquizas-chapala.vercel.app",
-    linkLabel: "Website",
-  },
-  {
-    title: "ML-Labs",
-    description:
-      "Developing an agentic AutoML system that autonomously profiles datasets, selects models, and optimizes training pipelines.",
-    href: "https://github.com/v1shay/ml-labs",
-    linkLabel: "GitHub",
-  },
-  {
-    title: "Neural-Lens",
-    description:
-      "Developed a browser extension that runs NLP analytics and LLM inference on highlighted text to generate contextual data insights in real time.",
-    href: "https://github.com/v1shay/neural-lens",
-    linkLabel: "GitHub",
-  },
-  {
-    title: "Vox-Agent",
-    description:
-      "Engineered an AI agent leveraging Bluetooth Core Audio pipelines, speech-to-text, and LLM summarization to convert audio from connected devices into structured notes and actionable insights.",
-    href: "https://github.com/v1shay/vox-agent",
-    linkLabel: "GitHub",
-  },
-  {
-    title: "ArchLLM-sim",
-    description:
-      "Engineered a simulation framework for RAG architectures and experimental token-optimization strategies beyond standard modern LLM pipelines.",
+    title: "archLLM-sim",
+    hook: "Token optimization for long-context AI model systems running with real hardware limits",
+    metrics: [
+      { stat: "+95%", label: "ADHERENCE" },
+      { stat: "−30%", label: "HBM" },
+      { stat: "2×", label: "OVERFLOWS" },
+      { stat: "BEATS", label: "RAG BASELINES" },
+    ],
     href: "https://github.com/v1shay/archLLM-sim",
     linkLabel: "GitHub",
   },
   {
-    title: "Echo-OS",
-    description:
-      "Engineered an autonomous voice-operating system to operate your computer for you, completing tasks intelligently and automating workflows; built for the visually impaired.",
-    href: "https://github.com/v1shay/jarvis",
+    title: "Vox-Agent",
+    hook: "Streams voice directly into a real-time LLM feedback loop.",
+    metrics: [
+      { stat: "~2×", label: "FASTER" },
+      { stat: "NEAR-0", label: "I/O" },
+      { stat: "SUB-1s", label: "LOOP" },
+      { stat: "REAL-TIME", label: "INSIGHT" },
+    ],
+    href: "https://github.com/v1shay/vox-agent",
     linkLabel: "GitHub",
+  },
+  {
+    title: "Sentinel-LLM",
+    hook: "Production-level LLM hallucination detection, tested against top AI models.",
+    metrics: [
+      { stat: "92%", label: "ACCURACY" },
+      { stat: "<10ms", label: "LATENCY" },
+      { stat: "−40%", label: "HALLUCINATIONS" },
+      { stat: "MODEL", label: "AGNOSTIC" },
+    ],
+    href: "https://github.com/v1shay/sentinel-LLM",
+    linkLabel: "GitHub",
+  },
+  {
+    title: "Sift",
+    hook: "Turns GitHub into a live, explorable graph via linear algebra.",
+    metrics: [
+      { stat: "<5m", label: "RETRIEVAL" },
+      { stat: "1→N", label: "INDEXING" },
+      { stat: "PR-LEVEL", label: "RESOLUTION" },
+      { stat: "HIGH", label: "RECALL" },
+    ],
+    href: "https://github.com/v1shay/sift",
+    linkLabel: "GitHub",
+  },
+  {
+    title: "Neural-Lens",
+    hook: "Runs low-latency inference on live user context in-browser.",
+    metrics: [
+      { stat: "<500ms", label: "LATENCY" },
+      { stat: "LIVE", label: "PIPELINE" },
+      { stat: "EDGE", label: "EXECUTION" },
+      { stat: "MV3", label: "COMPLIANT" },
+    ],
+    href: "https://github.com/v1shay/neural-lens",
+    linkLabel: "GitHub",
+  },
+  {
+    title: "Freelance Frontend Dev",
+    hook: "Shipped a production system for catering service Taquizas Estilo Chapala",
+    metrics: [
+      { stat: "+40%", label: "MOBILE PERF" },
+      { stat: "+25%", label: "ENGAGEMENT" },
+      { stat: "FULLY", label: "RESPONSIVE" },
+      { stat: "LIVE", label: "DEPLOYED" },
+    ],
+    href: "https://taquizas-chapala.vercel.app",
+    linkLabel: "Website",
   },
 ] as const
 
@@ -740,23 +786,20 @@ function ResearchProjectDetailBody({ project }: { project: ResearchProject }) {
       <div className="research-detail-copy research-detail-copy--sentinel">
         <div className="research-modal-topline">
           <span className="research-logo-slot research-logo-slot-large">{project.logoLabel}</span>
-          <span className="research-card-tag">LLM safety pipeline</span>
+          <span className="research-card-tag">Voice-powered AI</span>
         </div>
         <p className="research-mini-kicker">{project.subtitle}</p>
         <h3 className="research-modal-title">{project.title}</h3>
         <p className="research-modal-description">
-          Sentinel-LLM was built to flag hallucination-prone outputs using NLP-heavy classification and
-          confidence signals. The goal was to scan large text streams, rank suspicious passages, and
-          surface unreliable claims before they spread.
+          Echo-OS is an autonomous voice-operating system that executes computer workflows visually and intelligently. By utilizing large language models and ChromaDB memory retrieval, the system completes complex multi-step application interactions entirely through conversational audio.
         </p>
         <div className="research-modal-stack">
-          <span className="research-stack-pill">TF-IDF</span>
-          <span className="research-stack-pill">NLP classification</span>
-          <span className="research-stack-pill">Risk surfacing</span>
+          <span className="research-stack-pill">Vector Database</span>
+          <span className="research-stack-pill">Speech-to-Text</span>
+          <span className="research-stack-pill">LLM Interaction</span>
         </div>
         <div className="research-detail-note">
-          Instead of treating every output equally, the pipeline focused on detection logic, ranking,
-          and escalation signals so reviewers could concentrate on the highest-risk language first.
+          Our team won 1st Place out of 120 competitors at the ElevenLabs Raven Hacks Hackathon by engineering robust real-time interaction logic that bridges auditory commands with visual execution.
         </div>
       </div>
 
@@ -827,10 +870,7 @@ function ResearchShowcase() {
                       )}
                       aria-hidden="true"
                     />
-                    <div className="research-card-topline">
-                      <span className="research-logo-slot">{project.logoLabel}</span>
-                      <span className="research-card-tag">Research & Projects</span>
-                    </div>
+
                     <div className="research-card-image-wrap">
                       <Image
                         src={project.image}
@@ -842,7 +882,15 @@ function ResearchShowcase() {
                     <div className="research-card-body">
                       <p className="research-mini-kicker">{project.subtitle}</p>
                       <h3 className="research-card-title">{project.title}</h3>
-                      <p className="research-card-copy">{project.description}</p>
+                      <p className="research-card-hook">{project.hook}</p>
+                      <div className="projects-stats-grid projects-stats-grid--research">
+                        {project.metrics.map((m, i) => (
+                          <div key={i} className="projects-stat-item">
+                            <span className="projects-stat-value">{m.stat}</span>
+                            <span className="projects-stat-label">{m.label}</span>
+                          </div>
+                        ))}
+                      </div>
                       <div className="research-card-footer">
                         <button
                           type="button"
@@ -1059,20 +1107,26 @@ function PillarsSection() {
             isLarge={true}
             slides={[
               {
+                title: "Uplift Art Foundation",
+                copy: "Led art outreach across 10 Bay Area schools; created and delivered 5,000+ cards for pediatric patients with national partner CFHK.",
+                images: [upliftCardsSpread],
+                actions: [
+                  { label: "Website", href: "uplift-art.vercel.app", kind: "website" },
+                ],
+                logos: [
+                  { src: monteVistaLogo, alt: "Uplift Art Foundation" },
+                  { src: dilworthDragonsLogo, alt: "Dilworth Dragons" },
+                  { src: vikingMascotLogo, alt: "Viking School" },
+                  { src: millerMustangsLogo, alt: "Miller Middle School" },
+                  { src: harkerLogo, alt: "De Vargas STEM" },
+                ],
+              },
+              {
                 title: "Basketball",
                 copy: "Member of the Lynbrook High School freshman basketball team.",
                 images: [lynbrookTeamPhoto],
                 logos: [
                   { src: vikingMascotLogo, alt: "Basketball" },
-                ],
-              },
-              {
-                title: "TaeKwonDo",
-                copy: "Earned 1st-degree black belt; mentored junior students in technique, sparring fundamentals, and discipline.",
-                images: [tkdDojanGroupPhoto],
-                logos: [
-                  { src: tkdKickIcon, alt: "Taekwondo" },
-                  { src: worldTaekwondoLogo, alt: "World Taekwondo" },
                 ],
               },
             ]}
@@ -1087,7 +1141,7 @@ function PillarsSection() {
             slides={[
               {
                 title: "NovaSTEM",
-                copy: "Founded STEM outreach; partnered with Good Samaritan Preschool and Sunday Friends, delivering hands-on workshops to 100+ students.",
+                copy: "Founded STEM outreach; partner of Good Samaritan Preschool and Sunday Friends, delivering hands-on workshops to 250+ students.",
                 images: [novaStemBalloonScience],
                 titleMedia: { src: nova, alt: "NovaSTEM mark" },
                 actions: [
@@ -1101,18 +1155,12 @@ function PillarsSection() {
                 ],
               },
               {
-                title: "Uplift Art Foundation",
-                copy: "Led art outreach across 8 Bay Area schools; created and delivered 2,000+ cards for pediatric patients with CFHK.",
-                images: [upliftCardsSpread],
-                actions: [
-                  { label: "Website", href: "uplift-art.vercel.app", kind: "website" },
-                ],
+                title: "TaeKwonDo",
+                copy: "Earned 1st-degree black belt; mentored junior students in technique, sparring fundamentals, and discipline.",
+                images: [tkdDojanGroupPhoto],
                 logos: [
-                  { src: monteVistaLogo, alt: "Uplift Art Foundation" },
-                  { src: dilworthDragonsLogo, alt: "Dilworth Dragons" },
-                  { src: vikingMascotLogo, alt: "Viking School" },
-                  { src: millerMustangsLogo, alt: "Miller Middle School" },
-                  { src: harkerLogo, alt: "De Vargas STEM" },
+                  { src: tkdKickIcon, alt: "Taekwondo" },
+                  { src: worldTaekwondoLogo, alt: "World Taekwondo" },
                 ],
               },
             ]}
@@ -1165,14 +1213,17 @@ function ProjectGridSection() {
                 transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                 className="projects-page-card liquid-panel liquid-hover"
               >
-                <div className="projects-page-card-topline">
-                  <span className="projects-page-chip">Project</span>
-                  <span className="projects-page-index">{String(index + 1).padStart(2, "0")}</span>
-                </div>
-
                 <div className="projects-page-card-body">
                   <h3 className="projects-page-card-title">{project.title}</h3>
-                  <p className="projects-page-card-copy">{project.description}</p>
+                  <p className="projects-page-card-hook">{(project as any).hook}</p>
+                  <div className="projects-stats-grid">
+                    {(project as any).metrics.map((m: any, i: number) => (
+                      <div key={i} className="projects-stat-item">
+                        <span className="projects-stat-value">{m.stat}</span>
+                        <span className="projects-stat-label">{m.label}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div className="projects-page-card-footer">
@@ -1552,10 +1603,10 @@ export function PortfolioPage() {
           font-weight: 500;
           font-optical-sizing: auto;
           margin-top: 1.5rem;
-          max-width: 10ch;
-          font-size: clamp(5.6rem, 8.8vw, 10rem);
+          max-width: 100%;
+          font-size: clamp(4.2rem, 9.5vw, 8.5rem);
           line-height: 0.88;
-          letter-spacing: -0.07em;
+          letter-spacing: -0.05em;
           color: white;
         }
 
@@ -1566,11 +1617,7 @@ export function PortfolioPage() {
         }
 
         .hero-title-line-accent {
-          background: linear-gradient(180deg, rgb(255 255 255 / 0.98), rgb(225 205 178 / 0.9));
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-          filter: drop-shadow(0 10px 30px rgb(225 205 178 / 0.14));
+          color: white;
         }
 
         .hero-subtext {
@@ -1787,7 +1834,7 @@ export function PortfolioPage() {
           position: relative;
           display: grid;
           grid-template-columns: clamp(12rem, 31%, 15rem) minmax(0, 1fr);
-          grid-template-rows: auto minmax(0, 1fr);
+          grid-template-rows: minmax(0, 1fr);
           column-gap: 1.25rem;
           row-gap: 0.9rem;
           min-height: 0;
@@ -1854,34 +1901,32 @@ export function PortfolioPage() {
         .research-modal-visual {
           position: relative;
           overflow: hidden;
-          border-radius: 1.5rem;
           margin-top: 1rem;
           border: 1px solid rgb(255 255 255 / 0.08);
+        }
+
+        .research-modal-visual {
+          border-radius: 1.5rem;
           background: rgb(255 255 255 / 0.04);
         }
 
         .research-card-image-wrap {
+          border-radius: 1rem;
           grid-column: 1;
-          grid-row: 2;
+          grid-row: 1;
           margin-top: 0;
           min-height: 0;
-          display: grid;
-          place-items: center;
-          height: 100%;
-          padding: 0.65rem;
-          background:
-            radial-gradient(circle at center, rgb(255 255 255 / 0.12), transparent 72%),
-            linear-gradient(180deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.04));
+          height: auto;
+          align-self: center;
           box-shadow:
-            inset 0 1px 0 rgb(255 255 255 / 0.18),
+            inset 0 1px 0 rgb(255 255 255 / 0.15),
             0 18px 40px rgb(0 0 0 / 0.08);
         }
 
         .research-card-image {
           width: 100%;
-          height: 100%;
-          object-fit: contain;
-          object-position: center center;
+          height: auto;
+          display: block;
         }
 
         .research-modal-image {
@@ -1904,18 +1949,20 @@ export function PortfolioPage() {
         .research-card-body {
           position: relative;
           z-index: 1;
-          display: grid;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
           grid-column: 2;
-          grid-row: 2;
-          align-content: center;
-          grid-template-rows: auto auto minmax(0, 1fr) auto;
-          margin-top: 0;
+          grid-row: 1;
+          height: 100%;
           min-height: 0;
         }
 
         .research-card-title,
         .research-modal-title {
-          margin-top: 0.34rem;
+          margin-top: 0.5rem;
+          margin-bottom: 1rem;
           font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
           font-size: clamp(1.45rem, 1.5vw, 1.8rem);
           font-optical-sizing: auto;
@@ -1925,13 +1972,10 @@ export function PortfolioPage() {
         }
 
         .research-card-title {
-          display: -webkit-box;
-          overflow: hidden;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
+          display: block;
+          width: 100%;
         }
 
-        .research-card-copy,
         .research-modal-description {
           margin-top: 0.42rem;
           font-size: clamp(0.98rem, 0.95vw, 1.08rem);
@@ -1940,20 +1984,31 @@ export function PortfolioPage() {
         }
 
         .research-card-copy {
-          display: -webkit-box;
-          overflow: hidden;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 3;
+          margin-top: 0.8rem;
+          font-size: clamp(1.05rem, 1.25vw + 0.4rem, 1.25rem);
+          line-height: 1.6;
+          color: rgb(255 255 255 / 0.85);
+          white-space: pre-line;
+          display: block;
+        }
+
+        .research-card-hook {
+          font-size: clamp(0.98rem, 1.05vw, 1.15rem);
+          line-height: 1.55;
+          color: rgb(255 255 255 / 0.82);
+          margin-top: 0;
+          margin-bottom: 1rem;
+          max-width: 45ch;
         }
 
         .research-card-footer {
+          margin-top: auto;
           display: flex;
           flex-wrap: wrap;
           align-items: center;
-          justify-content: space-between;
+          justify-content: center;
           gap: 0.8rem;
-          padding-top: 0.35rem;
-          align-self: end;
+          padding-top: 1.5rem;
         }
 
         .research-card-link {
@@ -2589,6 +2644,7 @@ export function PortfolioPage() {
           background:
             linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
             radial-gradient(circle at top left, rgb(240 244 255 / 0.12), transparent 40%);
+          text-align: center;
         }
 
         .projects-page-card-topline,
@@ -2597,7 +2653,7 @@ export function PortfolioPage() {
           z-index: 1;
           display: flex;
           align-items: center;
-          justify-content: space-between;
+          justify-content: center;
           gap: 0.8rem;
         }
 
@@ -2626,13 +2682,6 @@ export function PortfolioPage() {
           color: rgb(255 255 255 / 0.5);
         }
 
-        .projects-page-card-body {
-          display: grid;
-          align-content: center;
-          gap: 0.9rem;
-          min-height: 0;
-        }
-
         .projects-page-card-title {
           font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
           font-size: clamp(1.8rem, 2vw, 2.35rem);
@@ -2640,12 +2689,66 @@ export function PortfolioPage() {
           letter-spacing: -0.05em;
           color: white;
           text-wrap: balance;
+          margin-top: 0;
+          margin-bottom: 1rem;
+          text-align: center;
         }
 
-        .projects-page-card-copy {
-          font-size: clamp(0.98rem, 1.02vw, 1.12rem);
-          line-height: 1.72;
-          color: rgb(255 255 255 / 0.74);
+        .projects-page-card-body {
+          display: grid;
+          align-content: center;
+          justify-items: center;
+          gap: 1.2rem;
+          min-height: 0;
+        }
+
+        .projects-page-card-hook {
+          font-size: clamp(0.95rem, 1vw, 1.05rem);
+          line-height: 1.5;
+          color: rgb(255 255 255 / 0.7);
+          max-width: 22ch;
+          margin-top: 0;
+          margin-bottom: 1rem;
+        }
+
+        .projects-stats-grid {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1.5rem;
+          width: 100%;
+          margin-top: 1rem;
+        }
+
+        .projects-stats-grid--research {
+          justify-content: center;
+          gap: 2rem;
+          margin-top: 1rem;
+        }
+
+        .projects-stat-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.1rem;
+        }
+
+        .projects-stat-value {
+          font-family: "Clash Display", sans-serif;
+          font-size: clamp(1.4rem, 1.6vw, 1.75rem);
+          font-weight: 700;
+          color: white;
+          letter-spacing: -0.02em;
+          line-height: 1;
+        }
+
+        .projects-stat-label {
+          font-size: 0.62rem;
+          font-weight: 600;
+          letter-spacing: 0.12em;
+          color: rgb(255 255 255 / 0.45);
+          text-transform: uppercase;
+          line-height: 1.2;
         }
 
         .projects-page-card-link {
@@ -2935,21 +3038,20 @@ export function PortfolioPage() {
 
           .research-card {
             grid-template-columns: 1fr;
-            grid-template-rows: auto clamp(10rem, 32vw, 14rem) auto;
+            grid-template-rows: auto auto;
           }
 
-          .research-card-topline,
           .research-card-image-wrap,
           .research-card-body {
             grid-column: 1;
           }
 
           .research-card-image-wrap {
-            grid-row: 2;
+            grid-row: 1;
           }
 
           .research-card-body {
-            grid-row: 3;
+            grid-row: 2;
           }
 
           .research-modal {
