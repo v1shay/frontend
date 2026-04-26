@@ -215,7 +215,7 @@ const portfolioGridProjects = [
   },
   {
     title: "Sift",
-    hook: "Turns GitHub into a live, explorable graph via linear algebra.",
+    hook: "Turns GitHub into a live, explorable universe via linear algebra.",
     metrics: [
       { stat: "<5m", label: "RETRIEVAL" },
       { stat: "1→N", label: "INDEXING" },
@@ -230,7 +230,6 @@ const portfolioGridProjects = [
     hook: "Runs low-latency inference on live user context in-browser.",
     metrics: [
       { stat: "<500ms", label: "LATENCY" },
-      { stat: "LIVE", label: "PIPELINE" },
       { stat: "EDGE", label: "EXECUTION" },
       { stat: "MV3", label: "COMPLIANT" },
     ],
@@ -241,10 +240,9 @@ const portfolioGridProjects = [
     title: "Freelance Frontend Dev",
     hook: "Shipped a production system for catering service Taquizas Estilo Chapala",
     metrics: [
-      { stat: "+40%", label: "MOBILE PERF" },
-      { stat: "+25%", label: "ENGAGEMENT" },
-      { stat: "FULLY", label: "RESPONSIVE" },
-      { stat: "LIVE", label: "DEPLOYED" },
+      { stat: "+100%", label: "INCREASED TRAFFIC" },
+      { stat: "ORDERING SYSTEM", label: "FEATURES" },
+      { stat: "AUTH/DB", label: "SECURITY" },
     ],
     href: "https://taquizas-chapala.vercel.app",
     linkLabel: "Website",
