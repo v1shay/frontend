@@ -93,6 +93,8 @@ type ShaderPaletteContextValue = {
     step: number
   }>
   cycleColor: (key: ShaderColorKey) => void
+  setPaused: (paused: boolean) => void
+  isPaused: boolean
 }
 
 const ShaderPaletteContext = createContext<ShaderPaletteContextValue | null>(null)
@@ -103,6 +105,7 @@ export function ShaderPaletteProvider({ children }: { children: ReactNode }) {
     color2: 0,
     color3: 0,
   })
+  const [isPaused, setIsPaused] = useState(false)
 
   const value = useMemo<ShaderPaletteContextValue>(
     () => ({
@@ -127,7 +130,16 @@ export function ShaderPaletteProvider({ children }: { children: ReactNode }) {
     [colorSteps]
   )
 
-  return <ShaderPaletteContext.Provider value={value}>{children}</ShaderPaletteContext.Provider>
+  const contextValue = useMemo<ShaderPaletteContextValue>(
+    () => ({
+      ...value,
+      isPaused,
+      setPaused: setIsPaused
+    }),
+    [value, isPaused]
+  )
+
+  return <ShaderPaletteContext.Provider value={contextValue}>{children}</ShaderPaletteContext.Provider>
 }
 
 export function useShaderPalette() {
@@ -140,10 +152,11 @@ export function useShaderPalette() {
   return context
 }
 
-function ShaderScene({ colorSteps }: { colorSteps: Record<ShaderColorKey, number> }) {
+function ShaderScene({ colorSteps, isPaused }: { colorSteps: Record<ShaderColorKey, number>, isPaused: boolean }) {
   const paletteConfig = useMemo(
     () => ({
       ...shaderGradientConfig,
+      animate: isPaused ? "off" : "on",
       color1: shaderColorCycles[0].values[colorSteps.color1],
       color2: shaderColorCycles[1].values[colorSteps.color2],
       color3: shaderColorCycles[2].values[colorSteps.color3],
@@ -168,8 +181,8 @@ function ShaderScene({ colorSteps }: { colorSteps: Record<ShaderColorKey, number
 }
 
 export function ShaderBackground() {
-  const { controls } = useShaderPalette()
-
+  const { controls, isPaused } = useShaderPalette()
+ 
   const colorSteps = useMemo<Record<ShaderColorKey, number>>(
     () => ({
       color1: controls.find((entry) => entry.key === "color1")?.step ?? 0,
@@ -178,10 +191,10 @@ export function ShaderBackground() {
     }),
     [controls]
   )
-
+ 
   return (
     <ShaderErrorBoundary fallback={<div className="shader-fallback" aria-hidden="true" />}>
-      <ShaderScene colorSteps={colorSteps} />
+      <ShaderScene colorSteps={colorSteps} isPaused={isPaused} />
     </ShaderErrorBoundary>
   )
 }

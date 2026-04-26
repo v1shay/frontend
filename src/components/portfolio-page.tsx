@@ -71,6 +71,8 @@ import {
 
 
 import { cn } from "@/lib/utils"
+import { GitHubTerminal } from "./github-terminal"
+import { useShaderPalette } from "./shader-background"
 
 const navItems = [
   { id: "hero", label: "Home" },
@@ -360,8 +362,8 @@ function Reveal({
           ? { opacity: 1, y: 0, filter: "blur(0px)" }
           : { opacity: 0, y: 40, filter: "blur(14px)" }
       }
-      transition={{ duration: 0.65, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
+      transition={{ duration: 0.35, delay, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(className, "will-change-transform")}
     >
       {children}
     </motion.div>
@@ -384,10 +386,10 @@ function SectionShell({
   const hasHeading = Boolean(eyebrow || title || copy)
 
   return (
-    <section id={id} className="section-anchor snap-section w-full px-6 sm:px-10 lg:px-16">
-      <Reveal className="section-shell">
+    <section id={id} className={cn("section-anchor snap-section w-full", id === "projects-grid" ? "px-0" : "px-6 sm:px-10 lg:px-16")}>
+      <Reveal className={cn("section-shell", id === "projects-grid" && "w-full")}>
         {hasHeading ? (
-          <div className="section-heading max-w-3xl">
+          <div className={cn("section-heading", id === "projects-grid" ? "max-w-none w-full" : "max-w-3xl")}>
             {eyebrow ? <p className="section-eyebrow">{eyebrow}</p> : null}
             {title ? <h2 className="font-display-serif section-title">{title}</h2> : null}
             {copy ? <p className="section-copy">{copy}</p> : null}
@@ -1201,45 +1203,63 @@ function PillarsSection() {
 }
 
 function ProjectGridSection() {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { amount: 0.15 })
+  const { setPaused } = useShaderPalette()
+
+  useEffect(() => {
+    setPaused(isInView)
+  }, [isInView, setPaused])
+
   return (
     <SectionShell id="projects-grid">
-      <div className="projects-page-shell">
-        <div className="projects-page-grid" role="list" aria-label="Portfolio projects">
-          {portfolioGridProjects.map((project, index) => (
-            <Reveal key={project.title} delay={0.04 + index * 0.03} className="projects-page-card-slot">
-              <motion.article
-                role="listitem"
-                whileHover={{ y: -8, scale: 1.01 }}
-                transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                className="projects-page-card liquid-panel liquid-hover"
-              >
-                <div className="projects-page-card-body">
-                  <h3 className="projects-page-card-title">{project.title}</h3>
-                  <p className="projects-page-card-hook">{(project as any).hook}</p>
-                  <div className="projects-stats-grid">
-                    {(project as any).metrics.map((m: any, i: number) => (
-                      <div key={i} className="projects-stat-item">
-                        <span className="projects-stat-value">{m.stat}</span>
-                        <span className="projects-stat-label">{m.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="projects-page-card-footer">
-                  <a
-                    href={project.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="projects-page-card-link"
+      <div ref={ref} className="projects-page-shell">
+        <div className="projects-page-container">
+          <div className="projects-page-content">
+            <div className="projects-page-grid" role="list" aria-label="Portfolio projects">
+              {portfolioGridProjects.map((project, index) => (
+                <Reveal key={project.title} delay={0.04 + index * 0.03} className="projects-page-card-slot">
+                  <motion.article
+                    role="listitem"
+                    whileHover={{ y: -8, scale: 1.01 }}
+                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+                    className="projects-page-card liquid-panel liquid-hover"
                   >
-                    {project.linkLabel}
-                    <ExternalLink className="h-4 w-4" />
-                  </a>
-                </div>
-              </motion.article>
+                    <div className="projects-page-card-body">
+                      <h3 className="projects-page-card-title">{project.title}</h3>
+                      <p className="projects-page-card-hook">{(project as any).hook}</p>
+                      <div className="projects-stats-grid">
+                        {(project as any).metrics.map((m: any, i: number) => (
+                          <div key={i} className="projects-stat-item">
+                            <span className="projects-stat-value">{m.stat}</span>
+                            <span className="projects-stat-label">{m.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="projects-page-card-footer">
+                      <a
+                        href={project.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="projects-page-card-link"
+                      >
+                        {project.linkLabel}
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </div>
+                  </motion.article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+
+          <aside className="projects-page-aside">
+            <Reveal delay={0.2} className="w-full h-full">
+              <GitHubTerminal />
             </Reveal>
-          ))}
+          </aside>
         </div>
       </div>
     </SectionShell>
@@ -1536,7 +1556,11 @@ export function PortfolioPage() {
 
         #projects-grid.section-anchor {
           padding-top: 92px !important;
-          padding-bottom: 1.5rem !important;
+          padding-bottom: 0.75rem !important;
+          padding-left: 2rem !important;
+          padding-right: 2rem !important;
+          width: 100vw !important;
+          max-width: 100vw !important;
         }
 
         #contact.section-anchor {
@@ -2612,17 +2636,46 @@ export function PortfolioPage() {
           flex: 1;
           min-height: 0;
           height: 100%;
-          width: min(100%, 98rem);
+          width: 100%;
+          max-width: none;
           margin-inline: auto;
           display: grid;
           align-items: stretch;
         }
 
+        .projects-page-container {
+          display: flex;
+          flex-direction: column;
+          gap: 2.5rem;
+          width: 100%;
+          height: 100%;
+          min-height: 0;
+        }
+
+        @media (min-width: 1024px) {
+          .projects-page-container {
+            flex-direction: row;
+            gap: 2rem;
+            align-items: stretch;
+          }
+
+          .projects-page-content {
+            flex: 0 0 61%;
+            min-width: 0;
+          }
+
+          .projects-page-aside {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+          }
+        }
+
         .projects-page-grid {
           display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          grid-template-rows: repeat(2, minmax(0, 1fr));
-          gap: clamp(0.95rem, 1.2vw, 1.3rem);
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-rows: repeat(3, minmax(0, 1fr));
+          gap: clamp(0.6rem, 0.8vw, 1rem);
           width: 100%;
           height: 100%;
           min-height: 0;
@@ -2636,15 +2689,17 @@ export function PortfolioPage() {
         .projects-page-card {
           display: grid;
           grid-template-rows: auto minmax(0, 1fr) auto;
-          gap: 1rem;
+          gap: 0.6rem;
           height: 100%;
           min-height: 0;
-          padding: clamp(1.1rem, 1.45vw, 1.45rem);
-          border-radius: 2rem;
+          padding: clamp(0.8rem, 1vw, 1.1rem);
+          border-radius: 1.5rem;
           background:
             linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
             radial-gradient(circle at top left, rgb(240 244 255 / 0.12), transparent 40%);
           text-align: center;
+          will-change: transform, opacity;
+          transform: translateZ(0);
         }
 
         .projects-page-card-topline,
@@ -2684,13 +2739,13 @@ export function PortfolioPage() {
 
         .projects-page-card-title {
           font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
-          font-size: clamp(1.8rem, 2vw, 2.35rem);
+          font-size: clamp(1.3rem, 1.6vw, 1.8rem);
           line-height: 0.98;
           letter-spacing: -0.05em;
           color: white;
           text-wrap: balance;
           margin-top: 0;
-          margin-bottom: 1rem;
+          margin-bottom: 0.5rem;
           text-align: center;
         }
 
@@ -2698,26 +2753,26 @@ export function PortfolioPage() {
           display: grid;
           align-content: center;
           justify-items: center;
-          gap: 1.2rem;
+          gap: 0.7rem;
           min-height: 0;
         }
 
         .projects-page-card-hook {
-          font-size: clamp(0.95rem, 1vw, 1.05rem);
-          line-height: 1.5;
+          font-size: clamp(0.75rem, 0.9vw, 0.85rem);
+          line-height: 1.4;
           color: rgb(255 255 255 / 0.7);
-          max-width: 22ch;
+          max-width: 28ch;
           margin-top: 0;
-          margin-bottom: 1rem;
+          margin-bottom: 0.6rem;
         }
 
         .projects-stats-grid {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          gap: 1.5rem;
+          gap: 0.8rem;
           width: 100%;
-          margin-top: 1rem;
+          margin-top: 0.5rem;
         }
 
         .projects-stats-grid--research {
@@ -2735,7 +2790,7 @@ export function PortfolioPage() {
 
         .projects-stat-value {
           font-family: "Clash Display", sans-serif;
-          font-size: clamp(1.4rem, 1.6vw, 1.75rem);
+          font-size: clamp(1rem, 1.2vw, 1.3rem);
           font-weight: 700;
           color: white;
           letter-spacing: -0.02em;
@@ -2754,9 +2809,9 @@ export function PortfolioPage() {
         .projects-page-card-link {
           display: inline-flex;
           align-items: center;
-          gap: 0.55rem;
-          min-height: 2.7rem;
-          padding: 0.72rem 1rem;
+          gap: 0.45rem;
+          min-height: 2.1rem;
+          padding: 0.5rem 0.9rem;
           border-radius: 999px;
           border: 1px solid rgb(255 255 255 / 0.14);
           background:
