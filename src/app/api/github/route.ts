@@ -111,7 +111,10 @@ export async function GET() {
         updatedAt: repo.updatedAt,
         url: repo.url
       })),
-      contributionCalendar: calendar.weeks.map((w: any) => w.contributionDays.map((d: any) => d.contributionCount))
+      contributionCalendar: calendar.weeks.map((w: any) => w.contributionDays.map((d: any) => ({
+        count: d.contributionCount,
+        date: d.date
+      })))
     });
   } catch (error) {
     console.error('GitHub API error:', error);
