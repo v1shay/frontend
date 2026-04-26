@@ -356,14 +356,14 @@ function Reveal({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 40, filter: "blur(14px)" }}
+      initial={{ opacity: 0, y: 24 }}
       animate={
         isInView
-          ? { opacity: 1, y: 0, filter: "blur(0px)" }
-          : { opacity: 0, y: 40, filter: "blur(14px)" }
+          ? { opacity: 1, y: 0 }
+          : { opacity: 0, y: 24 }
       }
-      transition={{ duration: 0.35, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={cn(className, "will-change-transform")}
+      transition={{ duration: 0.3, delay, ease: "easeOut" }}
+      className={className}
     >
       {children}
     </motion.div>
@@ -1204,7 +1204,7 @@ function PillarsSection() {
 
 function ProjectGridSection() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { amount: 0.15 })
+  const isInView = useInView(ref, { amount: 0.15, once: true })
   const { setPaused } = useShaderPalette()
 
   useEffect(() => {
@@ -1217,13 +1217,11 @@ function ProjectGridSection() {
         <div className="projects-page-container">
           <div className="projects-page-content">
             <div className="projects-page-grid" role="list" aria-label="Portfolio projects">
-              {portfolioGridProjects.map((project, index) => (
-                <Reveal key={project.title} delay={0.04 + index * 0.03} className="projects-page-card-slot">
-                  <motion.article
+              {portfolioGridProjects.map((project) => (
+                <div key={project.title} className="projects-page-card-slot">
+                  <article
                     role="listitem"
-                    whileHover={{ y: -8, scale: 1.01 }}
-                    transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-                    className="projects-page-card liquid-panel liquid-hover"
+                    className="projects-page-card projects-page-card-optimized"
                   >
                     <div className="projects-page-card-body">
                       <h3 className="projects-page-card-title">{project.title}</h3>
@@ -1249,16 +1247,16 @@ function ProjectGridSection() {
                         <ExternalLink className="h-4 w-4" />
                       </a>
                     </div>
-                  </motion.article>
-                </Reveal>
+                  </article>
+                </div>
               ))}
             </div>
           </div>
 
           <aside className="projects-page-aside">
-            <Reveal delay={0.2} className="w-full h-full">
+            <div className="w-full h-full">
               <GitHubTerminal />
-            </Reveal>
+            </div>
           </aside>
         </div>
       </div>
@@ -1482,6 +1480,7 @@ export function PortfolioPage() {
         .snap-section {
           scroll-snap-align: start;
           scroll-snap-stop: always;
+          contain: layout style paint;
         }
 
         .hero-section {
@@ -2679,6 +2678,7 @@ export function PortfolioPage() {
           width: 100%;
           height: 100%;
           min-height: 0;
+          contain: layout style;
         }
 
         .projects-page-card-slot {
@@ -2698,8 +2698,18 @@ export function PortfolioPage() {
             linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
             radial-gradient(circle at top left, rgb(240 244 255 / 0.12), transparent 40%);
           text-align: center;
-          will-change: transform, opacity;
+          contain: layout style paint;
+        }
+
+        .projects-page-card-optimized {
+          border: 1px solid rgb(255 255 255 / 0.1);
+          transition: transform 0.2s ease-out, border-color 0.2s ease-out;
           transform: translateZ(0);
+        }
+
+        .projects-page-card-optimized:hover {
+          transform: translateY(-6px) translateZ(0);
+          border-color: rgb(255 255 255 / 0.2);
         }
 
         .projects-page-card-topline,
@@ -2720,15 +2730,12 @@ export function PortfolioPage() {
           padding: 0.45rem 0.8rem;
           border-radius: 999px;
           border: 1px solid rgb(255 255 255 / 0.12);
-          background:
-            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.05)),
-            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 58%);
+          background: rgb(255 255 255 / 0.08);
           font-size: 0.7rem;
           font-weight: 600;
           letter-spacing: 0.18em;
           text-transform: uppercase;
           color: rgb(255 255 255 / 0.74);
-          backdrop-filter: blur(16px);
         }
 
         .projects-page-index {
@@ -2814,18 +2821,12 @@ export function PortfolioPage() {
           padding: 0.5rem 0.9rem;
           border-radius: 999px;
           border: 1px solid rgb(255 255 255 / 0.14);
-          background:
-            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.05)),
-            radial-gradient(circle at top left, rgb(255 255 255 / 0.08), transparent 58%);
-          box-shadow:
-            inset 0 1px 0 rgb(255 255 255 / 0.16),
-            0 12px 24px rgb(0 0 0 / 0.08);
+          background: rgb(255 255 255 / 0.1);
           color: rgb(255 255 255 / 0.88);
           font-size: 0.86rem;
           font-weight: 600;
           letter-spacing: 0.06em;
           text-transform: uppercase;
-          backdrop-filter: blur(18px);
           transition:
             transform 180ms ease,
             border-color 180ms ease,
