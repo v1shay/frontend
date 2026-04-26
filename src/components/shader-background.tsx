@@ -93,8 +93,8 @@ type ShaderPaletteContextValue = {
     step: number
   }>
   cycleColor: (key: ShaderColorKey) => void
-  setPaused: (paused: boolean) => void
   isPaused: boolean
+  setPaused: (paused: boolean) => void
 }
 
 const ShaderPaletteContext = createContext<ShaderPaletteContextValue | null>(null)
@@ -107,15 +107,17 @@ export function ShaderPaletteProvider({ children }: { children: ReactNode }) {
   })
   const [isPaused, setIsPaused] = useState(false)
 
-  const value = useMemo<ShaderPaletteContextValue>(
-    () => ({
+  const contextValue = useMemo<ShaderPaletteContextValue>(
+    (): ShaderPaletteContextValue => ({
+      isPaused,
+      setPaused: setIsPaused,
       controls: shaderColorCycles.map((entry) => ({
         key: entry.key,
         label: entry.label,
         swatch: entry.values[colorSteps[entry.key]],
         step: colorSteps[entry.key],
       })),
-      cycleColor: (key) =>
+      cycleColor: (key: ShaderColorKey) =>
         setColorSteps((current) => {
           const cycle = shaderColorCycles.find((entry) => entry.key === key)
 
@@ -127,16 +129,7 @@ export function ShaderPaletteProvider({ children }: { children: ReactNode }) {
           }
         }),
     }),
-    [colorSteps]
-  )
-
-  const contextValue = useMemo<ShaderPaletteContextValue>(
-    () => ({
-      ...value,
-      isPaused,
-      setPaused: setIsPaused
-    }),
-    [value, isPaused]
+    [colorSteps, isPaused]
   )
 
   return <ShaderPaletteContext.Provider value={contextValue}>{children}</ShaderPaletteContext.Provider>
@@ -161,7 +154,7 @@ function ShaderScene({ colorSteps, isPaused }: { colorSteps: Record<ShaderColorK
       color2: shaderColorCycles[1].values[colorSteps.color2],
       color3: shaderColorCycles[2].values[colorSteps.color3],
     }),
-    [colorSteps]
+    [colorSteps, isPaused]
   )
 
   return (
@@ -182,7 +175,7 @@ function ShaderScene({ colorSteps, isPaused }: { colorSteps: Record<ShaderColorK
 
 export function ShaderBackground() {
   const { controls, isPaused } = useShaderPalette()
- 
+
   const colorSteps = useMemo<Record<ShaderColorKey, number>>(
     () => ({
       color1: controls.find((entry) => entry.key === "color1")?.step ?? 0,
@@ -191,7 +184,7 @@ export function ShaderBackground() {
     }),
     [controls]
   )
- 
+
   return (
     <ShaderErrorBoundary fallback={<div className="shader-fallback" aria-hidden="true" />}>
       <ShaderScene colorSteps={colorSteps} isPaused={isPaused} />
