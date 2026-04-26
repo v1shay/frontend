@@ -233,15 +233,8 @@ export function GitHubTerminal() {
           </AnimatePresence>
         </div>
 
-        {/* Scanning Effect Overlay */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.03] overflow-hidden">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_2px,3px_100%]" />
-          <motion.div 
-            animate={{ y: ["0%", "100%"] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            className="absolute top-0 left-0 w-full h-[20%] bg-gradient-to-b from-transparent via-white/10 to-transparent blur-xl"
-          />
-        </div>
+        {/* Scanning Effect Overlay - CSS-only for better performance */}
+        <div className="terminal-scanlines" aria-hidden="true" />
       </div>
 
       <style jsx>{`
@@ -285,10 +278,22 @@ export function GitHubTerminal() {
         }
 
         .glass-square {
-          backdrop-filter: blur(2px);
           border: 1px solid rgba(255, 255, 255, 0.04);
           box-sizing: border-box;
-          box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+        }
+
+        .terminal-scanlines {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0.02;
+          background: repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 0, 0, 0.15) 1px,
+            rgba(0, 0, 0, 0.15) 2px
+          );
         }
       `}</style>
     </div>
