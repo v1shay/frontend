@@ -179,7 +179,7 @@ const researchProjects: readonly ResearchProject[] = [
 const portfolioGridProjects = [
   {
     title: "archLLM-sim",
-    hook: "Token optimization for long-context AI model systems, designed for real GPU limits.",
+    hook: "Token optimization for long-context AI model systems, designed around real GPU limits.",
     metrics: [
       { stat: "+95%", label: "ADHERENCE" },
       { stat: "−30%", label: "HBM" },
@@ -227,7 +227,7 @@ const portfolioGridProjects = [
   },
   {
     title: "Neural-Lens",
-    hook: "Low-latency data analysis right in your browser.",
+    hook: "Low-latency data analysis, right in your browser.",
     metrics: [
       { stat: "<500ms", label: "LATENCY" },
       { stat: "EDGE", label: "EXECUTION" },
@@ -238,7 +238,7 @@ const portfolioGridProjects = [
   },
   {
     title: "Freelance Frontend Dev",
-    hook: "Built/shipped a production-level digital storefront for catering service Taquizas Estilo Chapala.",
+    hook: "Shipped a production-level digital storefront for catering service Taquizas Estilo Chapala.",
     metrics: [
       { stat: "+100%", label: "INCREASED TRAFFIC" },
       { stat: "ORDERING SYSTEM", label: "FEATURES" },
