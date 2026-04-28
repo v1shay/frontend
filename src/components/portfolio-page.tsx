@@ -1141,7 +1141,7 @@ function PillarsSection() {
             slides={[
               {
                 title: "NovaSTEM",
-                copy: "Founded STEM outreach; partner of Good Samaritan Preschool and Sunday Friends, delivering hands-on workshops to 250+ students.",
+                copy: "Founded STEM outreach; partner of Good Samaritan Preschool and Sunday Friends, delivering hands-on workshops to 350+ students.",
                 images: [novaStemBalloonScience],
                 titleMedia: { src: nova, alt: "NovaSTEM mark" },
                 actions: [
