@@ -131,7 +131,7 @@ const researchProjects: readonly ResearchProject[] = [
     id: "neuro-sense",
     title: "Neuro-Sense",
     subtitle: "Machine Learning",
-    hook: "Published and built a voice-based Parkinson’s detection pipeline cited by Google Scholar and ResearchGate.",
+    hook: "Published and built a voice-based Parkinson’s detection pipeline, indexed by the International Journal for Research, Google Scholar, OIPub and ResearchGate.",
     metrics: [
       { stat: "91%", label: "ACCURACY" },
       { stat: "195", label: "TRIALS" },
@@ -183,7 +183,7 @@ const portfolioGridProjects = [
     metrics: [
       { stat: "+95%", label: "ADHERENCE" },
       { stat: "−30%", label: "HBM" },
-      { stat: "2×", label: "OVERFLOWS" },
+      { stat: "APACHE 2.0", label: "LICENSE" },
       { stat: "BEATS", label: "RAG BASELINES" },
     ],
     href: "https://github.com/v1shay/archLLM-sim",
@@ -194,7 +194,6 @@ const portfolioGridProjects = [
     hook: "Turn your AirPods into an AI-powered note-taking system.",
     metrics: [
       { stat: "~2×", label: "FASTER" },
-      { stat: "NEAR-0", label: "I/O" },
       { stat: "SUB-1s", label: "LOOP" },
       { stat: "REAL-TIME", label: "INSIGHT" },
     ],
@@ -208,7 +207,6 @@ const portfolioGridProjects = [
       { stat: "92%", label: "ACCURACY" },
       { stat: "<10ms", label: "LATENCY" },
       { stat: "−40%", label: "HALLUCINATIONS" },
-      { stat: "MODEL", label: "AGNOSTIC" },
     ],
     href: "https://github.com/v1shay/sentinel-LLM",
     linkLabel: "GitHub",
@@ -218,9 +216,8 @@ const portfolioGridProjects = [
     hook: "Turns GitHub into a live, explorable universe via linear algebra.",
     metrics: [
       { stat: "<5m", label: "RETRIEVAL" },
-      { stat: "1→N", label: "INDEXING" },
-      { stat: "PR-LEVEL", label: "RESOLUTION" },
-      { stat: "HIGH", label: "RECALL" },
+      { stat: "SEMANTIC RECALL", label: "HIGH" },
+      { stat: "MIT", label: "LICENSE" },
     ],
     href: "https://github.com/v1shay/sift",
     linkLabel: "GitHub",
@@ -238,7 +235,7 @@ const portfolioGridProjects = [
   },
   {
     title: "Freelance Frontend Dev",
-    hook: "Shipped a production-level digital storefront for catering service Taquizas Estilo Chapala.",
+    hook: "Shipped production-level storefronts for businesses like Taquizas Estilo Chapala.",
     metrics: [
       { stat: "+100%", label: "INCREASED TRAFFIC" },
       { stat: "ORDERING SYSTEM", label: "FEATURES" },
