@@ -49,6 +49,12 @@ import upliftHawkLogo from "../../images/image copy 7.png"               // Upli
 import deVargasStemLogo from "../../images/image copy 8.png"             // De Vargas STEM school logo
 import goodSamaritanPenguinLogo from "../../images/image copy 9.png"     // Good Samaritan Preschool penguin logo
 import goodSamaritanLogo from "../../images/image.png"                   // Good Samaritan Preschool text logo
+
+// ── Other Projects visuals ───────────────────────────────────────────────────
+import mlLabsIcon from "../../images/other_projects/ml-labs-icon.png"
+import archLlmScreenshot from "../../images/other_projects/image.png"
+import sentinelLlmChart from "../../images/other_projects/image copy.png"
+import voxAgentScreenshot from "../../images/other_projects/PNG image.png"
 import { useEffect, useRef, useState, type CSSProperties } from "react"
 import {
   motion,
@@ -116,7 +122,7 @@ const researchProjects: readonly ResearchProject[] = [
     id: "chamtern",
     title: "Software & Research Intern",
     subtitle: "CHAMPMAN UNIVERSITY",
-    hook: "Built a linear-algebra–driven ingestion system for large-scale Substack networks at Chapman University.",
+    hook: "Built a linear-algebra–driven ingestion system for large-scale Substack networks at Chapman University",
     metrics: [
       { stat: "+30%", label: "SPEED" },
       { stat: "+20%", label: "PERF" },
@@ -131,7 +137,7 @@ const researchProjects: readonly ResearchProject[] = [
     id: "neuro-sense",
     title: "Neuro-Sense",
     subtitle: "Machine Learning",
-    hook: "Published and built a voice-based Parkinson’s detection pipeline, indexed by the International Journal for Research, Google Scholar, OIPub and ResearchGate.",
+    hook: "Published and built a voice-based Parkinson’s detection pipeline, indexed by the International Journal for Research, Google Scholar, OIPub and ResearchGate",
     metrics: [
       { stat: "91%", label: "ACCURACY" },
       { stat: "195", label: "TRIALS" },
@@ -148,7 +154,7 @@ const researchProjects: readonly ResearchProject[] = [
     id: "phytovision",
     title: "Phyto-Vision",
     subtitle: "Neural Networks / Computer Vision",
-    hook: "Built a neural network for plant disease detection, presented to UCSC professors for greenhouse deployment.",
+    hook: "Built a neural network for plant disease detection, presented to UCSC professors for greenhouse deployment",
     metrics: [
       { stat: "95%+", label: "ACCURACY" },
       { stat: "395K+", label: "IMAGES TRAINED ON" },
@@ -176,10 +182,21 @@ const researchProjects: readonly ResearchProject[] = [
   },
 ] as const
 
-const portfolioGridProjects = [
+const researchMLGridProjects = [
+  {
+    title: "ML-Labs",
+    hook: "An autonomous research lab at the tip of your fingers.",
+    metrics: [
+      { stat: "19 AGENTS", label: "SYSTEM" },
+      { stat: "8 RESEARCH PHASES", label: "TRAINING" },
+    ],
+    href: "https://github.com/v1shay/ml-labs",
+    linkLabel: "GitHub",
+    image: mlLabsIcon,
+  },
   {
     title: "archLLM-sim",
-    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines.",
+    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines",
     metrics: [
       { stat: "+95%", label: "ADHERENCE" },
       { stat: "Apache 2.0", label: "LICENSE" },
@@ -187,21 +204,11 @@ const portfolioGridProjects = [
     ],
     href: "https://github.com/v1shay/archLLM-sim",
     linkLabel: "GitHub",
-  },
-  {
-    title: "Vox-Agent",
-    hook: "Turn your AirPods into an AI-powered note-taking system.",
-    metrics: [
-      { stat: "CoreAudio", label: "STREAM ISOLATION" },
-      { stat: "<100ms", label: "LATENCY" },
-      { stat: "CPU Optimization", label: "ALGORITHMS" },
-    ],
-    href: "https://github.com/v1shay/vox-agent",
-    linkLabel: "GitHub",
+    image: archLlmScreenshot,
   },
   {
     title: "Sentinel-LLM",
-    hook: "Production-level LLM hallucination detection, tested against top AI models.",
+    hook: "Production-level LLM hallucination detection, tested against top AI models",
     metrics: [
       { stat: "NLP", label: "PIPELINE" },
       { stat: "Apache 2.0", label: "LICENSE" },
@@ -209,16 +216,35 @@ const portfolioGridProjects = [
     ],
     href: "https://github.com/v1shay/sentinel-LLM",
     linkLabel: "GitHub",
+    image: sentinelLlmChart,
+  },
+] as const
+
+const agentGridProjects = [
+  {
+    title: "Vox-Agent",
+    hook: "Turn your AirPods into an AI-powered note-taking system",
+    metrics: [
+      { stat: "CoreAudio", label: "STREAM ISOLATION" },
+      { stat: "<100ms", label: "LATENCY" },
+      { stat: "CPU Optimization", label: "ALGORITHMS" },
+    ],
+    href: "https://github.com/v1shay/vox-agent",
+    linkLabel: "GitHub",
+    image: voxAgentScreenshot,
+    gif: null as string | null,
   },
   {
     title: "Sift",
-    hook: "Turns GitHub into a live, explorable universe via linear algebra.",
+    hook: "Turns GitHub into a live, explorable universe via linear algebra",
     metrics: [
       { stat: "MIT", label: "LICENSE" },
       { stat: "Vector Embeddings", label: "RECALL" },
     ],
     href: "https://github.com/v1shay/sift",
     linkLabel: "GitHub",
+    image: null as StaticImageData | null,
+    gif: "/images/other_projects/Convert to GIF project (1).gif",
   },
   {
     title: "Neural-Lens",
@@ -230,15 +256,19 @@ const portfolioGridProjects = [
     ],
     href: "https://github.com/v1shay/neural-lens",
     linkLabel: "GitHub",
+    image: null as StaticImageData | null,
+    gif: "/images/other_projects/Adobe Express - neurallens (1).gif",
   },
   {
     title: "Freelance Frontend Dev",
-    hook: "Shipped production-level storefronts for businesses like Taquizas Estilo Chapala.",
+    hook: "Shipped production-level storefronts for local businesses",
     metrics: [
       { stat: "+100%", label: "INCREASED TRAFFIC" },
     ],
     href: "https://taquizas-chapala.vercel.app",
     linkLabel: "Website",
+    image: null as StaticImageData | null,
+    gif: "/images/other_projects/Convert to GIF project.gif",
   },
 ] as const
 
@@ -1197,51 +1227,107 @@ function ProjectGridSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { amount: 0.15, once: true })
   const { setPaused } = useShaderPalette()
+  const [activeTab, setActiveTab] = useState<"agents" | "research">("agents")
 
   useEffect(() => {
     setPaused(isInView)
   }, [isInView, setPaused])
+
+  const activeProjects = activeTab === "research" ? researchMLGridProjects : agentGridProjects
 
   return (
     <SectionShell id="projects-grid">
       <div ref={ref} className="projects-page-shell">
         <div className="projects-page-container">
           <div className="projects-page-content">
-            <div className="projects-page-grid" role="list" aria-label="Portfolio projects">
-              {portfolioGridProjects.map((project) => (
-                <div key={project.title} className="projects-page-card-slot">
-                  <article
-                    role="listitem"
-                    className="projects-page-card projects-page-card-optimized"
-                  >
-                    <div className="projects-page-card-body">
-                      <h3 className="projects-page-card-title">{project.title}</h3>
-                      <p className="projects-page-card-hook">{(project as any).hook}</p>
-                      <div className="projects-stats-grid">
-                        {(project as any).metrics.map((m: any, i: number) => (
-                          <div key={i} className="projects-stat-item">
-                            <span className="projects-stat-value">{m.stat}</span>
-                            <span className="projects-stat-label">{m.label}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="projects-page-card-footer">
-                      <a
-                        href={project.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="projects-page-card-link"
-                      >
-                        {project.linkLabel}
-                        <ExternalLink className="h-4 w-4" />
-                      </a>
-                    </div>
-                  </article>
-                </div>
-              ))}
+            {/* Toggle bar */}
+            <div className="projects-toggle-bar">
+              <button
+                type="button"
+                className={cn("projects-toggle-btn", activeTab === "agents" && "projects-toggle-btn-active")}
+                onClick={() => setActiveTab("agents")}
+              >
+                Agents
+              </button>
+              <button
+                type="button"
+                className={cn("projects-toggle-btn", activeTab === "research" && "projects-toggle-btn-active")}
+                onClick={() => setActiveTab("research")}
+              >
+                Research / ML
+              </button>
             </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className={cn(
+                  "projects-page-grid-v2",
+                  activeTab === "research" ? "projects-page-grid-v2--three" : "projects-page-grid-v2--four"
+                )}
+                role="list"
+                aria-label="Portfolio projects"
+              >
+                {activeProjects.map((project) => (
+                  <div key={project.title} className="projects-v2-card-slot">
+                    <article
+                      role="listitem"
+                      className="projects-v2-card projects-page-card-optimized"
+                    >
+                      <div className="projects-v2-card-text">
+                        <div className="projects-v2-card-header-row">
+                          <h3 className="projects-page-card-title">{project.title}</h3>
+                          <a
+                            href={project.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="projects-v2-card-link-mini"
+                            aria-label={`View ${project.title}`}
+                          >
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                        </div>
+
+                        <p className="projects-page-card-subtitle">{project.hook}</p>
+
+                        <div className="projects-stats-row-inline">
+                          {project.metrics.map((m, i) => (
+                            <div key={i} className="projects-stat-item-mini">
+                              <span className="projects-stat-value-mini">{m.stat}</span>
+                              <span className="projects-stat-label-mini">{m.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="projects-v2-card-visual">
+                        <div className="projects-v2-card-visual-inner">
+                          {"gif" in project && project.gif ? (
+                            /* eslint-disable-next-line @next/next/no-img-element */
+                            <img
+                              src={project.gif}
+                              alt={`${project.title} demo`}
+                              className="projects-v2-card-img"
+                            />
+                          ) : "image" in project && project.image ? (
+                            <Image
+                              src={project.image}
+                              alt={`${project.title} screenshot`}
+                              className="projects-v2-card-img"
+                            />
+                          ) : null}
+                          <div className="projects-v2-card-img-wash" aria-hidden="true" />
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                ))}
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           <aside className="projects-page-aside">
@@ -2830,6 +2916,218 @@ export function PortfolioPage() {
           color: white;
         }
 
+        /* ── Toggle bar ─────────────────────────────────── */
+        .projects-toggle-bar {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.35rem;
+          margin-bottom: 0.75rem;
+          padding: 0.25rem;
+          border-radius: 999px;
+          border: 1px solid rgb(255 255 255 / 0.12);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.08), rgb(255 255 255 / 0.03)),
+            radial-gradient(circle at top left, rgb(255 255 255 / 0.06), transparent 58%);
+          backdrop-filter: blur(18px) saturate(135%);
+          width: fit-content;
+          margin-inline: auto;
+        }
+
+        .projects-toggle-btn {
+          padding: 0.38rem 1rem;
+          border-radius: 999px;
+          border: 1px solid transparent;
+          background: transparent;
+          font-size: 0.72rem;
+          font-weight: 600;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: rgb(255 255 255 / 0.5);
+          transition: all 0.22s ease;
+          cursor: pointer;
+        }
+
+        .projects-toggle-btn:hover {
+          color: rgb(255 255 255 / 0.8);
+          background: rgb(255 255 255 / 0.06);
+        }
+
+        .projects-toggle-btn-active {
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.18), rgb(255 255 255 / 0.08));
+          border-color: rgb(255 255 255 / 0.2);
+          color: white;
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.16),
+            0 4px 12px rgb(0 0 0 / 0.1);
+        }
+
+        /* ── V2 card grid ───────────────────────────────── */
+        .projects-page-grid-v2 {
+          display: grid;
+          gap: clamp(0.75rem, 1.2vw, 1.25rem);
+          width: 100%;
+          min-height: 0;
+          contain: layout style;
+        }
+
+        .projects-page-grid-v2--four {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-rows: auto;
+        }
+
+        .projects-page-grid-v2--three {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          grid-template-rows: auto;
+        }
+
+        .projects-page-grid-v2--three > .projects-v2-card-slot:last-child {
+          grid-column: span 2;
+          width: calc(50% - 0.625rem); /* Matches column width minus half the gap */
+          margin-inline: auto;
+        }
+
+        .projects-v2-card-slot {
+          min-height: 0;
+          height: auto;
+        }
+
+        .projects-v2-card {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          height: auto;
+          min-height: 0;
+          padding: 0.85rem 1rem;
+          border-radius: 1.5rem;
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
+            radial-gradient(circle at top left, rgb(240 244 255 / 0.12), transparent 40%);
+          contain: layout style paint;
+          gap: 0.6rem;
+        }
+
+        .projects-v2-card-text {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 100%;
+          gap: 0.25rem;
+          flex: 0 0 auto;
+        }
+
+        .projects-v2-card-header-row {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.6rem;
+          width: 100%;
+        }
+
+        .projects-v2-card-header-row .projects-page-card-title {
+          margin-bottom: 0;
+          font-size: 1.15rem;
+        }
+
+        .projects-v2-card-link-mini {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 1.6rem;
+          height: 1.6rem;
+          border-radius: 50%;
+          border: 1px solid rgb(255 255 255 / 0.14);
+          background: rgb(255 255 255 / 0.08);
+          color: rgb(255 255 255 / 0.8);
+          transition: all 0.2s ease;
+        }
+
+        .projects-v2-card-link-mini:hover {
+          background: rgb(255 255 255 / 0.16);
+          border-color: rgb(255 255 255 / 0.25);
+          color: white;
+          transform: translateY(-1px);
+        }
+
+        .projects-page-card-subtitle {
+          font-size: 0.72rem;
+          font-weight: 400;
+          color: rgb(255 255 255 / 0.5);
+          line-height: 1.4;
+          max-width: 44ch;
+          margin: 0;
+        }
+
+        .projects-stats-row-inline {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 1rem;
+          margin-top: 0.15rem;
+        }
+
+        .projects-stat-item-mini {
+          display: flex;
+          align-items: baseline;
+          gap: 0.25rem;
+        }
+
+        .projects-stat-value-mini {
+          font-size: 0.68rem;
+          font-weight: 700;
+          color: rgb(255 255 255 / 0.9);
+        }
+
+        .projects-stat-label-mini {
+          font-size: 0.55rem;
+          font-weight: 600;
+          color: rgb(255 255 255 / 0.4);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+        }
+
+        .projects-v2-card-visual {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.2rem;
+          flex: 0 0 auto;
+        }
+
+        .projects-v2-card-visual-inner {
+          position: relative;
+          border-radius: 0.85rem;
+          border: 1px solid rgb(255 255 255 / 0.12);
+          background: rgb(0 0 0 / 0.2);
+          overflow: hidden;
+          box-shadow: 
+            0 8px 24px rgb(0 0 0 / 0.15),
+            inset 0 1px 0 rgb(255 255 255 / 0.08);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .projects-v2-card-img {
+          width: auto;
+          height: auto;
+          max-width: 100%;
+          max-height: 12rem;
+          object-fit: contain;
+          display: block;
+        }
+
+        .projects-v2-card-img-wash {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(180deg, transparent 70%, rgb(9 11 20 / 0.2) 100%);
+          pointer-events: none;
+        }
+
         .contact-page-shell {
           flex: 1;
           min-height: 0;
@@ -3154,6 +3452,17 @@ export function PortfolioPage() {
           .projects-page-grid {
             grid-template-columns: 1fr;
             grid-template-rows: repeat(6, minmax(0, 1fr));
+          }
+
+          .projects-page-grid-v2--four,
+          .projects-page-grid-v2--three {
+            grid-template-columns: 1fr;
+            grid-template-rows: none;
+            height: auto;
+          }
+
+          .projects-v2-card-visual {
+            max-height: 12rem;
           }
 
           .contact-page-shell {
