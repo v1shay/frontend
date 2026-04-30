@@ -187,8 +187,8 @@ const researchMLGridProjects = [
     title: "ML-Labs",
     hook: "An autonomous research lab at the tip of your fingers.",
     metrics: [
-      { stat: "19 AGENTS", label: "SYSTEM" },
-      { stat: "8 RESEARCH PHASES", label: "TRAINING" },
+      { stat: "19 AGENTS", label: "MODEL ARCHITECTURE" },
+      { stat: "8 RESEARCH PHASES", label: "SYSTEM" },
     ],
     href: "https://github.com/v1shay/ml-labs",
     linkLabel: "GitHub",
@@ -221,6 +221,7 @@ const researchMLGridProjects = [
 ] as const
 
 const agentGridProjects = [
+
   {
     title: "Vox-Agent",
     hook: "Turn your AirPods into an AI-powered note-taking system",
