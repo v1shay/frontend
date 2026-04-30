@@ -179,12 +179,11 @@ const researchProjects: readonly ResearchProject[] = [
 const portfolioGridProjects = [
   {
     title: "archLLM-sim",
-    hook: "Token optimization for long-context AI model systems, designed around real GPU limits.",
+    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines.",
     metrics: [
       { stat: "+95%", label: "ADHERENCE" },
-      { stat: "−30%", label: "HBM" },
-      { stat: "APACHE 2.0", label: "LICENSE" },
-      { stat: "BEATS", label: "RAG BASELINES" },
+      { stat: "Apache 2.0", label: "LICENSE" },
+      { stat: "-30%", label: "HBM" },
     ],
     href: "https://github.com/v1shay/archLLM-sim",
     linkLabel: "GitHub",
@@ -193,9 +192,9 @@ const portfolioGridProjects = [
     title: "Vox-Agent",
     hook: "Turn your AirPods into an AI-powered note-taking system.",
     metrics: [
-      { stat: "~2×", label: "FASTER" },
-      { stat: "SUB-1s", label: "LOOP" },
-      { stat: "REAL-TIME", label: "INSIGHT" },
+      { stat: "CoreAudio", label: "STREAM ISOLATION" },
+      { stat: "<100ms", label: "LATENCY" },
+      { stat: "CPU Optimization", label: "ALGORITHMS" },
     ],
     href: "https://github.com/v1shay/vox-agent",
     linkLabel: "GitHub",
@@ -204,9 +203,9 @@ const portfolioGridProjects = [
     title: "Sentinel-LLM",
     hook: "Production-level LLM hallucination detection, tested against top AI models.",
     metrics: [
-      { stat: "92%", label: "ACCURACY" },
-      { stat: "<10ms", label: "LATENCY" },
-      { stat: "−40%", label: "HALLUCINATIONS" },
+      { stat: "NLP", label: "PIPELINE" },
+      { stat: "Apache 2.0", label: "LICENSE" },
+      { stat: "Linear Binary", label: "CLASSIFICATION" },
     ],
     href: "https://github.com/v1shay/sentinel-LLM",
     linkLabel: "GitHub",
@@ -215,9 +214,8 @@ const portfolioGridProjects = [
     title: "Sift",
     hook: "Turns GitHub into a live, explorable universe via linear algebra.",
     metrics: [
-      { stat: "<5m", label: "RETRIEVAL" },
-      { stat: "SEMANTIC RECALL", label: "HIGH" },
       { stat: "MIT", label: "LICENSE" },
+      { stat: "Vector Embeddings", label: "RECALL" },
     ],
     href: "https://github.com/v1shay/sift",
     linkLabel: "GitHub",
@@ -227,7 +225,7 @@ const portfolioGridProjects = [
     hook: "Low-latency data analysis, right in your browser.",
     metrics: [
       { stat: "<500ms", label: "LATENCY" },
-      { stat: "EDGE", label: "EXECUTION" },
+      { stat: "Edge", label: "EXECUTION" },
       { stat: "MV3", label: "COMPLIANT" },
     ],
     href: "https://github.com/v1shay/neural-lens",
@@ -238,8 +236,6 @@ const portfolioGridProjects = [
     hook: "Shipped production-level storefronts for businesses like Taquizas Estilo Chapala.",
     metrics: [
       { stat: "+100%", label: "INCREASED TRAFFIC" },
-      { stat: "ORDERING SYSTEM", label: "FEATURES" },
-      { stat: "AUTH/DB", label: "SECURITY" },
     ],
     href: "https://taquizas-chapala.vercel.app",
     linkLabel: "Website",
