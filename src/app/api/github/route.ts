@@ -67,13 +67,36 @@ async function fetchGitHubData() {
   return data.data.user;
 }
 
-export async function GET() {
+async function fetchReadme(repoName: string) {
+  const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${repoName}/readme`, {
+    headers: {
+      Authorization: `Bearer ${GITHUB_TOKEN}`,
+      Accept: 'application/vnd.github.raw',
+    },
+    next: { revalidate: 3600 }
+  });
+
+  if (!response.ok) {
+    throw new Error(`Failed to fetch README for ${repoName}: ${response.status}`);
+  }
+
+  return await response.text();
+}
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const repo = searchParams.get('repo');
+
   try {
     if (!GITHUB_TOKEN) {
-      // Fallback or error? The user asked for live data.
-      // I'll return an error so the UI shows the error state as requested.
       return NextResponse.json({ error: 'GITHUB_TOKEN is not configured' }, { status: 500 });
     }
+
+    if (repo) {
+      const readme = await fetchReadme(repo);
+      return NextResponse.json({ readme });
+    }
+
     const user = await fetchGitHubData();
     
     // Calculate streak
@@ -87,7 +110,6 @@ export async function GET() {
       if (day.contributionCount > 0) {
         currentStreak++;
       } else {
-        // If it's today and 0, we continue checking from yesterday
         if (day.date === today) continue;
         break;
       }
@@ -121,3 +143,4 @@ export async function GET() {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }
+

@@ -73,6 +73,7 @@ import {
   Menu,
   Sparkles,
   X,
+  Loader2,
 } from "lucide-react"
 
 
@@ -105,6 +106,16 @@ type ResearchProject = {
   logoLabel: string
   accent: string
   actions: ProjectAction[]
+}
+
+type GridProject = {
+  title: string
+  hook: string
+  metrics: { stat: string; label: string }[]
+  href: string
+  linkLabel: string
+  image?: StaticImageData | null
+  gif?: string | null
 }
 
 type PillarSlide = {
@@ -677,168 +688,192 @@ function HeroSection() {
   )
 }
 
-function ResearchProjectDetailBody({ project }: { project: ResearchProject }) {
-  if (project.id === "chamtern") {
-    return (
-      <div className="research-detail-grid research-detail-grid--chamtern">
-        <div className="research-detail-visual research-detail-visual--chamtern">
-          <div className={cn("research-card-sheen bg-gradient-to-br", project.accent)} aria-hidden="true" />
-          <Image
-            src={project.image}
-            alt={`${project.title} expanded artwork`}
-            className="research-modal-image research-modal-image--contain"
-          />
-          <div className="research-modal-image-wash" aria-hidden="true" />
-        </div>
+function ReadmeViewer({ repoUrl }: { repoUrl: string }) {
+  const [readme, setReadme] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-        <div className="research-detail-copy research-detail-copy--chamtern">
-          <div className="research-modal-topline">
-            <span className="research-logo-slot research-logo-slot-large">{project.logoLabel}</span>
-            <span className="research-card-tag">Network systems internship</span>
-          </div>
-          <p className="research-mini-kicker">{project.subtitle}</p>
-          <h3 className="research-modal-title">{project.title}</h3>
-          <p className="research-modal-description">
-            Built a Substack-scale analysis engine that fused API ingestion, graph crawling, and
-            influence scoring into one research pipeline. The system mapped publication and comment
-            relationships into a queryable social graph, then surfaced patterns across tens of
-            thousands of nodes.
-          </p>
-          <div className="research-modal-stack">
-            <span className="research-stack-pill">Python</span>
-            <span className="research-stack-pill">Graph traversal</span>
-            <span className="research-stack-pill">170K+ nodes mapped</span>
-          </div>
-          <div className="research-detail-note">
-            I implemented endpoint ingestion, BFS traversal, and ranking logic so the crawler could
-            expand faster, attribute comment edges correctly, and produce cleaner influence metrics for
-            trend discovery.
-          </div>
-        </div>
+  useEffect(() => {
+    const fetchReadme = async () => {
+      try {
+        const repoName = repoUrl.split("/").pop()
+        if (!repoName) throw new Error("Invalid repo URL")
+        
+        const res = await fetch(`/api/github?repo=${repoName}`)
+        if (!res.ok) throw new Error("Failed to fetch")
+        
+        const data = await res.json()
+        setReadme(data.readme)
+      } catch (err) {
+        setError("Could not load README")
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchReadme()
+  }, [repoUrl])
+
+  if (loading) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20 gap-4 opacity-50">
+        <Loader2 className="h-8 w-8 animate-spin text-white" />
+        <p className="text-[10px] uppercase tracking-[0.2em] font-mono font-bold text-white/40">Fetching Source...</p>
       </div>
     )
   }
 
-  if (project.id === "neuro-sense") {
+  if (error || !readme) {
     return (
-      <div className="research-detail-grid research-detail-grid--neuro">
-        <div className="research-detail-copy research-detail-copy--neuro">
-          <div className="research-modal-topline">
-            <span className="research-logo-slot research-logo-slot-large">{project.logoLabel}</span>
-            <span className="research-card-tag">Published ML work</span>
-          </div>
-          <p className="research-mini-kicker">{project.subtitle}</p>
-          <h3 className="research-modal-title">{project.title}</h3>
-          <p className="research-modal-description">
-            Neuro-Sense used speech features and structured biomarkers to estimate early neurological
-            risk. The pipeline centered on signal cleaning, classical model selection, and interpretable
-            validation so the results were understandable rather than just high-scoring.
-          </p>
-          <div className="research-modal-stack">
-            <span className="research-stack-pill">Audio features</span>
-            <span className="research-stack-pill">Classical ML</span>
-            <span className="research-stack-pill">91% validation accuracy</span>
-          </div>
-          <div className="research-detail-note">
-            The final system combined preprocessing, feature extraction, and evaluation into a single
-            reproducible workflow that later supported a peer-reviewed publication.
-          </div>
-        </div>
-
-        <div className="research-detail-rail">
-          <div className="research-detail-visual research-detail-visual--neuro">
-            <div className={cn("research-card-sheen bg-gradient-to-br", project.accent)} aria-hidden="true" />
-            <Image
-              src={project.image}
-              alt={`${project.title} expanded artwork`}
-              className="research-modal-image research-modal-image--contain"
-            />
-            <div className="research-modal-image-wash" aria-hidden="true" />
-          </div>
-          <div className="research-detail-stat-card">
-            <span className="research-detail-stat-label">System focus</span>
-            <span className="research-detail-stat-value">
-              Reliable screening logic with interpretable outputs and reproducible validation.
-            </span>
-          </div>
-        </div>
+      <div className="py-20 text-center opacity-40">
+        <p className="text-sm font-mono">{error || "No README found"}</p>
       </div>
     )
   }
 
-  if (project.id === "phytovision") {
-    return (
-      <div className="research-detail-grid research-detail-grid--phytovision">
-        <div className="research-detail-visual research-detail-visual--phytovision">
-          <div className={cn("research-card-sheen bg-gradient-to-br", project.accent)} aria-hidden="true" />
-          <Image
-            src={project.image}
-            alt={`${project.title} expanded artwork`}
-            className="research-modal-image research-modal-image--contain"
-          />
-          <div className="research-modal-image-wash" aria-hidden="true" />
-        </div>
+  const renderContent = (text: string) => {
+    const lines = text.split('\n');
+    const elements: React.ReactNode[] = [];
+    let inCodeBlock = false;
+    let codeContent: string[] = [];
 
-        <div className="research-detail-copy research-detail-copy--phytovision">
-          <div className="research-modal-topline">
-            <span className="research-logo-slot research-logo-slot-large">{project.logoLabel}</span>
-            <span className="research-card-tag">Computer vision research</span>
-          </div>
-          <p className="research-mini-kicker">{project.subtitle}</p>
-          <h3 className="research-modal-title">{project.title}</h3>
-          <p className="research-modal-description">
-            Phyto-Vision focused on plant disease recognition through image-based learning. I trained
-            and tuned the detection workflow around large image datasets, then shaped the results into a
-            system that could support real greenhouse usage rather than just a classroom demo.
-          </p>
-          <div className="research-modal-stack">
-            <span className="research-stack-pill">CNNs</span>
-            <span className="research-stack-pill">Transfer learning</span>
-            <span className="research-stack-pill">95% validation accuracy</span>
-          </div>
-          <div className="research-detail-note">
-            The project was later presented to UCSC researchers, with the strongest emphasis on image
-            quality, dataset structure, and deployment-oriented model confidence.
-          </div>
-        </div>
-      </div>
-    )
+    const formatText = (t: string) => {
+      // Strip common HTML tags
+      let clean = t.replace(/<[^>]*>?/gm, '');
+      
+      // Basic formatting: **bold**, [link](url), `code`
+      const parts = clean.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\)|`.*?`)/g);
+      return parts.map((part, index) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          return <strong key={index} className="text-white font-bold">{part.slice(2, -2)}</strong>;
+        }
+        if (part.startsWith('`') && part.endsWith('`')) {
+          return <code key={index} className="bg-white/10 px-1.5 py-0.5 rounded text-emerald-400 font-mono text-xs">{part.slice(1, -1)}</code>;
+        }
+        if (part.startsWith('[') && part.includes('](')) {
+          const match = part.match(/\[(.*?)\]\((.*?)\)/);
+          if (match) {
+            return <a key={index} href={match[2]} target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline decoration-emerald-400/30 underline-offset-4">{match[1]}</a>;
+          }
+        }
+        return part;
+      });
+    };
+
+    lines.forEach((line, i) => {
+      if (line.startsWith('```')) {
+        if (inCodeBlock) {
+          elements.push(
+            <pre key={`code-${i}`} className="bg-black/30 p-5 rounded-xl my-6 overflow-x-auto border border-white/10 font-mono text-xs leading-relaxed text-emerald-400/90 shadow-2xl">
+              <code>{codeContent.join('\n')}</code>
+            </pre>
+          );
+          codeContent = [];
+          inCodeBlock = false;
+        } else {
+          inCodeBlock = true;
+        }
+        return;
+      }
+
+      if (inCodeBlock) {
+        codeContent.push(line);
+        return;
+      }
+
+      const trimLine = line.trim();
+      if (line.startsWith('# ')) {
+        elements.push(<h1 key={i} className="text-4xl font-bold mt-10 mb-6 text-white font-display-serif tracking-tight">{formatText(line.slice(2))}</h1>);
+      } else if (line.startsWith('## ')) {
+        elements.push(<h2 key={i} className="text-2xl font-bold mt-10 mb-5 text-white/90 border-b border-white/10 pb-3 tracking-tight">{formatText(line.slice(3))}</h2>);
+      } else if (line.startsWith('### ')) {
+        elements.push(<h3 key={i} className="text-xl font-bold mt-8 mb-4 text-white/80 tracking-tight">{formatText(line.slice(4))}</h3>);
+      } else if (line.startsWith('- ') || line.startsWith('* ')) {
+        elements.push(<li key={i} className="ml-6 mb-3 text-white/70 list-disc marker:text-emerald-500/50 pl-2">{formatText(line.slice(2))}</li>);
+      } else if (/^\d+\. /.test(line)) {
+        elements.push(<li key={i} className="ml-6 mb-3 text-white/70 list-decimal marker:text-emerald-500/50 pl-2">{formatText(line.replace(/^\d+\. /, ''))}</li>);
+      } else if (trimLine === '') {
+        elements.push(<div key={i} className="h-4" />);
+      } else {
+        elements.push(<p key={i} className="mb-5 text-white/70 leading-relaxed text-[1.05rem] font-medium">{formatText(line)}</p>);
+      }
+    });
+
+    return elements;
   }
 
   return (
-    <div className="research-detail-grid research-detail-grid--sentinel">
-      <div className="research-detail-copy research-detail-copy--sentinel">
-        <div className="research-modal-topline">
-          <span className="research-logo-slot research-logo-slot-large">{project.logoLabel}</span>
-          <span className="research-card-tag">Voice-powered AI</span>
-        </div>
-        <p className="research-mini-kicker">{project.subtitle}</p>
-        <h3 className="research-modal-title">{project.title}</h3>
-        <p className="research-modal-description">
-          Echo-OS is an autonomous voice-operating system that executes computer workflows visually and intelligently. By utilizing large language models and ChromaDB memory retrieval, the system completes complex multi-step application interactions entirely through conversational audio.
-        </p>
-        <div className="research-modal-stack">
-          <span className="research-stack-pill">Vector Database</span>
-          <span className="research-stack-pill">Speech-to-Text</span>
-          <span className="research-stack-pill">LLM Interaction</span>
-        </div>
-        <div className="research-detail-note">
-          Our team won 1st Place out of 120 competitors at the ElevenLabs Raven Hacks Hackathon by engineering robust real-time interaction logic that bridges auditory commands with visual execution.
-        </div>
+    <div className="readme-content font-sans overflow-y-auto max-h-[70vh] pr-6 custom-scrollbar pb-10">
+      <div className="flex items-center gap-3 mb-10 px-4 py-2 rounded-full bg-emerald-500/5 border border-emerald-500/10 w-fit">
+        <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_rgba(52,211,153,0.5)]" />
+        <span className="text-[10px] uppercase tracking-[0.25em] text-emerald-400/80 font-mono font-black">Live Repository Sync</span>
       </div>
-
-      <div className="research-detail-visual research-detail-visual--sentinel">
-        <div className={cn("research-card-sheen bg-gradient-to-br", project.accent)} aria-hidden="true" />
-        <Image
-          src={project.image}
-          alt={`${project.title} expanded artwork`}
-          className="research-modal-image research-modal-image--contain"
-        />
-        <div className="research-modal-image-wash" aria-hidden="true" />
+      <div className="prose-like-styles">
+        {renderContent(readme)}
       </div>
     </div>
   )
 }
+
+
+function ResearchProjectDetailBody({ project }: { project: ResearchProject }) {
+  const githubAction = project.actions.find(a => a.kind === "github")
+  
+  return (
+    <div className="research-modal-strictly-readme">
+      <div className="flex flex-col md:flex-row gap-8">
+        {/* Sidebar with project info */}
+        <div className="md:w-1/3 space-y-6">
+          <div className="research-modal-topline">
+            <span className="research-logo-slot research-logo-slot-large">{project.logoLabel}</span>
+            <span className="research-card-tag">{project.subtitle}</span>
+          </div>
+          
+          <h3 className="research-modal-title text-4xl">{project.title}</h3>
+          <p className="research-modal-description text-lg opacity-80">{project.hook}</p>
+          
+          <div className="projects-stats-grid !justify-start !gap-6">
+            {project.metrics.map((m, i) => (
+              <div key={i} className="projects-stat-item !items-start">
+                <span className="projects-stat-value !text-2xl">{m.stat}</span>
+                <span className="projects-stat-label">{m.label}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="research-card-actions !justify-start !mt-10">
+            {project.actions.map((action) => (
+              <a
+                key={action.label}
+                href={action.href ? toExternalHref(action.href) : "#"}
+                target="_blank"
+                rel="noreferrer"
+                className={cn(
+                  "research-card-action !px-6 !py-3 !text-sm",
+                  action.disabled && "research-card-action-disabled"
+                )}
+              >
+                {action.label}
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            ))}
+          </div>
+        </div>
+
+        {/* README Content */}
+        <div className="md:w-2/3 border-t md:border-t-0 md:border-l border-white/10 pt-8 md:pt-0 md:pl-10">
+          {githubAction?.href ? (
+            <ReadmeViewer repoUrl={githubAction.href} />
+          ) : (
+            <div className="py-20 text-center opacity-40">
+              <p className="text-sm font-mono">No GitHub repository linked for this project.</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 
 function ResearchShowcase() {
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null)
@@ -1229,6 +1264,7 @@ function ProjectGridSection() {
   const isInView = useInView(ref, { amount: 0.15, once: true })
   const { setPaused } = useShaderPalette()
   const [activeTab, setActiveTab] = useState<"agents" | "research">("agents")
+  const [activeGridProject, setActiveGridProject] = useState<GridProject | null>(null)
 
   useEffect(() => {
     setPaused(isInView)
@@ -1276,21 +1312,29 @@ function ProjectGridSection() {
                 {activeProjects.map((project) => (
                   <div key={project.title} className="projects-v2-card-slot">
                     <article
-                      role="listitem"
-                      className="projects-v2-card projects-page-card-optimized"
+                      role="button"
+                      tabIndex={0}
+                      className="projects-v2-card projects-page-card-optimized cursor-pointer"
+                      onClick={() => setActiveGridProject(project as any)}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault()
+                          setActiveGridProject(project as any)
+                        }
+                      }}
                     >
                       <div className="projects-v2-card-text">
                         <div className="projects-v2-card-header-row">
                           <h3 className="projects-page-card-title">{project.title}</h3>
-                          <a
-                            href={project.href}
-                            target="_blank"
-                            rel="noreferrer"
+                          <div
                             className="projects-v2-card-link-mini"
-                            aria-label={`View ${project.title}`}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(project.href, '_blank', 'noreferrer');
+                            }}
                           >
                             <ExternalLink className="h-3 w-3" />
-                          </a>
+                          </div>
                         </div>
 
                         <p className="projects-page-card-subtitle">{project.hook}</p>
@@ -1328,6 +1372,87 @@ function ProjectGridSection() {
                   </div>
                 ))}
               </motion.div>
+            </AnimatePresence>
+
+            {/* Grid Project Modal */}
+            <AnimatePresence>
+              {activeGridProject && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="research-modal-backdrop"
+                  onClick={() => setActiveGridProject(null)}
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(10px)" }}
+                    transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+                    className="research-modal liquid-panel max-w-4xl"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <button
+                      type="button"
+                      className="research-modal-close"
+                      aria-label="Close project detail"
+                      onClick={() => setActiveGridProject(null)}
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+
+                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-8 p-4">
+                      <div className="space-y-6">
+                        <div className="projects-v2-card-visual-inner rounded-2xl overflow-hidden border border-white/10 aspect-video md:aspect-square">
+                           {activeGridProject.gif ? (
+                              <img src={activeGridProject.gif} alt={activeGridProject.title} className="w-full h-full object-cover" />
+                           ) : activeGridProject.image ? (
+                              <Image src={activeGridProject.image} alt={activeGridProject.title} className="w-full h-full object-cover" />
+                           ) : (
+                              <div className="w-full h-full bg-white/5 flex items-center justify-center">
+                                <Sparkles className="h-10 w-10 text-white/20" />
+                              </div>
+                           )}
+                        </div>
+
+                        <div className="space-y-4">
+                          <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title}</h2>
+                          <p className="text-white/60 leading-relaxed">{activeGridProject.hook}</p>
+                          
+                          <div className="flex flex-wrap gap-4 pt-2">
+                             {activeGridProject.metrics.map((m, i) => (
+                               <div key={i} className="flex flex-col">
+                                 <span className="text-xl font-bold text-white">{m.stat}</span>
+                                 <span className="text-[10px] uppercase tracking-widest text-white/40">{m.label}</span>
+                               </div>
+                             ))}
+                          </div>
+
+                          <a 
+                            href={activeGridProject.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-black text-xs font-bold uppercase tracking-widest hover:bg-white/90 transition-colors"
+                          >
+                            View on {activeGridProject.linkLabel}
+                            <ExternalLink className="h-3.5 w-3.5" />
+                          </a>
+                        </div>
+                      </div>
+
+                      <div className="md:border-l md:border-white/5 md:pl-8">
+                        {activeGridProject.href.includes("github.com") ? (
+                          <ReadmeViewer repoUrl={activeGridProject.href} />
+                        ) : (
+                          <div className="py-20 text-center opacity-40">
+                             <p className="text-sm font-mono">Extended description available on website</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              )}
             </AnimatePresence>
           </div>
 
