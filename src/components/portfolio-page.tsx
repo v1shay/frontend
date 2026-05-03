@@ -4,6 +4,7 @@ import Image, { type StaticImageData } from "next/image"
 
 // ── Hero ──────────────────────────────────────────────────────────────────────
 import heroImage from "../../images/hero.jpeg"
+import githubProgramLogo from "../../images/GitHub_Invertocat_Black_Clearspace.png"
 
 // ── Research / ML projects ────────────────────────────────────────────────────
 import neurosense from "../../images/neuro.png"                          // NeuroSense confusion-matrix paper figure
@@ -434,6 +435,49 @@ function SectionShell({
   )
 }
 
+function GitHubBanner({ isVisible }: { isVisible: boolean }) {
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div 
+          initial={{ opacity: 0, y: -20, scale: 0.95, filter: "blur(10px)" }}
+          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+          exit={{ opacity: 0, y: -20, scale: 0.95, filter: "blur(10px)" }}
+          transition={{ 
+            duration: 0.5, 
+            ease: [0.22, 1, 0.36, 1],
+            delay: isVisible ? 0.8 : 0 
+          }}
+          className="github-banner-wrap"
+        >
+          <div className="liquid-panel github-banner github-banner-notification">
+            <div className="github-banner-content">
+              <div className="github-banner-left">
+                <div className="github-banner-icon github-banner-icon-glow">
+                  <Image 
+                    src={githubProgramLogo} 
+                    alt="GitHub" 
+                    width={14} 
+                    height={14}
+                    className="github-banner-logo invert brightness-200"
+                  />
+                </div>
+                <p className="github-banner-text">
+                  This website has integration with GitHub as part of the GitHub Developer Program
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
+                <ArrowRight className="h-3 w-3 text-white/50" />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
 function StickyNavbar() {
   const activeSection = useActiveSection(navItems.map((item) => item.id))
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -486,6 +530,8 @@ function StickyNavbar() {
           </button>
         </div>
       </div>
+
+      <GitHubBanner isVisible={activeSection === "hero"} />
 
       <motion.div
         initial={false}
@@ -1551,6 +1597,80 @@ export function PortfolioPage() {
           border-bottom: 1px solid rgb(255 255 255 / 0.08);
           backdrop-filter: blur(26px) saturate(140%);
           background: linear-gradient(180deg, rgb(7 10 19 / 0.34), rgb(7 10 19 / 0.12));
+        }
+
+        .github-banner-wrap {
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          padding: 0.75rem 1.5rem;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          pointer-events: none;
+          z-index: 20;
+        }
+
+        .github-banner {
+          pointer-events: auto;
+          max-width: 600px;
+          width: 100%;
+          padding: 0.5rem 1.25rem;
+          border-radius: 999px;
+          background: linear-gradient(180deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.05));
+          backdrop-filter: blur(16px) saturate(120%);
+          border: 1px solid rgb(255 255 255 / 0.16);
+          box-shadow: 
+            0 8px 32px rgb(0 0 0 / 0.2),
+            0 0 20px rgb(255 255 255 / 0.03);
+          transition: transform 0.2s ease;
+        }
+
+        .github-banner:hover {
+          transform: scale(1.02);
+          border-color: rgb(255 255 255 / 0.25);
+        }
+
+        .github-banner-icon-glow {
+          position: relative;
+          background: rgb(16 185 129 / 0.1) !important;
+          border-color: rgb(16 185 129 / 0.2) !important;
+          box-shadow: 0 0 10px rgb(16 185 129 / 0.2);
+        }
+
+        .github-banner-content {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+        }
+
+        .github-banner-left {
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+        }
+
+        .github-banner-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 1.6rem;
+          height: 1.6rem;
+          background: rgb(255 255 255 / 0.06);
+          border-radius: 50%;
+          border: 1px solid rgb(255 255 255 / 0.14);
+          flex-shrink: 0;
+        }
+
+        .github-banner-text {
+          font-size: 0.68rem;
+          font-weight: 600;
+          color: rgb(255 255 255 / 0.95);
+          letter-spacing: 0.02em;
+          font-family: var(--font-body-luxury);
+          text-shadow: 0 2px 4px rgb(0 0 0 / 0.3);
         }
 
         .nav-links {
