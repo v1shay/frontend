@@ -3,6 +3,27 @@ import { NextResponse } from 'next/server';
 const GITHUB_USERNAME = process.env.GITHUB_USERNAME || 'v1shay';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
+type ContributionDay = {
+  contributionCount: number;
+  date: string;
+};
+
+type ContributionWeek = {
+  contributionDays: ContributionDay[];
+};
+
+type RepositoryNode = {
+  name: string;
+  description: string | null;
+  stargazerCount: number;
+  forkCount: number;
+  languages: {
+    nodes: { name: string }[];
+  };
+  updatedAt: string;
+  url: string;
+};
+
 async function fetchGitHubData() {
   const query = `
     query($username: String!) {
@@ -101,7 +122,9 @@ export async function GET(request: Request) {
     
     // Calculate streak
     const calendar = user.contributionsCollection.contributionCalendar;
-    const allDays = calendar.weeks.flatMap((w: any) => w.contributionDays).sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
+    const allDays = calendar.weeks
+      .flatMap((week: ContributionWeek) => week.contributionDays)
+      .sort((a: ContributionDay, b: ContributionDay) => new Date(b.date).getTime() - new Date(a.date).getTime());
     
     let currentStreak = 0;
     const today = new Date().toISOString().split('T')[0];
@@ -124,7 +147,7 @@ export async function GET(request: Request) {
       repoCount: user.repositories.totalCount,
       totalContributions: calendar.totalContributions,
       currentStreak,
-      recentRepos: user.repositories.nodes.slice(0, 6).map((repo: any) => ({
+      recentRepos: user.repositories.nodes.slice(0, 6).map((repo: RepositoryNode) => ({
         name: repo.name,
         description: repo.description,
         stars: repo.stargazerCount,
@@ -133,9 +156,9 @@ export async function GET(request: Request) {
         updatedAt: repo.updatedAt,
         url: repo.url
       })),
-      contributionCalendar: calendar.weeks.map((w: any) => w.contributionDays.map((d: any) => ({
-        count: d.contributionCount,
-        date: d.date
+      contributionCalendar: calendar.weeks.map((week: ContributionWeek) => week.contributionDays.map((day: ContributionDay) => ({
+        count: day.contributionCount,
+        date: day.date
       })))
     });
   } catch (error) {
@@ -143,4 +166,3 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: (error as Error).message }, { status: 500 });
   }
 }
-

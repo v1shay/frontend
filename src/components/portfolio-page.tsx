@@ -194,7 +194,7 @@ const researchProjects: readonly ResearchProject[] = [
   },
 ] as const
 
-const researchMLGridProjects = [
+const researchMLGridProjects: readonly GridProject[] = [
   {
     title: "ML-Labs",
     hook: "An autonomous research lab at the tip of your fingers.",
@@ -232,7 +232,7 @@ const researchMLGridProjects = [
   },
 ] as const
 
-const agentGridProjects = [
+const agentGridProjects: readonly GridProject[] = [
 
   {
     title: "Vox-Agent",
@@ -257,7 +257,7 @@ const agentGridProjects = [
     href: "https://github.com/v1shay/sift",
     linkLabel: "GitHub",
     image: null as StaticImageData | null,
-    gif: "/images/Screen Recording 2026-04-28 at 6.13.46 PM.gif",
+    gif: "/images/sift-demo.gif",
   },
   {
     title: "Neural-Lens",
@@ -784,7 +784,7 @@ function ReadmeViewer({ repoUrl }: { repoUrl: string }) {
 
     const formatText = (t: string) => {
       // Strip common HTML tags
-      let clean = t.replace(/<[^>]*>?/gm, '');
+      const clean = t.replace(/<[^>]*>?/gm, '');
 
       // Basic formatting: **bold**, [link](url), `code`
       const parts = clean.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\)|`.*?`)/g);
@@ -1361,11 +1361,11 @@ function ProjectGridSection() {
                       role="button"
                       tabIndex={0}
                       className="projects-v2-card projects-page-card-optimized cursor-pointer"
-                      onClick={() => setActiveGridProject(project as any)}
+                      onClick={() => setActiveGridProject(project)}
                       onKeyDown={(event) => {
                         if (event.key === "Enter" || event.key === " ") {
                           event.preventDefault()
-                          setActiveGridProject(project as any)
+                          setActiveGridProject(project)
                         }
                       }}
                     >
