@@ -257,7 +257,7 @@ const agentGridProjects = [
     href: "https://github.com/v1shay/sift",
     linkLabel: "GitHub",
     image: null as StaticImageData | null,
-    gif: "/images/other_projects/Convert to GIF project (1).gif",
+    gif: "/images/Screen Recording 2026-04-28 at 6.13.46 PM.gif",
   },
   {
     title: "Neural-Lens",
@@ -439,14 +439,14 @@ function GitHubBanner({ isVisible }: { isVisible: boolean }) {
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20, scale: 0.95, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
           exit={{ opacity: 0, y: -20, scale: 0.95, filter: "blur(10px)" }}
-          transition={{ 
-            duration: 0.5, 
+          transition={{
+            duration: 0.5,
             ease: [0.22, 1, 0.36, 1],
-            delay: isVisible ? 0.8 : 0 
+            delay: isVisible ? 0.8 : 0
           }}
           className="github-banner-wrap"
         >
@@ -454,10 +454,10 @@ function GitHubBanner({ isVisible }: { isVisible: boolean }) {
             <div className="github-banner-content">
               <div className="github-banner-left">
                 <div className="github-banner-icon github-banner-icon-glow">
-                  <Image 
-                    src={githubProgramLogo} 
-                    alt="GitHub" 
-                    width={14} 
+                  <Image
+                    src={githubProgramLogo}
+                    alt="GitHub"
+                    width={14}
                     height={14}
                     className="github-banner-logo invert brightness-200"
                   />
@@ -744,10 +744,10 @@ function ReadmeViewer({ repoUrl }: { repoUrl: string }) {
       try {
         const repoName = repoUrl.split("/").pop()
         if (!repoName) throw new Error("Invalid repo URL")
-        
+
         const res = await fetch(`/api/github?repo=${repoName}`)
         if (!res.ok) throw new Error("Failed to fetch")
-        
+
         const data = await res.json()
         setReadme(data.readme)
       } catch (err) {
@@ -785,7 +785,7 @@ function ReadmeViewer({ repoUrl }: { repoUrl: string }) {
     const formatText = (t: string) => {
       // Strip common HTML tags
       let clean = t.replace(/<[^>]*>?/gm, '');
-      
+
       // Basic formatting: **bold**, [link](url), `code`
       const parts = clean.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\)|`.*?`)/g);
       return parts.map((part, index) => {
@@ -863,7 +863,7 @@ function ReadmeViewer({ repoUrl }: { repoUrl: string }) {
 
 function ResearchProjectDetailBody({ project }: { project: ResearchProject }) {
   const githubAction = project.actions.find(a => a.kind === "github")
-  
+
   return (
     <div className="research-modal-strictly-readme">
       <div className="flex flex-col md:flex-row gap-8">
@@ -873,10 +873,10 @@ function ResearchProjectDetailBody({ project }: { project: ResearchProject }) {
             <span className="research-logo-slot research-logo-slot-large">{project.logoLabel}</span>
             <span className="research-card-tag">{project.subtitle}</span>
           </div>
-          
+
           <h3 className="research-modal-title text-4xl">{project.title}</h3>
           <p className="research-modal-description text-lg opacity-80">{project.hook}</p>
-          
+
           <div className="projects-stats-grid !justify-start !gap-6">
             {project.metrics.map((m, i) => (
               <div key={i} className="projects-stat-item !items-start">
@@ -1375,8 +1375,8 @@ function ProjectGridSection() {
                           <div
                             className="projects-v2-card-link-mini"
                             onClick={(e) => {
-                                e.stopPropagation();
-                                window.open(project.href, '_blank', 'noreferrer');
+                              e.stopPropagation();
+                              window.open(project.href, '_blank', 'noreferrer');
                             }}
                           >
                             <ExternalLink className="h-3 w-3" />
@@ -1450,31 +1450,31 @@ function ProjectGridSection() {
                     <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-8 p-4">
                       <div className="space-y-6">
                         <div className="projects-v2-card-visual-inner rounded-2xl overflow-hidden border border-white/10 aspect-video md:aspect-square">
-                           {activeGridProject.gif ? (
-                              <img src={activeGridProject.gif} alt={activeGridProject.title} className="w-full h-full object-cover" />
-                           ) : activeGridProject.image ? (
-                              <Image src={activeGridProject.image} alt={activeGridProject.title} className="w-full h-full object-cover" />
-                           ) : (
-                              <div className="w-full h-full bg-white/5 flex items-center justify-center">
-                                <Sparkles className="h-10 w-10 text-white/20" />
-                              </div>
-                           )}
+                          {activeGridProject.gif ? (
+                            <img src={activeGridProject.gif} alt={activeGridProject.title} className="w-full h-full object-cover" />
+                          ) : activeGridProject.image ? (
+                            <Image src={activeGridProject.image} alt={activeGridProject.title} className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full bg-white/5 flex items-center justify-center">
+                              <Sparkles className="h-10 w-10 text-white/20" />
+                            </div>
+                          )}
                         </div>
 
                         <div className="space-y-4">
                           <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title}</h2>
                           <p className="text-white/60 leading-relaxed">{activeGridProject.hook}</p>
-                          
+
                           <div className="flex flex-wrap gap-4 pt-2">
-                             {activeGridProject.metrics.map((m, i) => (
-                               <div key={i} className="flex flex-col">
-                                 <span className="text-xl font-bold text-white">{m.stat}</span>
-                                 <span className="text-[10px] uppercase tracking-widest text-white/40">{m.label}</span>
-                               </div>
-                             ))}
+                            {activeGridProject.metrics.map((m, i) => (
+                              <div key={i} className="flex flex-col">
+                                <span className="text-xl font-bold text-white">{m.stat}</span>
+                                <span className="text-[10px] uppercase tracking-widest text-white/40">{m.label}</span>
+                              </div>
+                            ))}
                           </div>
 
-                          <a 
+                          <a
                             href={activeGridProject.href}
                             target="_blank"
                             rel="noreferrer"
@@ -1491,7 +1491,7 @@ function ProjectGridSection() {
                           <ReadmeViewer repoUrl={activeGridProject.href} />
                         ) : (
                           <div className="py-20 text-center opacity-40">
-                             <p className="text-sm font-mono">Extended description available on website</p>
+                            <p className="text-sm font-mono">Extended description available on website</p>
                           </div>
                         )}
                       </div>
