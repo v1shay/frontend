@@ -298,9 +298,7 @@ const forFunProjects = [
   {
     title: "Basketball",
     hook: "Member of the Lynbrook High School freshman basketball team",
-    metrics: [
-      {},
-    ],
+    metrics: [],
     href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
     linkLabel: "Athletics",
     image: lynbrookTeamPhoto,
@@ -308,9 +306,7 @@ const forFunProjects = [
   {
     title: "TaeKwonDo Mentor",
     hook: "Earned 1st-degree black belt; mentored junior students in technique, sparring, and discipline",
-    metrics: [
-      {},
-    ],
+    metrics: [],
     href: "",
     linkLabel: "Martial Arts",
     image: tkdDojanGroupPhoto,
@@ -318,9 +314,7 @@ const forFunProjects = [
   {
     title: "Athletes4Others Coach",
     hook: "Coached students in community service initiatives, coordinating outreach and volunteer activities",
-    metrics: [
-      {},
-    ],
+    metrics: [],
     href: "",
     linkLabel: "Outreach",
     image: cs,
@@ -1372,11 +1366,11 @@ function ProjectGridSection() {
                       role="button"
                       tabIndex={0}
                       className="projects-v2-card projects-page-card-optimized cursor-pointer"
-                      onClick={() => setActiveGridProject(project)}
+                      onClick={() => setActiveGridProject(project as any)}
                       onKeyDown={(event) => {
                         if (event.key === "Enter" || event.key === " ") {
                           event.preventDefault()
-                          setActiveGridProject(project)
+                          setActiveGridProject(project as any)
                         }
                       }}
                     >
