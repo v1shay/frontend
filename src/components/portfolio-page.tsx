@@ -24,6 +24,8 @@ import basketballLogo from "../../images/image copy 22.png"
 import hackathonLogo from "../../images/image copy 28.png"
 import projectLogo from "../../images/image copy 20.png"
 import contactImage from "../../images/contact.jpeg"
+import spotify from "../../images/other_projects/spotify.png"
+import obsidian from "../../images/other_projects/obsidian.png"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
 import tkdBlockBreaking from "../../images/tkd.png"                      // Vishay breaking concrete blocks at belt test
@@ -87,6 +89,7 @@ const navItems = [
   { id: "research", label: "Research & Projects" },
   { id: "experience", label: "Clubs & Non-profit Work" },
   { id: "projects-grid", label: "Other Projects" },
+  { id: "for-fun", label: "For Fun" },
   { id: "contact", label: "Contact" },
 ] as const
 
@@ -181,7 +184,7 @@ const researchProjects: readonly ResearchProject[] = [
     id: "echo-os",
     title: "Echo-OS",
     subtitle: "ElevenLabs 2026 Hackathon Winner | March 2026",
-    hook: "Built an autonomous voice agent, winning an ElevenLabs-backed hackathon.",
+    hook: "Built an autonomous voice agent, winning an ElevenLabs-backed hackathon",
     metrics: [
       { stat: "1ST", label: "PLACE" },
       { stat: "120+", label: "TEAMS" },
@@ -194,46 +197,7 @@ const researchProjects: readonly ResearchProject[] = [
   },
 ] as const
 
-const researchMLGridProjects: readonly GridProject[] = [
-  {
-    title: "ML-Labs",
-    hook: "An autonomous research lab at the tip of your fingers.",
-    metrics: [
-      { stat: "19 AGENTS", label: "MODEL ARCHITECTURE" },
-      { stat: "8 RESEARCH PHASES", label: "SYSTEM" },
-    ],
-    href: "https://github.com/v1shay/ml-labs",
-    linkLabel: "GitHub",
-    image: mlLabsIcon,
-  },
-  {
-    title: "archLLM-sim",
-    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines",
-    metrics: [
-      { stat: "+95%", label: "ADHERENCE" },
-      { stat: "Apache 2.0", label: "LICENSE" },
-      { stat: "-30%", label: "HBM" },
-    ],
-    href: "https://github.com/v1shay/archLLM-sim",
-    linkLabel: "GitHub",
-    image: archLlmScreenshot,
-  },
-  {
-    title: "Sentinel-LLM",
-    hook: "Production-level LLM hallucination detection, tested against top AI models",
-    metrics: [
-      { stat: "NLP", label: "PIPELINE" },
-      { stat: "Apache 2.0", label: "LICENSE" },
-      { stat: "Linear Binary", label: "CLASSIFICATION" },
-    ],
-    href: "https://github.com/v1shay/sentinel-LLM",
-    linkLabel: "GitHub",
-    image: sentinelLlmChart,
-  },
-] as const
-
-const agentGridProjects: readonly GridProject[] = [
-
+const portfolioProjects = [
   {
     title: "Vox-Agent",
     hook: "Turn your AirPods into an AI-powered note-taking system",
@@ -260,8 +224,31 @@ const agentGridProjects: readonly GridProject[] = [
     gif: "/images/sift-demo.gif",
   },
   {
+    title: "ML-Labs",
+    hook: "An autonomous research lab at the tip of your fingers",
+    metrics: [
+      { stat: "19 AGENTS", label: "MODEL ARCHITECTURE" },
+      { stat: "8 RESEARCH PHASES", label: "SYSTEM" },
+    ],
+    href: "https://github.com/v1shay/ml-labs",
+    linkLabel: "GitHub",
+    image: null as StaticImageData | null,
+    gif: "/images/other_projects/mllabs.gif",
+  },
+  {
+    title: "Freelance Development",
+    hook: "Shipped production-level storefronts for local businesses",
+    metrics: [
+      { stat: "+100%", label: "INCREASED TRAFFIC" },
+    ],
+    href: "https://taquizas-chapala.vercel.app",
+    linkLabel: "Website",
+    image: null as StaticImageData | null,
+    gif: "/images/other_projects/Convert to GIF project.gif",
+  },
+  {
     title: "Neural-Lens",
-    hook: "Low-latency data analysis, right in your browser.",
+    hook: "Low-latency data analysis, right in your browser",
     metrics: [
       { stat: "<500ms", label: "LATENCY" },
       { stat: "Edge", label: "EXECUTION" },
@@ -273,15 +260,86 @@ const agentGridProjects: readonly GridProject[] = [
     gif: "/images/other_projects/Adobe Express - neurallens (1).gif",
   },
   {
-    title: "Freelance Frontend Dev",
-    hook: "Shipped production-level storefronts for local businesses",
+    title: "archLLM-sim",
+    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines",
     metrics: [
-      { stat: "+100%", label: "INCREASED TRAFFIC" },
+      { stat: "+95%", label: "ADHERENCE" },
+      { stat: "Apache 2.0", label: "LICENSE" },
+      { stat: "-30%", label: "HBM" },
     ],
-    href: "https://taquizas-chapala.vercel.app",
-    linkLabel: "Website",
-    image: null as StaticImageData | null,
-    gif: "/images/other_projects/Convert to GIF project.gif",
+    href: "https://github.com/v1shay/archLLM-sim",
+    linkLabel: "GitHub",
+    image: archLlmScreenshot,
+  },
+  {
+    title: "Sentinel-LLM",
+    hook: "Production-level LLM hallucination detection, tested against top AI models",
+    metrics: [
+      { stat: "NLP", label: "PIPELINE" },
+      { stat: "Apache 2.0", label: "LICENSE" },
+      { stat: "Linear Binary", label: "CLASSIFICATION" },
+    ],
+    href: "https://github.com/v1shay/sentinel-LLM",
+    linkLabel: "GitHub",
+    image: sentinelLlmChart,
+  },
+  {
+    title: "AlgoType",
+    hook: "USACO and LeetCode code typing practice with global leaderboards/custom syntax",
+    metrics: [],
+    href: "https://github.com/v1shay/algo-type",
+    linkLabel: "GitHub",
+    image: null as string | null,
+    gif: "/images/other_projects/algotype.gif",
+  },
+] as const
+
+const forFunProjects = [
+  {
+    title: "Basketball",
+    hook: "Member of the Lynbrook High School freshman basketball team",
+    metrics: [
+      {},
+    ],
+    href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
+    linkLabel: "Athletics",
+    image: lynbrookTeamPhoto,
+  },
+  {
+    title: "TaeKwonDo Mentor",
+    hook: "Earned 1st-degree black belt; mentored junior students in technique, sparring, and discipline",
+    metrics: [
+      {},
+    ],
+    href: "",
+    linkLabel: "Martial Arts",
+    image: tkdDojanGroupPhoto,
+  },
+  {
+    title: "Athletes4Others Coach",
+    hook: "Coached students in community service initiatives, coordinating outreach and volunteer activities",
+    metrics: [
+      {},
+    ],
+    href: "",
+    linkLabel: "Outreach",
+    image: cs,
+  },
+  {
+    title: "Music",
+    hook: "I love making playlists on Spotify, I currently have 4 playlists up with 90+ likes!",
+    metrics: [],
+    href: "https://open.spotify.com/user/31rmdnittbsvohipqn7zdcjbj6ri",
+    linkLabel: "Fun",
+    image: spotify,
+  },
+  {
+    title: "Second Brains",
+    hook: "I've recently become really interested in using vault systems like Obsidian for persistent context layers for my AI agents!",
+    metrics: [],
+    href: "",
+    linkLabel: "Fun",
+    image: obsidian,
   },
 ] as const
 
@@ -409,19 +467,21 @@ function SectionShell({
   eyebrow,
   title,
   copy,
+  noSnap,
   children,
 }: {
   id: string
   eyebrow?: string
   title?: string
   copy?: string
+  noSnap?: boolean
   children: React.ReactNode
 }) {
   const hasHeading = Boolean(eyebrow || title || copy)
 
   return (
-    <section id={id} className={cn("section-anchor snap-section w-full", id === "projects-grid" ? "px-0" : "px-6 sm:px-10 lg:px-16")}>
-      <Reveal className={cn("section-shell", id === "projects-grid" && "w-full")}>
+    <section id={id} className={cn("section-anchor w-full", !noSnap && "snap-section", (id === "projects-grid" || id === "for-fun") ? "px-0" : "px-6 sm:px-10 lg:px-16")}>
+      <Reveal className={cn("section-shell", (id === "projects-grid" || id === "for-fun") && "w-full")}>
         {hasHeading ? (
           <div className={cn("section-heading", id === "projects-grid" ? "max-w-none w-full" : "max-w-3xl")}>
             {eyebrow ? <p className="section-eyebrow">{eyebrow}</p> : null}
@@ -1206,7 +1266,7 @@ function PillarsSection() {
   return (
     <SectionShell id="experience">
       <div className="pillars-container">
-        {/* Pillar 1 – Athletics */}
+        {/* Pillar 1 – Community Outreach */}
         <Reveal delay={0.1} className="pillar-wrap pillar-wrap-left">
           <InteractivePillar
             isLarge={true}
@@ -1226,19 +1286,11 @@ function PillarsSection() {
                   { src: harkerLogo, alt: "De Vargas STEM" },
                 ],
               },
-              {
-                title: "Basketball",
-                copy: "Member of the Lynbrook High School freshman basketball team.",
-                images: [lynbrookTeamPhoto],
-                logos: [
-                  { src: vikingMascotLogo, alt: "Basketball" },
-                ],
-              },
             ]}
           />
         </Reveal>
 
-        {/* Pillar 2 – Nonprofits */}
+        {/* Pillar 2 – STEM Leadership */}
         <Reveal delay={0.2} className="pillar-wrap pillar-wrap-center">
           <InteractivePillar
             className="pillar-main"
@@ -1253,26 +1305,15 @@ function PillarsSection() {
                   { label: "Website", href: "novastem.vercel.app", kind: "website" },
                 ],
                 logos: [
-
                   { src: sundayFriendsLogo, alt: "Sunday Friends" },
                   { src: goodSamaritanLogo, alt: "Good Samaritan" },
-
-                ],
-              },
-              {
-                title: "TaeKwonDo",
-                copy: "Earned 1st-degree black belt; mentored junior students in technique, sparring fundamentals, and discipline.",
-                images: [tkdDojanGroupPhoto],
-                logos: [
-                  { src: tkdKickIcon, alt: "Taekwondo" },
-                  { src: worldTaekwondoLogo, alt: "World Taekwondo" },
                 ],
               },
             ]}
           />
         </Reveal>
 
-        {/* Pillar 3 – CS & Community */}
+        {/* Pillar 3 – CS Mentorship */}
         <Reveal delay={0.3} className="pillar-wrap pillar-wrap-right">
           <InteractivePillar
             isLarge={true}
@@ -1288,15 +1329,6 @@ function PillarsSection() {
                   { src: deVargasStemLogo, alt: "Monte Vista" },
                 ],
               },
-              {
-                title: "Athletes4Others",
-                copy: "Guided students in community service initiatives, coordinating outreach and volunteer activities.",
-                images: [cs],
-                logos: [
-                  { src: goodSamaritanPenguinLogo, alt: "Sunday Friends" },
-
-                ],
-              },
             ]}
           />
         </Reveal>
@@ -1309,54 +1341,33 @@ function ProjectGridSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { amount: 0.15, once: true })
   const { setPaused } = useShaderPalette()
-  const [activeTab, setActiveTab] = useState<"agents" | "research">("agents")
   const [activeGridProject, setActiveGridProject] = useState<GridProject | null>(null)
 
   useEffect(() => {
     setPaused(isInView)
   }, [isInView, setPaused])
 
-  const activeProjects = activeTab === "research" ? researchMLGridProjects : agentGridProjects
+
 
   return (
-    <SectionShell id="projects-grid">
+    <SectionShell id="projects-grid" noSnap>
       <div ref={ref} className="projects-page-shell">
         <div className="projects-page-container">
           <div className="projects-page-content">
-            {/* Toggle bar */}
-            <div className="projects-toggle-bar">
-              <button
-                type="button"
-                className={cn("projects-toggle-btn", activeTab === "agents" && "projects-toggle-btn-active")}
-                onClick={() => setActiveTab("agents")}
-              >
-                Agents
-              </button>
-              <button
-                type="button"
-                className={cn("projects-toggle-btn", activeTab === "research" && "projects-toggle-btn-active")}
-                onClick={() => setActiveTab("research")}
-              >
-                Research / ML
-              </button>
-            </div>
 
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -12 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className={cn(
-                  "projects-page-grid-v2",
-                  activeTab === "research" ? "projects-page-grid-v2--three" : "projects-page-grid-v2--four"
-                )}
-                role="list"
-                aria-label="Portfolio projects"
+
+            <div className="projects-marquee-viewport">
+              <div
+                className="projects-marquee-track"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                  gap: "1.25rem",
+                  paddingBottom: "2rem",
+                }}
               >
-                {activeProjects.map((project) => (
-                  <div key={project.title} className="projects-v2-card-slot">
+                {portfolioProjects.map((project, idx) => (
+                  <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
                     <article
                       role="button"
                       tabIndex={0}
@@ -1417,8 +1428,8 @@ function ProjectGridSection() {
                     </article>
                   </div>
                 ))}
-              </motion.div>
-            </AnimatePresence>
+              </div>
+            </div>
 
             {/* Grid Project Modal */}
             <AnimatePresence>
@@ -1513,6 +1524,116 @@ function ProjectGridSection() {
   )
 }
 
+function ForFunSection() {
+  const [activeGridProject, setActiveGridProject] = useState<GridProject | null>(null)
+
+  return (
+    <SectionShell id="for-fun">
+      <div className="w-full flex justify-center py-20 relative">
+        <div className="for-fun-grid px-6 sm:px-10 lg:px-16 w-full max-w-7xl">
+          {forFunProjects.map((project, idx) => (
+            <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
+              <article
+                role="button"
+                tabIndex={0}
+                className="projects-v2-card projects-page-card-optimized cursor-pointer"
+                onClick={() => setActiveGridProject(project as any)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault()
+                    setActiveGridProject(project as any)
+                  }
+                }}
+              >
+                <div className="projects-v2-card-text flex flex-col items-center justify-center text-center">
+                  <div className="projects-v2-card-header-row">
+                    <h3 className="projects-page-card-title text-xl">{project.title}</h3>
+                  </div>
+                  <p className="projects-page-card-subtitle mt-1">{project.hook}</p>
+                </div>
+
+                <div className="projects-v2-card-visual">
+                  <div className="projects-v2-card-visual-inner">
+                    {project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={`${project.title} screenshot`}
+                        className="projects-v2-card-img"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-white/5 flex items-center justify-center">
+                        <Sparkles className="h-6 w-6 text-white/20" />
+                      </div>
+                    )}
+                    <div className="projects-v2-card-img-wash" aria-hidden="true" />
+                  </div>
+                </div>
+              </article>
+            </div>
+          ))}
+        </div>
+
+        {/* Reuse Project Modal Logic */}
+        <AnimatePresence>
+          {activeGridProject && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-10"
+            >
+              <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setActiveGridProject(null)} />
+              <motion.div
+                layoutId={`forfun-${activeGridProject.title}`}
+                className="relative w-full max-w-5xl bg-[#0a0c14] border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
+              >
+                <button
+                  onClick={() => setActiveGridProject(null)}
+                  className="absolute top-6 right-6 z-10 p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+                >
+                  <X className="h-5 w-5 text-white" />
+                </button>
+
+                <div className="grid md:grid-cols-2">
+                  <div className="p-8 md:p-12 space-y-8">
+                    <div className="aspect-video rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+                      {activeGridProject.image ? (
+                        <Image src={activeGridProject.image} alt={activeGridProject.title} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Sparkles className="h-12 w-12 text-white/10" />
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="space-y-4">
+                      <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title}</h2>
+                      <p className="text-white/60 leading-relaxed">{activeGridProject.hook}</p>
+
+                      <div className="flex flex-wrap gap-4 pt-2">
+                        {activeGridProject.metrics.map((m, i) => (
+                          <div key={i} className="flex flex-col">
+                            <span className="text-xl font-bold text-white">{m.stat}</span>
+                            <span className="text-[10px] uppercase tracking-widest text-white/40">{m.label}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="md:border-l md:border-white/5 md:pl-8 flex items-center justify-center p-12">
+                    <p className="text-white/30 font-mono text-sm uppercase tracking-widest italic">More details coming soon</p>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </SectionShell>
+  )
+}
+
 function ContactSection() {
   return (
     <SectionShell id="contact">
@@ -1576,7 +1697,7 @@ export function PortfolioPage() {
         <PillarsSection />
 
         <ProjectGridSection />
-
+        <ForFunSection />
         <ContactSection />
       </main>
 
@@ -3212,27 +3333,78 @@ export function PortfolioPage() {
         /* ── V2 card grid ───────────────────────────────── */
         .projects-page-grid-v2 {
           display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
           gap: clamp(0.75rem, 1.2vw, 1.25rem);
           width: 100%;
           min-height: 0;
           contain: layout style;
         }
 
-        .projects-page-grid-v2--four {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          grid-template-rows: auto;
+        .projects-marquee-viewport {
+          height: 640px;
+          overflow-y: auto;
+          position: relative;
+          padding-right: 0.5rem;
+          mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
         }
 
-        .projects-page-grid-v2--three {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          grid-template-rows: auto;
+        /* Discreet but usable Scrollbar */
+        .projects-marquee-viewport::-webkit-scrollbar {
+          width: 10px;
         }
 
-        .projects-page-grid-v2--three > .projects-v2-card-slot:last-child {
-          grid-column: span 2;
-          width: calc(50% - 0.625rem); /* Matches column width minus half the gap */
-          margin-inline: auto;
+        .projects-marquee-viewport::-webkit-scrollbar-track {
+          background: transparent;
         }
+
+        .projects-marquee-viewport::-webkit-scrollbar-thumb {
+          background: rgba(255, 255, 255, 0.12);
+          border: 3px solid transparent;
+          background-clip: padding-box;
+          border-radius: 999px;
+        }
+
+        .projects-marquee-viewport::-webkit-scrollbar-thumb:hover {
+          background: rgba(255, 255, 255, 0.25);
+          background-clip: padding-box;
+        }
+
+        .for-fun-grid {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1.5rem;
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          justify-content: center;
+        }
+
+        .for-fun-grid > * {
+          flex: 0 1 calc(33.333% - 1.5rem);
+          min-width: 320px;
+        }
+
+        @media (max-width: 1024px) {
+          .for-fun-grid > * {
+            flex: 0 1 calc(50% - 1.5rem);
+          }
+        }
+
+        @media (max-width: 640px) {
+          .for-fun-grid > * {
+            flex: 0 1 100%;
+          }
+        }
+
+        .projects-marquee-track {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 1.25rem;
+        }
+
+
+
+
 
         .projects-v2-card-slot {
           min-height: 0;
@@ -3700,8 +3872,7 @@ export function PortfolioPage() {
             grid-template-rows: repeat(6, minmax(0, 1fr));
           }
 
-          .projects-page-grid-v2--four,
-          .projects-page-grid-v2--three {
+          .projects-page-grid-v2 {
             grid-template-columns: 1fr;
             grid-template-rows: none;
             height: auto;
