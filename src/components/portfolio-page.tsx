@@ -14,6 +14,7 @@ import softwareintern from "../../images/substack.png"                   // Subs
 // ── Basketball ────────────────────────────────────────────────────────────────
 import vishayDribbling from "../../images/athletes.jpeg"                 // Vishay dribbling in Lynbrook jersey mid-game
 import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynbrook freshman basketball team group photo
+import sportsPhoto from "../../images/IMG_6976.jpeg"
 import athletes from "../../images/image copy 15.png"
 import cs from "../../images/image copy 14.png"
 import nova from "../../images/image copy 16.png"
@@ -26,6 +27,7 @@ import projectLogo from "../../images/image copy 20.png"
 import contactImage from "../../images/contact.jpeg"
 import spotify from "../../images/other_projects/spotify.png"
 import obsidian from "../../images/other_projects/obsidian.png"
+import githubDevProgramImage from "../../images/other_projects/image copy 2.png"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
 import tkdBlockBreaking from "../../images/tkd.png"                      // Vishay breaking concrete blocks at belt test
@@ -137,7 +139,7 @@ const researchProjects: readonly ResearchProject[] = [
     id: "chamtern",
     title: "Software & Research Intern",
     subtitle: "CHAMPMAN UNIVERSITY",
-    hook: "Built a linear-algebra–driven ingestion system for large-scale Substack networks at Chapman University",
+    hook: "Built a linear-algebra–driven ingestion/analyticssystem for large-scale Substack networks at Chapman University",
     metrics: [
       { stat: "+30%", label: "SPEED" },
       { stat: "+20%", label: "PERF" },
@@ -184,7 +186,7 @@ const researchProjects: readonly ResearchProject[] = [
     id: "echo-os",
     title: "Echo-OS",
     subtitle: "ElevenLabs 2026 Hackathon Winner | March 2026",
-    hook: "Built an autonomous voice agent, winning an ElevenLabs-backed hackathon",
+    hook: "Built an autonomous AI agent for voice-powered computer use, winning an ElevenLabs-backed hackathon",
     metrics: [
       { stat: "1ST", label: "PLACE" },
       { stat: "120+", label: "TEAMS" },
@@ -296,40 +298,48 @@ const portfolioProjects = [
 
 const forFunProjects = [
   {
-    title: "Basketball",
-    hook: "Member of the Lynbrook High School freshman basketball team",
+    title: "sports",
+    hook: "played for the LHS Boys Basketball Team, .750 win percentage across 24 games",
     metrics: [],
     href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
     linkLabel: "Athletics",
-    image: lynbrookTeamPhoto,
+    image: sportsPhoto,
   },
   {
-    title: "TaeKwonDo Mentor",
-    hook: "Earned 1st-degree black belt; mentored junior students in technique, sparring, and discipline",
+    title: "mentor - TKD",
+    hook: "earned 1st-degree black belt under World TKD Federation; mentored junior students in technique and sparring",
     metrics: [],
     href: "",
     linkLabel: "Martial Arts",
     image: tkdDojanGroupPhoto,
   },
   {
-    title: "Athletes4Others Coach",
-    hook: "Coached students in community service initiatives, coordinating outreach and volunteer activities",
+    title: "coach - Athletes4Others",
+    hook: "basketball coach to students at local elementary schools in the Bay",
     metrics: [],
     href: "",
     linkLabel: "Outreach",
-    image: cs,
+    image: lynbrookTeamPhoto,
   },
   {
-    title: "Music",
-    hook: "I love making playlists on Spotify, I currently have 4 playlists up with 90+ likes!",
+    title: "music",
+    hook: "i love listening to music and making playlists on Spotify, i currently have 4 playlists up with 90+ likes!",
     metrics: [],
     href: "https://open.spotify.com/user/31rmdnittbsvohipqn7zdcjbj6ri",
     linkLabel: "Fun",
     image: spotify,
   },
   {
-    title: "Second Brains",
-    hook: "I've recently become really interested in using vault systems like Obsidian for persistent context layers for my AI agents!",
+    title: "github dev program",
+    hook: "accepted into the GitHub Developer Program for building GitHub Apps and integrations (like this one!) with early access to new features/betas",
+    metrics: [],
+    href: "",
+    linkLabel: "Fun",
+    image: githubDevProgramImage,
+  },
+  {
+    title: "second brain",
+    hook: "lately, i've been really interested in using vault systems like Obsidian to create persistent context layers for my AI agents!",
     metrics: [],
     href: "",
     linkLabel: "Fun",
@@ -489,22 +499,55 @@ function SectionShell({
   )
 }
 
-function GitHubBanner({ isVisible }: { isVisible: boolean }) {
+function GitHubBanner({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) {
+  const bannerVariants = {
+    initial: { opacity: 0, y: -20, scale: 0.95, filter: "blur(10px)" },
+    animate: { 
+      opacity: 1, 
+      y: 0, 
+      scale: 1, 
+      filter: "blur(0px)",
+      transition: {
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0.8
+      }
+    },
+    exit: { 
+      opacity: 0, 
+      y: -20, 
+      scale: 0.95, 
+      filter: "blur(10px)",
+      transition: {
+        duration: 0.28,
+        ease: [0.22, 1, 0.36, 1],
+        delay: 0
+      }
+    }
+  };
+
   return (
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: -20, scale: 0.95, filter: "blur(10px)" }}
-          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-          exit={{ opacity: 0, y: -20, scale: 0.95, filter: "blur(10px)" }}
-          transition={{
-            duration: 0.5,
-            ease: [0.22, 1, 0.36, 1],
-            delay: isVisible ? 0.8 : 0
-          }}
+          variants={bannerVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
           className="github-banner-wrap"
         >
-          <div className="liquid-panel github-banner github-banner-notification">
+          <motion.div
+            drag="y"
+            dragConstraints={{ top: -100, bottom: 0 }}
+            dragElastic={{ top: 0.4, bottom: 0.1 }}
+            onDragEnd={(event, info) => {
+              if (info.offset.y < -10 || info.velocity.y < -40) {
+                onClose();
+              }
+            }}
+            whileDrag={{ scale: 0.98, cursor: "grabbing" }}
+            className="liquid-panel github-banner github-banner-notification pointer-events-auto"
+          >
             <div className="github-banner-content">
               <div className="github-banner-left">
                 <div className="github-banner-icon github-banner-icon-glow">
@@ -522,10 +565,17 @@ function GitHubBanner({ isVisible }: { isVisible: boolean }) {
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-1 w-1 rounded-full bg-emerald-400 animate-pulse" />
-                <ArrowRight className="h-3 w-3 text-white/50" />
+                <button
+                  type="button"
+                  onClick={onClose}
+                  className="p-1 rounded-full hover:bg-white/10 transition-colors pointer-events-auto flex items-center justify-center"
+                  aria-label="Dismiss banner"
+                >
+                  <X className="h-3.5 w-3.5 text-white/50 hover:text-white" />
+                </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
@@ -536,6 +586,7 @@ function StickyNavbar() {
   const activeSection = useActiveSection(navItems.map((item) => item.id))
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [bannerDismissed, setBannerDismissed] = useState(false)
   const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, "change", (latest) => {
@@ -585,7 +636,10 @@ function StickyNavbar() {
         </div>
       </div>
 
-      <GitHubBanner isVisible={activeSection === "hero"} />
+      <GitHubBanner
+        isVisible={activeSection === "hero" && !scrolled && !bannerDismissed}
+        onClose={() => setBannerDismissed(true)}
+      />
 
       <motion.div
         initial={false}
@@ -836,23 +890,43 @@ function ReadmeViewer({ repoUrl }: { repoUrl: string }) {
     let inCodeBlock = false;
     let codeContent: string[] = [];
 
+    const repoName = repoUrl.split("/").pop() || "";
+
+    const getAbsoluteImageUrl = (url: string) => {
+      if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('data:')) {
+        return url;
+      }
+      const cleanPath = url.replace(/^\.?\//, '');
+      try {
+        const parts = repoUrl.replace('https://github.com/', '').split('/');
+        const owner = parts[0] || 'v1shay';
+        const repo = parts[1] || repoName;
+        return `https://raw.githubusercontent.com/${owner}/${repo}/HEAD/${cleanPath}`;
+      } catch (e) {
+        return `https://raw.githubusercontent.com/v1shay/${repoName}/HEAD/${cleanPath}`;
+      }
+    };
+
     const formatText = (t: string) => {
       // Strip common HTML tags
       const clean = t.replace(/<[^>]*>?/gm, '');
 
-      // Basic formatting: **bold**, [link](url), `code`
-      const parts = clean.split(/(\*\*.*?\*\*|\[.*?\]\(.*?\)|`.*?`)/g);
+      // Basic formatting: **bold**, *italic*, [link](url), `code`
+      const parts = clean.split(/(\*\*.*?\*\*|\*.*?\*|\[.*?\]\(.*?\)|`.*?`)/g);
       return parts.map((part, index) => {
         if (part.startsWith('**') && part.endsWith('**')) {
           return <strong key={index} className="text-white font-bold">{part.slice(2, -2)}</strong>;
         }
+        if (part.startsWith('*') && part.endsWith('*') && !part.startsWith('**')) {
+          return <em key={index} className="text-white/90 italic">{part.slice(1, -1)}</em>;
+        }
         if (part.startsWith('`') && part.endsWith('`')) {
-          return <code key={index} className="bg-white/10 px-1.5 py-0.5 rounded text-emerald-400 font-mono text-xs">{part.slice(1, -1)}</code>;
+          return <code key={index} className="bg-white/10 px-1.5 py-0.5 rounded text-emerald-400 font-mono text-xs shadow-sm">{part.slice(1, -1)}</code>;
         }
         if (part.startsWith('[') && part.includes('](')) {
           const match = part.match(/\[(.*?)\]\((.*?)\)/);
           if (match) {
-            return <a key={index} href={match[2]} target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline decoration-emerald-400/30 underline-offset-4">{match[1]}</a>;
+            return <a key={index} href={match[2]} target="_blank" rel="noreferrer" className="text-emerald-400 hover:underline decoration-emerald-400/30 underline-offset-4 font-semibold">{match[1]}</a>;
           }
         }
         return part;
@@ -863,7 +937,7 @@ function ReadmeViewer({ repoUrl }: { repoUrl: string }) {
       if (line.startsWith('```')) {
         if (inCodeBlock) {
           elements.push(
-            <pre key={`code-${i}`} className="bg-black/30 p-5 rounded-xl my-6 overflow-x-auto border border-white/10 font-mono text-xs leading-relaxed text-emerald-400/90 shadow-2xl">
+            <pre key={`code-${i}`} className="bg-black/35 p-5 rounded-xl my-6 overflow-x-auto border border-white/10 font-mono text-xs leading-relaxed text-emerald-400/90 shadow-2xl">
               <code>{codeContent.join('\n')}</code>
             </pre>
           );
@@ -880,21 +954,133 @@ function ReadmeViewer({ repoUrl }: { repoUrl: string }) {
         return;
       }
 
+      // Check for Markdown Images
+      const mdImageMatch = line.match(/!\[(.*?)\]\((.*?)\)/);
+      if (mdImageMatch) {
+        const alt = mdImageMatch[1];
+        const src = getAbsoluteImageUrl(mdImageMatch[2]);
+        elements.push(
+          <div key={`img-${i}`} className="my-6 rounded-2xl overflow-hidden border border-white/10 bg-white/5 max-w-full relative flex items-center justify-center shadow-lg p-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt={alt || "Repository visual"}
+              className="rounded-xl max-h-[350px] w-auto h-auto object-contain"
+            />
+          </div>
+        );
+        return;
+      }
+
+      // Check for HTML Images
+      const htmlImageMatch = line.match(/<img\s+[^>]*src=["'](.*?)["']/i);
+      if (htmlImageMatch) {
+        const src = getAbsoluteImageUrl(htmlImageMatch[1]);
+        const altMatch = line.match(/alt=["'](.*?)["']/i);
+        const alt = altMatch ? altMatch[1] : "Repository visual";
+        elements.push(
+          <div key={`img-${i}`} className="my-6 rounded-2xl overflow-hidden border border-white/10 bg-white/5 max-w-full relative flex items-center justify-center shadow-lg p-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt={alt}
+              className="rounded-xl max-h-[350px] w-auto h-auto object-contain"
+            />
+          </div>
+        );
+        return;
+      }
+
       const trimLine = line.trim();
+
+      // Check for Horizontal Rules
+      if (trimLine === '---' || trimLine === '***') {
+        elements.push(<hr key={i} className="my-8 border-t border-white/10" />);
+        return;
+      }
+
+      // Check for Blockquotes
+      if (line.startsWith('> ')) {
+        elements.push(
+          <blockquote key={i} className="pl-4 border-l-4 border-emerald-500/50 my-6 italic text-white/60 bg-emerald-500/5 py-3 px-5 rounded-r-2xl text-[0.95rem]">
+            {formatText(line.slice(2))}
+          </blockquote>
+        );
+        return;
+      }
+
+      // Check for Task Lists
+      if (line.startsWith('- [ ] ') || line.startsWith('- [x] ') || line.startsWith('* [ ] ') || line.startsWith('* [x] ')) {
+        const checked = line.includes('[x]');
+        const content = line.slice(6);
+        elements.push(
+          <div key={i} className="flex items-center gap-3 my-2 ml-6">
+            <span className={cn(
+              "w-4 h-4 rounded border flex items-center justify-center text-[10px] transition-all",
+              checked ? "bg-emerald-500 border-emerald-400 text-black font-extrabold" : "border-white/20 bg-white/5"
+            )}>
+              {checked ? "✓" : ""}
+            </span>
+            <span className={cn("text-sm font-medium", checked ? "text-white/40 line-through" : "text-white/80")}>
+              {formatText(content)}
+            </span>
+          </div>
+        );
+        return;
+      }
+
+      // Check for Table Rows
+      if (line.startsWith('|')) {
+        if (line.includes('---')) return;
+        const cells = line.split('|').slice(1, -1).map(c => c.trim());
+        elements.push(
+          <div key={i} className="flex gap-4 border-b border-white/10 py-3.5 px-6 bg-white/5 font-mono text-xs text-white/80 rounded-lg hover:bg-white/10 transition-all my-2">
+            {cells.map((cell, idx) => (
+              <div key={idx} className="flex-1 min-w-0 break-words">{formatText(cell)}</div>
+            ))}
+          </div>
+        );
+        return;
+      }
+
       if (line.startsWith('# ')) {
-        elements.push(<h1 key={i} className="text-4xl font-bold mt-10 mb-6 text-white font-display-serif tracking-tight">{formatText(line.slice(2))}</h1>);
+        elements.push(
+          <h1 key={i} className="text-3xl font-extrabold mt-12 mb-6 text-white font-display-serif tracking-tight border-b border-white/10 pb-4 flex items-center gap-2">
+            <span className="text-emerald-400 font-mono">#</span> {formatText(line.slice(2))}
+          </h1>
+        );
       } else if (line.startsWith('## ')) {
-        elements.push(<h2 key={i} className="text-2xl font-bold mt-10 mb-5 text-white/90 border-b border-white/10 pb-3 tracking-tight">{formatText(line.slice(3))}</h2>);
+        elements.push(
+          <h2 key={i} className="text-2xl font-bold mt-10 mb-4 text-white/90 border-b border-white/5 pb-2 tracking-tight flex items-center gap-2">
+            <span className="text-emerald-500/60 font-mono">##</span> {formatText(line.slice(3))}
+          </h2>
+        );
       } else if (line.startsWith('### ')) {
-        elements.push(<h3 key={i} className="text-xl font-bold mt-8 mb-4 text-white/80 tracking-tight">{formatText(line.slice(4))}</h3>);
+        elements.push(
+          <h3 key={i} className="text-xl font-semibold mt-8 mb-3 text-white/80 tracking-tight flex items-center gap-2">
+            <span className="text-emerald-500/40 font-mono">###</span> {formatText(line.slice(4))}
+          </h3>
+        );
       } else if (line.startsWith('- ') || line.startsWith('* ')) {
-        elements.push(<li key={i} className="ml-6 mb-3 text-white/70 list-disc marker:text-emerald-500/50 pl-2">{formatText(line.slice(2))}</li>);
+        elements.push(
+          <li key={i} className="ml-6 mb-3 text-white/70 list-disc marker:text-emerald-400/60 pl-2 text-[0.95rem] leading-relaxed">
+            {formatText(line.slice(2))}
+          </li>
+        );
       } else if (/^\d+\. /.test(line)) {
-        elements.push(<li key={i} className="ml-6 mb-3 text-white/70 list-decimal marker:text-emerald-500/50 pl-2">{formatText(line.replace(/^\d+\. /, ''))}</li>);
+        elements.push(
+          <li key={i} className="ml-6 mb-3 text-white/70 list-decimal marker:text-emerald-400/60 pl-2 text-[0.95rem] leading-relaxed">
+            {formatText(line.replace(/^\d+\. /, ''))}
+          </li>
+        );
       } else if (trimLine === '') {
         elements.push(<div key={i} className="h-4" />);
       } else {
-        elements.push(<p key={i} className="mb-5 text-white/70 leading-relaxed text-[1.05rem] font-medium">{formatText(line)}</p>);
+        elements.push(
+          <p key={i} className="mb-5 text-white/70 leading-relaxed text-[0.95rem] font-sans">
+            {formatText(line)}
+          </p>
+        );
       }
     });
 
@@ -1440,7 +1626,7 @@ function ProjectGridSection() {
                     animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
                     exit={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(10px)" }}
                     transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
-                    className="research-modal liquid-panel max-w-4xl"
+                    className="research-modal liquid-panel max-w-6xl w-full"
                     onClick={(event) => event.stopPropagation()}
                   >
                     <button
@@ -1452,7 +1638,7 @@ function ProjectGridSection() {
                       <X className="h-4 w-4" />
                     </button>
 
-                    <div className="grid grid-cols-1 md:grid-cols-[1fr_1.5fr] gap-8 p-4">
+                    <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8 md:gap-12 p-4 md:p-6">
                       <div className="space-y-6">
                         <div className="projects-v2-card-visual-inner rounded-2xl overflow-hidden border border-white/10 aspect-video md:aspect-square">
                           {activeGridProject.gif ? (
@@ -1491,7 +1677,7 @@ function ProjectGridSection() {
                         </div>
                       </div>
 
-                      <div className="md:border-l md:border-white/5 md:pl-8">
+                      <div className="md:border-l md:border-white/5 md:pl-10">
                         {activeGridProject.href.includes("github.com") ? (
                           <ReadmeViewer repoUrl={activeGridProject.href} />
                         ) : (
@@ -1579,7 +1765,7 @@ function ForFunSection() {
               <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setActiveGridProject(null)} />
               <motion.div
                 layoutId={`forfun-${activeGridProject.title}`}
-                className="relative w-full max-w-5xl bg-[#0a0c14] border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
+                className="relative w-full max-w-2xl bg-[#0a0c14] border border-white/10 rounded-3xl overflow-hidden shadow-2xl"
               >
                 <button
                   onClick={() => setActiveGridProject(null)}
@@ -1588,35 +1774,29 @@ function ForFunSection() {
                   <X className="h-5 w-5 text-white" />
                 </button>
 
-                <div className="grid md:grid-cols-2">
-                  <div className="p-8 md:p-12 space-y-8">
-                    <div className="aspect-video rounded-2xl overflow-hidden bg-white/5 border border-white/10">
-                      {activeGridProject.image ? (
-                        <Image src={activeGridProject.image} alt={activeGridProject.title} className="w-full h-full object-cover" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center">
-                          <Sparkles className="h-12 w-12 text-white/10" />
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="space-y-4">
-                      <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title}</h2>
-                      <p className="text-white/60 leading-relaxed">{activeGridProject.hook}</p>
-
-                      <div className="flex flex-wrap gap-4 pt-2">
-                        {activeGridProject.metrics.map((m, i) => (
-                          <div key={i} className="flex flex-col">
-                            <span className="text-xl font-bold text-white">{m.stat}</span>
-                            <span className="text-[10px] uppercase tracking-widest text-white/40">{m.label}</span>
-                          </div>
-                        ))}
+                <div className="p-8 md:p-12 space-y-8">
+                  <div className="aspect-video rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+                    {activeGridProject.image ? (
+                      <Image src={activeGridProject.image} alt={activeGridProject.title} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Sparkles className="h-12 w-12 text-white/10" />
                       </div>
-                    </div>
+                    )}
                   </div>
 
-                  <div className="md:border-l md:border-white/5 md:pl-8 flex items-center justify-center p-12">
-                    <p className="text-white/30 font-mono text-sm uppercase tracking-widest italic">More details coming soon</p>
+                  <div className="space-y-4">
+                    <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title}</h2>
+                    <p className="text-white/60 leading-relaxed">{activeGridProject.hook}</p>
+
+                    <div className="flex flex-wrap gap-4 pt-2">
+                      {activeGridProject.metrics.map((m, i) => (
+                        <div key={i} className="flex flex-col">
+                          <span className="text-xl font-bold text-white">{m.stat}</span>
+                          <span className="text-[10px] uppercase tracking-widest text-white/40">{m.label}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </motion.div>
