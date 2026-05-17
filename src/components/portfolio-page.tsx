@@ -140,7 +140,7 @@ const researchProjects: readonly ResearchProject[] = [
     id: "chamtern",
     title: "Software & Research Intern",
     subtitle: "CHAMPMAN UNIVERSITY",
-    hook: "Built a linear-algebra–driven ingestion/analyticssystem for large-scale Substack networks at Chapman University",
+    hook: "Built a linear-algebra–driven ingestion/analytics system for large-scale Substack networks at Chapman University",
     metrics: [
       { stat: "+30%", label: "SPEED" },
       { stat: "+20%", label: "PERF" },
@@ -503,10 +503,10 @@ function SectionShell({
 function GitHubBanner({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) {
   const bannerVariants: Variants = {
     initial: { opacity: 0, y: -20, scale: 0.95, filter: "blur(10px)" },
-    animate: { 
-      opacity: 1, 
-      y: 0, 
-      scale: 1, 
+    animate: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
       filter: "blur(0px)",
       transition: {
         duration: 0.5,
@@ -514,10 +514,10 @@ function GitHubBanner({ isVisible, onClose }: { isVisible: boolean; onClose: () 
         delay: 0.8
       }
     },
-    exit: { 
-      opacity: 0, 
-      y: -20, 
-      scale: 0.95, 
+    exit: {
+      opacity: 0,
+      y: -20,
+      scale: 0.95,
       filter: "blur(10px)",
       transition: {
         duration: 0.28,
