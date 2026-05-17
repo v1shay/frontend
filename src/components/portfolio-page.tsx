@@ -70,6 +70,7 @@ import {
   useReducedMotion,
   useSpring,
   useTransform,
+  type Variants,
 } from "motion/react"
 import {
   ArrowRight,
@@ -500,7 +501,7 @@ function SectionShell({
 }
 
 function GitHubBanner({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) {
-  const bannerVariants = {
+  const bannerVariants: Variants = {
     initial: { opacity: 0, y: -20, scale: 0.95, filter: "blur(10px)" },
     animate: { 
       opacity: 1, 
