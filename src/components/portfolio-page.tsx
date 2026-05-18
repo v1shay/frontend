@@ -28,6 +28,8 @@ import contactImage from "../../images/contact.jpeg"
 import spotify from "../../images/other_projects/spotify.png"
 import obsidian from "../../images/other_projects/obsidian.png"
 import githubDevProgramImage from "../../images/other_projects/image copy 2.png"
+import fblaImage from "../../images/other_projects/IMG_8059.jpeg"
+import trilingualImage from "../../images/other_projects/image copy 3.png"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
 import tkdBlockBreaking from "../../images/tkd.png"                      // Vishay breaking concrete blocks at belt test
@@ -299,12 +301,20 @@ const portfolioProjects = [
 
 const forFunProjects = [
   {
-    title: "sports",
-    hook: "played for the LHS Boys Basketball Team, .750 win percentage across 24 games",
+    title: "fbla",
+    hook: "competed in Network Design events at the Future Business Leaders of America State Conference in Anaheim",
     metrics: [],
-    href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
-    linkLabel: "Athletics",
-    image: sportsPhoto,
+    href: "",
+    linkLabel: "Fun",
+    image: fblaImage,
+  },
+  {
+    title: "github dev program",
+    hook: "accepted into the GitHub Developer Program for building GitHub Apps and integrations (like this one!) with early access to new features/betas",
+    metrics: [],
+    href: "",
+    linkLabel: "Fun",
+    image: githubDevProgramImage,
   },
   {
     title: "mentor - TKD",
@@ -323,6 +333,22 @@ const forFunProjects = [
     image: lynbrookTeamPhoto,
   },
   {
+    title: "second brain",
+    hook: "lately, i've been really interested in using vault systems like Obsidian to create persistent context layers for my AI agents!",
+    metrics: [],
+    href: "",
+    linkLabel: "Fun",
+    image: obsidian,
+  },
+  {
+    title: "sports",
+    hook: "played for the LHS Boys Basketball Team, .750 win percentage across 24 games",
+    metrics: [],
+    href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
+    linkLabel: "Athletics",
+    image: sportsPhoto,
+  },
+  {
     title: "music",
     hook: "i love listening to music and making playlists on Spotify, i currently have 4 playlists up with 90+ likes!",
     metrics: [],
@@ -331,20 +357,12 @@ const forFunProjects = [
     image: spotify,
   },
   {
-    title: "github dev program",
-    hook: "accepted into the GitHub Developer Program for building GitHub Apps and integrations (like this one!) with early access to new features/betas",
+    title: "trilingual",
+    hook: "fluent in English and Hindi, conversational in Spanish!",
     metrics: [],
     href: "",
     linkLabel: "Fun",
-    image: githubDevProgramImage,
-  },
-  {
-    title: "second brain",
-    hook: "lately, i've been really interested in using vault systems like Obsidian to create persistent context layers for my AI agents!",
-    metrics: [],
-    href: "",
-    linkLabel: "Fun",
-    image: obsidian,
+    image: trilingualImage,
   },
 ] as const
 
@@ -3549,14 +3567,20 @@ export function PortfolioPage() {
           flex-wrap: wrap;
           gap: 1.5rem;
           width: 100%;
-          max-width: 1200px;
+          max-width: 1400px;
           margin: 0 auto;
           justify-content: center;
         }
 
         .for-fun-grid > * {
-          flex: 0 1 calc(33.333% - 1.5rem);
-          min-width: 320px;
+          flex: 0 1 calc(25% - 1.5rem);
+          min-width: 260px;
+        }
+
+        @media (max-width: 1200px) {
+          .for-fun-grid > * {
+            flex: 0 1 calc(33.333% - 1.5rem);
+          }
         }
 
         @media (max-width: 1024px) {
