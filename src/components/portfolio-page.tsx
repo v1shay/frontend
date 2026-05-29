@@ -204,7 +204,31 @@ const researchProjects: readonly ResearchProject[] = [
 
 const portfolioProjects = [
   {
-    title: "Vox-Agent",
+    title: "ml-labs",
+    hook: "An autonomous research lab at the tip of your fingers",
+    metrics: [
+      { stat: "19 AGENTS", label: "MODEL ARCHITECTURE" },
+      { stat: "8 RESEARCH PHASES", label: "SYSTEM" },
+    ],
+    href: "https://github.com/v1shay/ml-labs",
+    linkLabel: "GitHub",
+    image: null as StaticImageData | null,
+    gif: "/images/other_projects/mllabs.gif",
+  },
+  {
+    title: "archllm",
+    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines",
+    metrics: [
+      { stat: "+95%", label: "ADHERENCE" },
+      { stat: "Apache 2.0", label: "LICENSE" },
+      { stat: "-30%", label: "HBM" },
+    ],
+    href: "https://github.com/v1shay/archLLM-sim",
+    linkLabel: "GitHub",
+    image: archLlmScreenshot,
+  },
+  {
+    title: "vox",
     hook: "Turn your AirPods into an AI-powered note-taking system",
     metrics: [
       { stat: "CoreAudio", label: "STREAM ISOLATION" },
@@ -217,7 +241,19 @@ const portfolioProjects = [
     gif: null as string | null,
   },
   {
-    title: "Sift",
+    title: "agent",
+    hook: "Production-level LLM hallucination detection, tested against top AI models",
+    metrics: [
+      { stat: "NLP", label: "PIPELINE" },
+      { stat: "Apache 2.0", label: "LICENSE" },
+      { stat: "Linear Binary", label: "CLASSIFICATION" },
+    ],
+    href: "https://github.com/v1shay/sentinel-LLM",
+    linkLabel: "GitHub",
+    image: sentinelLlmChart,
+  },
+  {
+    title: "sift",
     hook: "Turns GitHub into a live, explorable universe via linear algebra",
     metrics: [
       { stat: "MIT", label: "LICENSE" },
@@ -227,29 +263,6 @@ const portfolioProjects = [
     linkLabel: "GitHub",
     image: null as StaticImageData | null,
     gif: "/images/sift-demo.gif",
-  },
-  {
-    title: "ML-Labs",
-    hook: "An autonomous research lab at the tip of your fingers",
-    metrics: [
-      { stat: "19 AGENTS", label: "MODEL ARCHITECTURE" },
-      { stat: "8 RESEARCH PHASES", label: "SYSTEM" },
-    ],
-    href: "https://github.com/v1shay/ml-labs",
-    linkLabel: "GitHub",
-    image: null as StaticImageData | null,
-    gif: "/images/other_projects/mllabs.gif",
-  },
-  {
-    title: "Freelance Development",
-    hook: "Shipped production-level storefronts for local businesses",
-    metrics: [
-      { stat: "+100%", label: "INCREASED TRAFFIC" },
-    ],
-    href: "https://taquizas-chapala.vercel.app",
-    linkLabel: "Website",
-    image: null as StaticImageData | null,
-    gif: "/images/other_projects/Convert to GIF project.gif",
   },
   {
     title: "Neural-Lens",
@@ -265,30 +278,6 @@ const portfolioProjects = [
     gif: "/images/other_projects/Adobe Express - neurallens (1).gif",
   },
   {
-    title: "archLLM-sim",
-    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines",
-    metrics: [
-      { stat: "+95%", label: "ADHERENCE" },
-      { stat: "Apache 2.0", label: "LICENSE" },
-      { stat: "-30%", label: "HBM" },
-    ],
-    href: "https://github.com/v1shay/archLLM-sim",
-    linkLabel: "GitHub",
-    image: archLlmScreenshot,
-  },
-  {
-    title: "Sentinel-LLM",
-    hook: "Production-level LLM hallucination detection, tested against top AI models",
-    metrics: [
-      { stat: "NLP", label: "PIPELINE" },
-      { stat: "Apache 2.0", label: "LICENSE" },
-      { stat: "Linear Binary", label: "CLASSIFICATION" },
-    ],
-    href: "https://github.com/v1shay/sentinel-LLM",
-    linkLabel: "GitHub",
-    image: sentinelLlmChart,
-  },
-  {
     title: "AlgoType",
     hook: "USACO and LeetCode code typing practice with global leaderboards/custom syntax",
     metrics: [],
@@ -296,6 +285,17 @@ const portfolioProjects = [
     linkLabel: "GitHub",
     image: null as string | null,
     gif: "/images/other_projects/algotype.gif",
+  },
+  {
+    title: "Freelance Development",
+    hook: "Shipped production-level storefronts for local businesses",
+    metrics: [
+      { stat: "+100%", label: "INCREASED TRAFFIC" },
+    ],
+    href: "https://taquizas-chapala.vercel.app",
+    linkLabel: "Website",
+    image: null as StaticImageData | null,
+    gif: "/images/other_projects/Convert to GIF project.gif",
   },
 ] as const
 
