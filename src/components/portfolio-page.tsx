@@ -204,7 +204,7 @@ const researchProjects: readonly ResearchProject[] = [
 
 const portfolioProjects = [
   {
-    title: "ml-labs",
+    title: "ML-Labs",
     hook: "An autonomous research lab at the tip of your fingers",
     metrics: [
       { stat: "19 AGENTS", label: "MODEL ARCHITECTURE" },
@@ -216,7 +216,7 @@ const portfolioProjects = [
     gif: "/images/other_projects/mllabs.gif",
   },
   {
-    title: "archllm",
+    title: "ArchLLM",
     hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines",
     metrics: [
       { stat: "+95%", label: "ADHERENCE" },
@@ -228,7 +228,7 @@ const portfolioProjects = [
     image: archLlmScreenshot,
   },
   {
-    title: "vox",
+    title: "Vox-Agent",
     hook: "Turn your AirPods into an AI-powered note-taking system",
     metrics: [
       { stat: "CoreAudio", label: "STREAM ISOLATION" },
@@ -241,19 +241,7 @@ const portfolioProjects = [
     gif: null as string | null,
   },
   {
-    title: "agent",
-    hook: "Production-level LLM hallucination detection, tested against top AI models",
-    metrics: [
-      { stat: "NLP", label: "PIPELINE" },
-      { stat: "Apache 2.0", label: "LICENSE" },
-      { stat: "Linear Binary", label: "CLASSIFICATION" },
-    ],
-    href: "https://github.com/v1shay/sentinel-LLM",
-    linkLabel: "GitHub",
-    image: sentinelLlmChart,
-  },
-  {
-    title: "sift",
+    title: "Sift",
     hook: "Turns GitHub into a live, explorable universe via linear algebra",
     metrics: [
       { stat: "MIT", label: "LICENSE" },
@@ -263,6 +251,18 @@ const portfolioProjects = [
     linkLabel: "GitHub",
     image: null as StaticImageData | null,
     gif: "/images/sift-demo.gif",
+  },
+  {
+    title: "Sentinel-LLM",
+    hook: "Production-level LLM hallucination detection, tested against top AI models",
+    metrics: [
+      { stat: "NLP", label: "PIPELINE" },
+      { stat: "Apache 2.0", label: "LICENSE" },
+      { stat: "Linear Binary", label: "CLASSIFICATION" },
+    ],
+    href: "https://github.com/v1shay/sentinel-LLM",
+    linkLabel: "GitHub",
+    image: sentinelLlmChart,
   },
   {
     title: "Neural-Lens",
