@@ -10,7 +10,7 @@ import githubProgramLogo from "../../images/GitHub_Invertocat_Black_Clearspace.p
 import neurosense from "../../images/neuro.png"                          // NeuroSense confusion-matrix paper figure
 import phytovisionImage from "../../images/tomato.png"                   // Phyto-Vision tomato leaf CNN
 import sentinelImage from "../../images/image copy 33.png"   // Sentinel-LLM hallucination leaderboard chart
-import softwareintern from "../../images/substack.png"                   // Substack graph crawler / Chapman internship
+import softwareintern from "../../images/substack.png"               // Substack graph crawler / Chapman internship
 // ── Basketball ────────────────────────────────────────────────────────────────
 import vishayDribbling from "../../images/athletes.jpeg"                 // Vishay dribbling in Lynbrook jersey mid-game
 import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynbrook freshman basketball team group photo
@@ -204,30 +204,6 @@ const researchProjects: readonly ResearchProject[] = [
 
 const portfolioProjects = [
   {
-    title: "ML-Labs",
-    hook: "An autonomous research lab at the tip of your fingers",
-    metrics: [
-      { stat: "19 AGENTS", label: "MODEL ARCHITECTURE" },
-      { stat: "8 RESEARCH PHASES", label: "SYSTEM" },
-    ],
-    href: "https://github.com/v1shay/ml-labs",
-    linkLabel: "GitHub",
-    image: null as StaticImageData | null,
-    gif: "/images/other_projects/mllabs.gif",
-  },
-  {
-    title: "ArchLLM",
-    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines",
-    metrics: [
-      { stat: "+95%", label: "ADHERENCE" },
-      { stat: "Apache 2.0", label: "LICENSE" },
-      { stat: "-30%", label: "HBM" },
-    ],
-    href: "https://github.com/v1shay/archLLM-sim",
-    linkLabel: "GitHub",
-    image: archLlmScreenshot,
-  },
-  {
     title: "Vox-Agent",
     hook: "Turn your AirPods into an AI-powered note-taking system",
     metrics: [
@@ -251,6 +227,30 @@ const portfolioProjects = [
     linkLabel: "GitHub",
     image: null as StaticImageData | null,
     gif: "/images/sift-demo.gif",
+  },
+  {
+    title: "ML-Labs",
+    hook: "An autonomous research lab at the tip of your fingers",
+    metrics: [
+      { stat: "19 AGENTS", label: "MODEL ARCHITECTURE" },
+      { stat: "8 RESEARCH PHASES", label: "SYSTEM" },
+    ],
+    href: "https://github.com/v1shay/ml-labs",
+    linkLabel: "GitHub",
+    image: null as StaticImageData | null,
+    gif: "/images/other_projects/mllabs.gif",
+  },
+  {
+    title: "ArchLLM",
+    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines",
+    metrics: [
+      { stat: "+95%", label: "ADHERENCE" },
+      { stat: "Apache 2.0", label: "LICENSE" },
+      { stat: "-30%", label: "HBM" },
+    ],
+    href: "https://github.com/v1shay/archLLM-sim",
+    linkLabel: "GitHub",
+    image: archLlmScreenshot,
   },
   {
     title: "Sentinel-LLM",
@@ -689,7 +689,34 @@ function StickyNavbar() {
 
 function HeroSection() {
   const heroRef = useRef<HTMLElement | null>(null)
+  const titleRef = useRef<HTMLHeadingElement | null>(null)
   const reduceMotion = useReducedMotion()
+  
+  useEffect(() => {
+    if (reduceMotion || !titleRef.current) return
+
+    // Split text into letters for anime.js
+    const lines = titleRef.current.querySelectorAll(".hero-title-line")
+    lines.forEach(line => {
+      const text = line.textContent || ""
+      line.innerHTML = text.split("").map(char => 
+        `<span class="letter inline-block">${char === " " ? "&nbsp;" : char}</span>`
+      ).join("")
+    })
+
+    anime.timeline({ loop: false })
+      .add({
+        targets: ".hero-title-line .letter",
+        translateY: [100, 0],
+        translateZ: 0,
+        opacity: [0, 1],
+        filter: ["blur(10px)", "blur(0px)"],
+        easing: "easeOutExpo",
+        duration: 1400,
+        delay: (el, i) => 300 + i * 30
+      })
+  }, [reduceMotion])
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
