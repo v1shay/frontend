@@ -485,6 +485,36 @@ function Reveal({
   )
 }
 
+function ScrambleText({ text, className }: { text: string, className?: string }) {
+  const [displayText, setDisplayText] = useState(text)
+  const ref = useRef<HTMLSpanElement>(null)
+  const isInView = useInView(ref, { once: true, margin: "-10% 0px" })
+  const chars = "!<>-_\\/[]{}—=+*^?#________"
+
+  useEffect(() => {
+    if (!isInView) return
+
+    let iteration = 0
+    const interval = setInterval(() => {
+      setDisplayText(prev => 
+        text.split("")
+          .map((char, index) => {
+            if (index < iteration) return text[index]
+            return chars[Math.floor(Math.random() * chars.length)]
+          })
+          .join("")
+      )
+
+      if (iteration >= text.length) clearInterval(interval)
+      iteration += 1 / 3
+    }, 30)
+
+    return () => clearInterval(interval)
+  }, [isInView, text])
+
+  return <span ref={ref} className={className}>{displayText}</span>
+}
+
 function SectionShell({
   id,
   eyebrow,
@@ -508,7 +538,7 @@ function SectionShell({
         {hasHeading ? (
           <div className={cn("section-heading", id === "projects-grid" ? "max-w-none w-full" : "max-w-3xl")}>
             {eyebrow ? <p className="section-eyebrow">{eyebrow}</p> : null}
-            {title ? <h2 className="font-display-serif section-title">{title}</h2> : null}
+            {title ? <h2 className="font-display-serif section-title"><ScrambleText text={title} /></h2> : null}
             {copy ? <p className="section-copy">{copy}</p> : null}
           </div>
         ) : null}
