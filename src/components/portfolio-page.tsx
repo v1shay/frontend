@@ -121,9 +121,9 @@ type GridProject = {
   title: string
   hook: string
   metrics: { stat: string; label: string }[]
-  href: string
-  linkLabel: string
-  image?: StaticImageData | null
+  href?: string
+  linkLabel?: string
+  image?: StaticImageData | string | null
   gif?: string | null
 }
 
@@ -1323,6 +1323,92 @@ function ResearchProjectDetailBody({ project }: { project: ResearchProject }) {
 }
 
 
+function TiltCard({ 
+  children, 
+  className, 
+  index, 
+  onClick,
+  accent
+}: { 
+  children: React.ReactNode, 
+  className?: string, 
+  index: number, 
+  onClick?: () => void,
+  accent?: string
+}) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const glowRef = useRef<HTMLDivElement>(null)
+
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current || !glowRef.current) return
+    
+    const rect = cardRef.current.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    
+    const rotateX = (y - centerY) / 10
+    const rotateY = (centerX - x) / 10
+
+    anime({
+      targets: cardRef.current,
+      rotateX: rotateX,
+      rotateY: rotateY,
+      duration: 100,
+      easing: "easeOutQuad"
+    })
+
+    anime({
+      targets: glowRef.current,
+      left: x,
+      top: y,
+      opacity: 1,
+      duration: 100,
+      easing: "easeOutQuad"
+    })
+  }
+
+  const onMouseLeave = () => {
+    if (!cardRef.current || !glowRef.current) return
+    
+    anime({
+      targets: cardRef.current,
+      rotateX: 0,
+      rotateY: 0,
+      duration: 500,
+      easing: "elasticOut(1, .8)"
+    })
+
+    anime({
+      targets: glowRef.current,
+      opacity: 0,
+      duration: 300,
+      easing: "easeOutQuad"
+    })
+  }
+
+  return (
+    <div
+      ref={cardRef}
+      className={cn("relative transition-transform duration-200 ease-out", className)}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      onClick={onClick}
+      style={{ perspective: "1000px", transformStyle: "preserve-3d" }}
+    >
+      <div 
+        ref={glowRef}
+        className={cn("absolute pointer-events-none -translate-x-1/2 -translate-y-1/2 w-64 h-64 blur-3xl rounded-full opacity-0 z-0", accent ? accent.replace("from-", "bg-").split(" ")[0] : "bg-white/10")}
+      />
+      <div className="relative z-10 h-full">
+        {children}
+      </div>
+    </div>
+  )
+}
+
 function ResearchShowcase() {
   const [activeProjectId, setActiveProjectId] = useState<string | null>(null)
   const activeProject =
@@ -1718,11 +1804,11 @@ function ProjectGridSection() {
                       role="button"
                       tabIndex={0}
                       className="projects-v2-card projects-page-card-optimized cursor-pointer"
-                      onClick={() => setActiveGridProject(project as any)}
+                      onClick={() => setActiveGridProject(project)}
                       onKeyDown={(event) => {
                         if (event.key === "Enter" || event.key === " ") {
                           event.preventDefault()
-                          setActiveGridProject(project as any)
+                          setActiveGridProject(project)
                         }
                       }}
                     >
@@ -1883,11 +1969,11 @@ function ForFunSection() {
                 role="button"
                 tabIndex={0}
                 className="projects-v2-card projects-page-card-optimized cursor-pointer"
-                onClick={() => setActiveGridProject(project as any)}
+                onClick={() => setActiveGridProject(project)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault()
-                    setActiveGridProject(project as any)
+                    setActiveGridProject(project)
                   }
                 }}
               >
@@ -4232,81 +4318,6 @@ export function PortfolioPage() {
 
           .pillar-wrap:hover {
             transform: translateY(-6px);
-          }
-
-          .pillar-wrap-left .pillar,
-          .pillar-wrap-right .pillar,
-          .pillar-wrap-center .pillar {
-            height: auto;
-            min-height: 14rem;
-            margin-top: 0;
-            padding: 1.5rem;
-          }
-
-          .pillar-image-wrap {
-            height: min(100%, clamp(10.75rem, 40vw, 16rem));
-          }
-
-          .projects-page-grid {
-            grid-template-columns: 1fr;
-            grid-template-rows: repeat(6, minmax(0, 1fr));
-          }
-
-          .projects-page-grid-v2 {
-            grid-template-columns: 1fr;
-            grid-template-rows: none;
-            height: auto;
-          }
-
-          .projects-v2-card-visual {
-            max-height: 12rem;
-          }
-
-          .contact-page-shell {
-            grid-template-columns: 1fr;
-            grid-template-rows: auto minmax(0, 1fr);
-            gap: 1rem;
-          }
-
-          .contact-photo-shell {
-            padding: 0.25rem 0 0;
-            height: auto;
-          }
-
-          .contact-photo-frame {
-            width: min(78vw, 19rem);
-            height: min(36vh, 19rem);
-          }
-
-          .contact-panel {
-            padding: 1rem;
-          }
-
-          .contact-button-grid {
-            grid-template-columns: repeat(12, minmax(0, 1fr));
-          }
-
-        }
-
-        @media (min-width: 768px) and (max-width: 1180px) {
-          .projects-page-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            grid-template-rows: repeat(3, minmax(0, 1fr));
-          }
-
-          .contact-page-shell {
-            grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
-          }
-
-          .contact-button-grid {
-            grid-template-columns: repeat(12, minmax(0, 1fr));
-          }
-        }
-      `}</style>
-    </>
-  )
-}
-sform: translateY(-6px);
           }
 
           .pillar-wrap-left .pillar,

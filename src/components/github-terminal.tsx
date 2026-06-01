@@ -1,7 +1,8 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { motion, AnimatePresence } from "motion/react"
+import anime from "animejs"
 import { Github, ExternalLink, GitCommit, Book, Zap, Terminal, RefreshCw, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 
@@ -76,7 +77,7 @@ export function GitHubTerminal() {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchData = async (isManual = false) => {
+  const fetchData = useCallback(async (isManual = false) => {
     if (isManual) setIsRefreshing(true)
     else setLoading(true)
 
@@ -108,7 +109,7 @@ export function GitHubTerminal() {
       // Small delay for smooth transition
       setTimeout(() => setIsRefreshing(false), 600)
     }
-  }
+  }, [data])
 
   useEffect(() => {
     // 1. Try to load from cache immediately
@@ -130,7 +131,7 @@ export function GitHubTerminal() {
     }
 
     fetchData()
-  }, [])
+  }, [fetchData])
 
   const handleSoftReload = () => {
     if (isRefreshing) return
@@ -273,40 +274,7 @@ export function GitHubTerminal() {
                     <div className="h-px flex-1 bg-white/5" />
                   </div>
                   <div className="bg-white/[0.04] rounded-xl p-4 border border-white/5 shadow-inner overflow-hidden">
-                    <motion.div 
-                      layout
-                      className="contribution-grid flex gap-[3px] justify-center"
-                    >
-                      {data.contributionCalendar.slice(-25).map((week, wi) => (
-                        <motion.div 
-                          key={week[0]?.date || `week-${wi}`} 
-                          layout
-                          className="flex flex-col gap-[3px]"
-                        >
-                          {week.map((day) => (
-                            <motion.div 
-                              key={day.date}
-                              layout
-                              className={cn(
-                                "h-[9px] w-[9px] rounded-[1px] transition-all glass-square",
-                                day.count === 0 ? "bg-white/[0.05]" :
-                                day.count < 3 ? "bg-blue-900/40" :
-                                day.count < 7 ? "bg-blue-700/70" :
-                                day.count < 12 ? "bg-blue-500" : "bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.5)]"
-                              )}
-                              initial={false}
-                              animate={{
-                                scale: isRefreshing ? [1, 0.9, 1] : 1
-                              }}
-                              transition={{
-                                duration: 0.3,
-                                layout: { duration: 0.5, ease: "easeInOut" }
-                              }}
-                            />
-                          ))}
-                        </motion.div>
-                      ))}
-                    </motion.div>
+                    <ContributionGrid data={data} isRefreshing={isRefreshing} />
                   </div>
                 </div>
 
