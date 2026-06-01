@@ -1326,87 +1326,91 @@ function ResearchShowcase() {
             <div className="research-card-grid">
               {researchProjects.map((project, index) => (
                 <Reveal key={project.id} delay={0.1 + index * 0.08} className="research-card-slot">
-                  <motion.div
-                    role="button"
-                    tabIndex={0}
-                    whileHover={{ y: -10, scale: 1.01, rotateX: -2, rotateY: index % 2 === 0 ? -2 : 2 }}
-                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                    className="research-card liquid-panel"
+                  <TiltCard
+                    index={index}
+                    accent={project.accent}
+                    className="h-full"
                     onClick={() => setActiveProjectId(project.id)}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault()
-                        setActiveProjectId(project.id)
-                      }
-                    }}
                   >
                     <div
-                      className={cn(
-                        "research-card-sheen bg-gradient-to-br",
-                        project.accent
-                      )}
-                      aria-hidden="true"
-                    />
-
-                    <div className="research-card-image-wrap">
-                      <Image
-                        src={project.image}
-                        alt={`${project.title} placeholder artwork`}
-                        className="research-card-image"
+                      className="research-card liquid-panel h-full cursor-pointer"
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault()
+                          setActiveProjectId(project.id)
+                        }
+                      }}
+                    >
+                      <div
+                        className={cn(
+                          "research-card-sheen bg-gradient-to-br",
+                          project.accent
+                        )}
+                        aria-hidden="true"
                       />
-                      <div className="research-card-image-wash" aria-hidden="true" />
-                    </div>
-                    <div className="research-card-body">
-                      <p className="research-mini-kicker">{project.subtitle}</p>
-                      <h3 className="research-card-title">{project.title}</h3>
-                      <p className="research-card-hook">{project.hook}</p>
-                      <div className="projects-stats-grid projects-stats-grid--research">
-                        {project.metrics.map((m, i) => (
-                          <div key={i} className="projects-stat-item">
-                            <span className="projects-stat-value">{m.stat}</span>
-                            <span className="projects-stat-label">{m.label}</span>
-                          </div>
-                        ))}
+
+                      <div className="research-card-image-wrap">
+                        <Image
+                          src={project.image}
+                          alt={`${project.title} placeholder artwork`}
+                          className="research-card-image"
+                        />
+                        <div className="research-card-image-wash" aria-hidden="true" />
                       </div>
-                      <div className="research-card-footer">
-                        <button
-                          type="button"
-                          className="research-card-link research-card-detail-button"
-                          onClick={(event) => {
-                            event.stopPropagation()
-                            setActiveProjectId(project.id)
-                          }}
-                        >
-                          Open detail
-                          <ChevronRight className="h-4 w-4" />
-                        </button>
-                        <div className="research-card-actions">
-                          {project.actions.map((action) =>
-                            action.disabled || !action.href ? (
-                              <span
-                                key={`${project.id}-${action.label}`}
-                                className="research-card-action research-card-action-disabled"
-                              >
-                                {action.label}
-                              </span>
-                            ) : (
-                              <a
-                                key={`${project.id}-${action.label}`}
-                                href={toExternalHref(action.href)}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="research-card-action"
-                                onClick={(event) => event.stopPropagation()}
-                              >
-                                {action.label}
-                                <ExternalLink className="h-3.5 w-3.5" />
-                              </a>
-                            )
-                          )}
+                      <div className="research-card-body">
+                        <p className="research-mini-kicker">{project.subtitle}</p>
+                        <h3 className="research-card-title">{project.title}</h3>
+                        <p className="research-card-hook">{project.hook}</p>
+                        <div className="projects-stats-grid projects-stats-grid--research">
+                          {project.metrics.map((m, i) => (
+                            <div key={i} className="projects-stat-item">
+                              <span className="projects-stat-value">{m.stat}</span>
+                              <span className="projects-stat-label">{m.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <div className="research-card-footer">
+                          <button
+                            type="button"
+                            className="research-card-link research-card-detail-button"
+                            onClick={(event) => {
+                              event.stopPropagation()
+                              setActiveProjectId(project.id)
+                            }}
+                          >
+                            Open detail
+                            <ChevronRight className="h-4 w-4" />
+                          </button>
+                          <div className="research-card-actions">
+                            {project.actions.map((action) =>
+                              action.disabled || !action.href ? (
+                                <span
+                                  key={`${project.id}-${action.label}`}
+                                  className="research-card-action research-card-action-disabled"
+                                >
+                                  {action.label}
+                                </span>
+                              ) : (
+                                <a
+                                  key={`${project.id}-${action.label}`}
+                                  href={toExternalHref(action.href)}
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  className="research-card-action"
+                                  onClick={(event) => event.stopPropagation()}
+                                >
+                                  {action.label}
+                                  <ExternalLink className="h-3.5 w-3.5" />
+                                </a>
+                              )
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </motion.div>
+                  </TiltCard>
                 </Reveal>
               ))}
             </div>
@@ -4164,6 +4168,81 @@ export function PortfolioPage() {
 
           .pillar-wrap:hover {
             transform: translateY(-6px);
+          }
+
+          .pillar-wrap-left .pillar,
+          .pillar-wrap-right .pillar,
+          .pillar-wrap-center .pillar {
+            height: auto;
+            min-height: 14rem;
+            margin-top: 0;
+            padding: 1.5rem;
+          }
+
+          .pillar-image-wrap {
+            height: min(100%, clamp(10.75rem, 40vw, 16rem));
+          }
+
+          .projects-page-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(6, minmax(0, 1fr));
+          }
+
+          .projects-page-grid-v2 {
+            grid-template-columns: 1fr;
+            grid-template-rows: none;
+            height: auto;
+          }
+
+          .projects-v2-card-visual {
+            max-height: 12rem;
+          }
+
+          .contact-page-shell {
+            grid-template-columns: 1fr;
+            grid-template-rows: auto minmax(0, 1fr);
+            gap: 1rem;
+          }
+
+          .contact-photo-shell {
+            padding: 0.25rem 0 0;
+            height: auto;
+          }
+
+          .contact-photo-frame {
+            width: min(78vw, 19rem);
+            height: min(36vh, 19rem);
+          }
+
+          .contact-panel {
+            padding: 1rem;
+          }
+
+          .contact-button-grid {
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+          }
+
+        }
+
+        @media (min-width: 768px) and (max-width: 1180px) {
+          .projects-page-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: repeat(3, minmax(0, 1fr));
+          }
+
+          .contact-page-shell {
+            grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+          }
+
+          .contact-button-grid {
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+          }
+        }
+      `}</style>
+    </>
+  )
+}
+sform: translateY(-6px);
           }
 
           .pillar-wrap-left .pillar,
