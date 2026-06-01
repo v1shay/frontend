@@ -103,13 +103,13 @@ export function GitHubTerminal() {
       setError(null)
     } catch (err) {
       console.error("Fetch error:", err)
-      if (!data) setError((err as Error).message)
+      setError((err as Error).message)
     } finally {
       setLoading(false)
       // Small delay for smooth transition
       setTimeout(() => setIsRefreshing(false), 600)
     }
-  }, [data])
+  }, [])
 
   useEffect(() => {
     // 1. Try to load from cache immediately

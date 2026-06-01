@@ -774,7 +774,7 @@ function HeroSection() {
             translateX: 0,
             translateY: 0,
             duration: 600,
-            easing: "elasticOut(1, .8)"
+            easing: "easeOutElastic(1, .8)"
           })
         }
       })
@@ -1379,7 +1379,7 @@ function TiltCard({
       rotateX: 0,
       rotateY: 0,
       duration: 500,
-      easing: "elasticOut(1, .8)"
+      easing: "easeOutElastic(1, .8)"
     })
 
     anime({
