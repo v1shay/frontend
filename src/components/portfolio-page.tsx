@@ -2024,9 +2024,43 @@ function ContactSection() {
   )
 }
 
+function ParticleTrail() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const onMouseMove = (e: MouseEvent) => {
+      const particle = document.createElement("div")
+      particle.className = "absolute w-1 h-1 bg-white/40 rounded-full pointer-events-none"
+      particle.style.left = `${e.clientX}px`
+      particle.style.top = `${e.clientY}px`
+      container.appendChild(particle)
+
+      anime({
+        targets: particle,
+        translateX: () => anime.random(-20, 20),
+        translateY: () => anime.random(-20, 20),
+        scale: [1, 0],
+        opacity: [1, 0],
+        duration: 1000,
+        easing: "easeOutExpo",
+        complete: () => particle.remove()
+      })
+    }
+
+    window.addEventListener("mousemove", onMouseMove)
+    return () => window.removeEventListener("mousemove", onMouseMove)
+  }, [])
+
+  return <div ref={containerRef} className="fixed inset-0 pointer-events-none z-[100]" />
+}
+
 export function PortfolioPage() {
   return (
     <>
+      <ParticleTrail />
       <main className="portfolio-page">
         <StickyNavbar />
 
