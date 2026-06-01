@@ -62,7 +62,7 @@ import mlLabsIcon from "../../images/other_projects/ml-labs-icon.png"
 import archLlmScreenshot from "../../images/other_projects/image.png"
 import sentinelLlmChart from "../../images/other_projects/image copy.png"
 import voxAgentScreenshot from "../../images/other_projects/PNG image.png"
-import anime from "animejs"
+import anime from "animejs/lib/anime.js"
 import { useEffect, useRef, useState, type CSSProperties } from "react"
 import {
   motion,

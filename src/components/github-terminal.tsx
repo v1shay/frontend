@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "motion/react"
-import anime from "animejs"
+import anime from "animejs/lib/anime.js"
 import { Github, ExternalLink, GitCommit, Book, Zap, Terminal, RefreshCw, AlertCircle } from "lucide-react"
 import { cn } from "@/lib/utils"
 
