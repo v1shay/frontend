@@ -717,6 +717,42 @@ function HeroSection() {
       })
   }, [reduceMotion])
 
+  useEffect(() => {
+    if (reduceMotion) return
+
+    const buttons = document.querySelectorAll(".hero-cta-primary, .hero-cta-secondary")
+    
+    const onMouseMove = (e: MouseEvent) => {
+      buttons.forEach(btn => {
+        const rect = btn.getBoundingClientRect()
+        const x = e.clientX - rect.left - rect.width / 2
+        const y = e.clientY - rect.top - rect.height / 2
+        
+        const distance = Math.sqrt(x * x + y * y)
+        if (distance < 100) {
+          anime({
+            targets: btn,
+            translateX: x * 0.3,
+            translateY: y * 0.3,
+            duration: 400,
+            easing: "easeOutExpo"
+          })
+        } else {
+          anime({
+            targets: btn,
+            translateX: 0,
+            translateY: 0,
+            duration: 600,
+            easing: "elasticOut(1, .8)"
+          })
+        }
+      })
+    }
+
+    window.addEventListener("mousemove", onMouseMove)
+    return () => window.removeEventListener("mousemove", onMouseMove)
+  }, [reduceMotion])
+
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
