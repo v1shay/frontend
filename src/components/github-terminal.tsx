@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import anime from "animejs"
 import { Github, ExternalLink, GitCommit, Book, Zap, Terminal, RefreshCw, AlertCircle } from "lucide-react"
