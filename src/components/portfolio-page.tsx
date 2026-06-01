@@ -771,6 +771,66 @@ function HeroSection() {
   })
   const copyOpacity = useTransform(scrollYProgress, [0, 0.7, 1], [1, 0.96, 0.84])
 
+    const blob1Ref = useRef<HTMLDivElement>(null)
+    const blob2Ref = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (reduceMotion) return
+
+        // Initial floating animation
+        const anim1 = anime({
+            targets: blob1Ref.current,
+            translateX: () => anime.random(-50, 50),
+            translateY: () => anime.random(-50, 50),
+            scale: () => anime.random(0.8, 1.2),
+            duration: () => anime.random(3000, 5000),
+            delay: () => anime.random(0, 1000),
+            direction: 'alternate',
+            loop: true,
+            easing: 'easeInOutQuad'
+        })
+
+        const anim2 = anime({
+            targets: blob2Ref.current,
+            translateX: () => anime.random(-40, 40),
+            translateY: () => anime.random(-40, 40),
+            scale: () => anime.random(0.9, 1.1),
+            duration: () => anime.random(4000, 6000),
+            delay: () => anime.random(0, 500),
+            direction: 'alternate',
+            loop: true,
+            easing: 'easeInOutSine'
+        })
+
+        const onMouseMove = (e: MouseEvent) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 40
+            const y = (e.clientY / window.innerHeight - 0.5) * 40
+
+            anime({
+                targets: blob1Ref.current,
+                translateX: `+=${x}`,
+                translateY: `+=${y}`,
+                duration: 1000,
+                easing: 'easeOutQuad'
+            })
+
+            anime({
+                targets: blob2Ref.current,
+                translateX: `+=${-x * 0.5}`,
+                translateY: `+=${-y * 0.5}`,
+                duration: 1200,
+                easing: 'easeOutQuad'
+            })
+        }
+
+        window.addEventListener('mousemove', onMouseMove)
+        return () => {
+            window.removeEventListener('mousemove', onMouseMove)
+            anim1.pause()
+            anim2.pause()
+        }
+    }, [reduceMotion])
+
   return (
     <section
       ref={heroRef}
@@ -778,23 +838,13 @@ function HeroSection() {
       className="hero-section snap-section"
     >
       <div className="hero-ambient-stage" aria-hidden="true">
-        <motion.div
+        <div
+          ref={blob1Ref}
           className="hero-ambient-ribbon hero-ambient-ribbon-one"
-          animate={
-            reduceMotion
-              ? undefined
-              : { x: [0, 26, -20, 0], y: [0, -22, 12, 0], rotate: [0, 4, -3, 0] }
-          }
-          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         />
-        <motion.div
+        <div
+          ref={blob2Ref}
           className="hero-ambient-ribbon hero-ambient-ribbon-two"
-          animate={
-            reduceMotion
-              ? undefined
-              : { x: [0, -20, 18, 0], y: [0, 16, -12, 0], rotate: [0, -5, 3, 0] }
-          }
-          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
       <div className="hero-inner">
