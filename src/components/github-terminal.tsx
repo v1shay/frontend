@@ -26,6 +26,50 @@ interface GitHubData {
   contributionCalendar: { count: number; date: string }[][]
 }
 
+function ContributionGrid({ data, isRefreshing }: { data: GitHubData, isRefreshing: boolean }) {
+  const gridRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!gridRef.current || isRefreshing) return
+
+    anime({
+      targets: '.contribution-day',
+      scale: [0, 1],
+      opacity: [0, 1],
+      delay: anime.stagger(2, { grid: [25, 7], from: 'center' }),
+      duration: 800,
+      easing: 'easeOutElastic(1, .8)'
+    })
+  }, [data, isRefreshing])
+
+  return (
+    <div 
+      ref={gridRef}
+      className="contribution-grid flex gap-[3px] justify-center"
+    >
+      {data.contributionCalendar.slice(-25).map((week, wi) => (
+        <div 
+          key={week[0]?.date || `week-${wi}`} 
+          className="flex flex-col gap-[3px]"
+        >
+          {week.map((day) => (
+            <div 
+              key={day.date}
+              className={cn(
+                "h-[9px] w-[9px] rounded-[1px] transition-all glass-square contribution-day",
+                day.count === 0 ? "bg-white/[0.05]" :
+                day.count < 3 ? "bg-blue-900/40" :
+                day.count < 7 ? "bg-blue-700/70" :
+                day.count < 12 ? "bg-blue-500" : "bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,0.5)]"
+              )}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  )
+}
+
 export function GitHubTerminal() {
   const [data, setData] = useState<GitHubData | null>(null)
   const [loading, setLoading] = useState(true)
