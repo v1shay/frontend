@@ -1740,49 +1740,27 @@ function ForFunSection() {
 
   return (
     <SectionShell id="for-fun">
-      <div className="w-full flex flex-col lg:flex-row gap-12 lg:gap-20 py-20 relative px-6 sm:px-10 lg:px-16">
-        {/* Left column: Writing/Description */}
-        <div className="lg:w-1/3 flex flex-col justify-center">
+      <div className="w-full flex flex-col xl:flex-row gap-10 xl:gap-16 py-12 relative px-6 sm:px-10 lg:px-16 items-stretch">
+        {/* Column 1: Writing */}
+        <div className="xl:w-[22%] flex flex-col justify-center">
           <div className="space-y-6">
             <span className="section-eyebrow">Lifestyle</span>
-            <h2 className="font-display-serif section-title !mt-0">For Fun</h2>
-            <p className="section-copy">
+            <h2 className="font-display-serif section-title !mt-0 !text-5xl">For Fun</h2>
+            <p className="section-copy !text-sm leading-relaxed opacity-70">
               Beyond the code and research, I&apos;m a system-thinker at heart—whether it&apos;s on the court, mentoring others, or building digital worlds. These are the things that keep me inspired.
             </p>
-
-            <div className="pt-8">
-              <div className="liquid-panel p-6 border border-white/10 rounded-2xl bg-white/5 space-y-6">
-                {condensedProjects.map((project, idx) => (
-                  <div key={`${project.title}-${idx}`} className="flex flex-col gap-1.5">
-                    <div className="flex items-center gap-3">
-                      <span className="font-bold text-white uppercase tracking-wider text-xs">{project.title}</span>
-                      {"languages" in project && project.languages && (
-                        <div className="flex gap-1.5">
-                          {project.languages.map(lang => (
-                            <span key={lang} className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/10 text-white/70 border border-white/10">
-                              {lang}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                    <p className="text-white/40 text-[13px] leading-snug">{project.hook}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* Right column: Featured Projects Grid */}
-        <div className="lg:w-2/3">
-          <div className="for-fun-featured-grid">
+        {/* Column 2: Featured Projects Grid */}
+        <div className="xl:w-[53%]">
+          <div className="for-fun-featured-grid !gap-6">
             {featuredProjects.map((project, idx) => (
               <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
                 <article
                   role="button"
                   tabIndex={0}
-                  className="projects-v2-card projects-page-card-optimized cursor-pointer h-full"
+                  className="projects-v2-card projects-page-card-optimized cursor-pointer h-full !p-8 !rounded-[2.5rem]"
                   onClick={() => setActiveGridProject(project as any)}
                   onKeyDown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
@@ -1793,28 +1771,51 @@ function ForFunSection() {
                 >
                   <div className="projects-v2-card-text flex flex-col items-center justify-center text-center">
                     <div className="projects-v2-card-header-row">
-                      <h3 className="projects-page-card-title text-xl">{project.title}</h3>
+                      <h3 className="projects-page-card-title text-2xl">{project.title}</h3>
                     </div>
-                    <p className="projects-page-card-subtitle mt-2 text-xs">{project.hook}</p>
+                    <p className="projects-page-card-subtitle mt-2 text-sm">{project.hook}</p>
                   </div>
 
-                  <div className="projects-v2-card-visual mt-6">
+                  <div className="projects-v2-card-visual mt-8">
                     <div className="projects-v2-card-visual-inner">
                       {project.image ? (
                         <Image
                           src={project.image}
                           alt={`${project.title} screenshot`}
-                          className="projects-v2-card-img !max-h-[16rem]"
+                          className="projects-v2-card-img !max-h-[18rem]"
                         />
                       ) : (
-                        <div className="w-full h-full bg-white/5 flex items-center justify-center min-h-[16rem]">
-                          <Sparkles className="h-8 w-8 text-white/20" />
+                        <div className="w-full h-full bg-white/5 flex items-center justify-center min-h-[18rem]">
+                          <Sparkles className="h-10 w-10 text-white/20" />
                         </div>
                       )}
                       <div className="projects-v2-card-img-wash" aria-hidden="true" />
                     </div>
                   </div>
                 </article>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Column 3: Condensed List */}
+        <div className="xl:w-[25%] flex flex-col justify-center">
+          <div className="liquid-panel p-8 border border-white/10 rounded-[2.5rem] bg-white/5 h-full flex flex-col justify-center gap-10">
+            {condensedProjects.map((project, idx) => (
+              <div key={`${project.title}-${idx}`} className="flex flex-col gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-bold text-white uppercase tracking-wider text-sm">{project.title}</span>
+                  {"languages" in project && project.languages && (
+                    <div className="flex gap-1.5">
+                      {project.languages.map(lang => (
+                        <span key={lang} className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/70 border border-white/10">
+                          {lang}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                <p className="text-white/40 text-sm leading-relaxed">{project.hook}</p>
               </div>
             ))}
           </div>
@@ -2240,9 +2241,9 @@ export function PortfolioPage() {
 
         #projects-grid.section-anchor {
           padding-top: 92px !important;
-          padding-bottom: 0.75rem !important;
-          padding-left: 2rem !important;
-          padding-right: 2rem !important;
+          padding-bottom: 0 !important;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
           width: 100vw !important;
           max-width: 100vw !important;
         }
@@ -3582,11 +3583,11 @@ export function PortfolioPage() {
         }
 
         .projects-marquee-viewport {
-          height: 85vh;
+          height: calc(100vh - 92px);
           overflow-y: auto;
           position: relative;
           padding-right: 0.5rem;
-          mask-image: linear-gradient(to bottom, black 92%, transparent);
+          mask-image: linear-gradient(to bottom, black 95%, transparent);
         }
 
         /* Discreet but usable Scrollbar */
@@ -3626,7 +3627,8 @@ export function PortfolioPage() {
         .projects-marquee-track {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 1.5rem;
+          gap: 2rem;
+          padding: 2rem;
         }
 
 
@@ -3644,14 +3646,14 @@ export function PortfolioPage() {
           align-items: center;
           text-align: center;
           height: 100%;
-          min-height: 520px;
-          padding: 2.5rem;
-          border-radius: 2.5rem;
+          min-height: 580px;
+          padding: 3rem;
+          border-radius: 3rem;
           background:
             linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
             radial-gradient(circle at top left, rgb(240 244 255 / 0.12), transparent 40%);
           contain: layout style paint;
-          gap: 1.25rem;
+          gap: 1.5rem;
         }
 
         .projects-v2-card-text {
