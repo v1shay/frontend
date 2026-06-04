@@ -1721,8 +1721,8 @@ function ProjectGridSection() {
             </AnimatePresence>
           </div>
 
-          <aside className="projects-page-aside">
-            <div className="w-full h-full">
+          <aside className="projects-page-aside flex items-center justify-center">
+            <div className="w-full h-fit max-w-2xl">
               <GitHubTerminal />
             </div>
           </aside>
@@ -1736,51 +1736,99 @@ function ForFunSection() {
   const [activeGridProject, setActiveGridProject] = useState<GridProject | null>(null)
   
   const featuredProjects = forFunProjects.filter(p => p.isFeatured)
+  const condensedProjects = forFunProjects.filter(p => !p.isFeatured)
 
   return (
     <SectionShell id="for-fun">
-      <div className="w-full h-full flex items-center justify-center py-8 relative px-6 sm:px-10 lg:px-16 overflow-hidden">
-        <div className="for-fun-featured-grid w-full max-w-5xl h-[calc(100vh-180px)] grid grid-cols-2 grid-rows-2 gap-6">
-          {featuredProjects.map((project, idx) => (
-            <div key={`${project.title}-${idx}`} className="h-full min-h-0">
-              <article
-                role="button"
-                tabIndex={0}
-                className="projects-v2-card projects-page-card-optimized cursor-pointer h-full !p-6 !rounded-[2rem] flex flex-col"
-                onClick={() => setActiveGridProject(project as any)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault()
-                    setActiveGridProject(project as any)
-                  }
-                }}
-              >
-                <div className="projects-v2-card-text flex flex-col items-center justify-center text-center flex-shrink-0">
-                  <div className="projects-v2-card-header-row">
-                    <h3 className="projects-page-card-title text-xl md:text-2xl">{project.title}</h3>
-                  </div>
-                  <p className="projects-page-card-subtitle mt-1 text-[10px] md:text-xs leading-tight">{project.hook}</p>
-                </div>
+      <div className="w-full h-full flex flex-col lg:flex-row gap-12 lg:gap-16 py-12 relative px-6 sm:px-10 lg:px-16 items-center overflow-hidden">
+        {/* Left Column: Writing & Condensed List */}
+        <div className="lg:w-1/3 flex flex-col justify-center space-y-8">
+          <div className="space-y-4">
+            <span className="section-eyebrow">Lifestyle</span>
+            <h2 className="font-display-serif section-title !mt-0 !text-5xl">For Fun</h2>
+            <p className="section-copy !text-sm leading-relaxed opacity-60">
+              Beyond the code and research, I&apos;m a system-thinker at heart—whether it&apos;s on the court, mentoring others, or building digital worlds.
+            </p>
+          </div>
 
-                <div className="projects-v2-card-visual mt-4 flex-grow min-h-0">
-                  <div className="projects-v2-card-visual-inner h-full">
-                    {project.image ? (
-                      <Image
-                        src={project.image}
-                        alt={`${project.title} screenshot`}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-white/5 flex items-center justify-center">
-                        <Sparkles className="h-8 w-8 text-white/20" />
-                      </div>
-                    )}
-                    <div className="projects-v2-card-img-wash" aria-hidden="true" />
-                  </div>
+          <div className="liquid-panel p-6 border border-white/10 rounded-3xl bg-white/5 space-y-6">
+            {condensedProjects.map((project, idx) => (
+              <div key={`${project.title}-${idx}`} className="flex flex-col gap-1.5">
+                <div className="flex items-center gap-3">
+                  <span className="font-bold text-white uppercase tracking-wider text-[10px]">{project.title}</span>
+                  {"languages" in project && project.languages && (
+                    <div className="flex gap-1.5">
+                      {project.languages.map(lang => (
+                        <span key={lang} className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/10 text-white/70 border border-white/10">
+                          {lang}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </article>
-            </div>
-          ))}
+                {!("languages" in project) && (
+                  <p className="text-white/40 text-[11px] leading-snug">{project.hook}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Column: Bento Grid */}
+        <div className="lg:w-2/3 h-full max-h-[calc(100vh-180px)] w-full">
+          <div className="for-fun-bento-grid h-full grid grid-cols-6 grid-rows-6 gap-4">
+            {/* Coach - Large Portrait */}
+            <article
+              className="col-span-3 row-span-4 projects-v2-card !p-4 !rounded-3xl cursor-pointer"
+              onClick={() => setActiveGridProject(featuredProjects.find(p => p.title.includes("coach")) as any)}
+            >
+              <div className="projects-v2-card-visual-inner h-full">
+                <Image src={lynbrookTeamPhoto} alt="Coach" className="w-full h-full object-cover" />
+                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
+                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">Coach</span>
+                </div>
+              </div>
+            </article>
+
+            {/* FBLA - Wide */}
+            <article
+              className="col-span-3 row-span-2 projects-v2-card !p-4 !rounded-3xl cursor-pointer"
+              onClick={() => setActiveGridProject(featuredProjects.find(p => p.title === "fbla") as any)}
+            >
+              <div className="projects-v2-card-visual-inner h-full">
+                <Image src={fblaImage} alt="FBLA" className="w-full h-full object-cover" />
+                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
+                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">FBLA</span>
+                </div>
+              </div>
+            </article>
+
+            {/* GitHub - Square */}
+            <article
+              className="col-span-3 row-span-2 projects-v2-card !p-4 !rounded-3xl cursor-pointer"
+              onClick={() => setActiveGridProject(featuredProjects.find(p => p.title.includes("github")) as any)}
+            >
+              <div className="projects-v2-card-visual-inner h-full">
+                <Image src={githubDevProgramImage} alt="GitHub Dev" className="w-full h-full object-cover" />
+                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
+                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">GitHub Dev</span>
+                </div>
+              </div>
+            </article>
+
+            {/* Mentor - Tall */}
+            <article
+              className="col-span-6 row-span-2 projects-v2-card !p-4 !rounded-3xl cursor-pointer"
+              onClick={() => setActiveGridProject(featuredProjects.find(p => p.title.includes("mentor")) as any)}
+            >
+              <div className="projects-v2-card-visual-inner h-full">
+                <Image src={tkdDojanGroupPhoto} alt="Mentor" className="w-full h-full object-cover" />
+                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
+                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">Mentor</span>
+                </div>
+              </div>
+            </article>
+          </div>
         </div>
 
         {/* Modal Logic */}
