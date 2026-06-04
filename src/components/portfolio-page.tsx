@@ -1740,71 +1740,83 @@ function ForFunSection() {
 
   return (
     <SectionShell id="for-fun">
-      <div className="w-full flex flex-col items-center py-20 relative px-6 sm:px-10 lg:px-16">
-        <div className="for-fun-featured-grid w-full max-w-7xl mb-12">
-          {featuredProjects.map((project, idx) => (
-            <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
-              <article
-                role="button"
-                tabIndex={0}
-                className="projects-v2-card projects-page-card-optimized cursor-pointer h-full"
-                onClick={() => setActiveGridProject(project as any)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter" || event.key === " ") {
-                    event.preventDefault()
-                    setActiveGridProject(project as any)
-                  }
-                }}
-              >
-                <div className="projects-v2-card-text flex flex-col items-center justify-center text-center">
-                  <div className="projects-v2-card-header-row">
-                    <h3 className="projects-page-card-title text-2xl">{project.title}</h3>
-                  </div>
-                  <p className="projects-page-card-subtitle mt-2 text-sm">{project.hook}</p>
-                </div>
+      <div className="w-full flex flex-col lg:flex-row gap-12 lg:gap-20 py-20 relative px-6 sm:px-10 lg:px-16">
+        {/* Left column: Writing/Description */}
+        <div className="lg:w-1/3 flex flex-col justify-center">
+          <div className="space-y-6">
+            <span className="section-eyebrow">Lifestyle</span>
+            <h2 className="font-display-serif section-title !mt-0">For Fun</h2>
+            <p className="section-copy">
+              Beyond the code and research, I&apos;m a system-thinker at heart—whether it&apos;s on the court, mentoring others, or building digital worlds. These are the things that keep me inspired.
+            </p>
 
-                <div className="projects-v2-card-visual mt-4">
-                  <div className="projects-v2-card-visual-inner">
-                    {project.image ? (
-                      <Image
-                        src={project.image}
-                        alt={`${project.title} screenshot`}
-                        className="projects-v2-card-img"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-white/5 flex items-center justify-center">
-                        <Sparkles className="h-8 w-8 text-white/20" />
-                      </div>
-                    )}
-                    <div className="projects-v2-card-img-wash" aria-hidden="true" />
+            <div className="pt-8">
+              <div className="liquid-panel p-6 border border-white/10 rounded-2xl bg-white/5 space-y-6">
+                {condensedProjects.map((project, idx) => (
+                  <div key={`${project.title}-${idx}`} className="flex flex-col gap-1.5">
+                    <div className="flex items-center gap-3">
+                      <span className="font-bold text-white uppercase tracking-wider text-xs">{project.title}</span>
+                      {"languages" in project && project.languages && (
+                        <div className="flex gap-1.5">
+                          {project.languages.map(lang => (
+                            <span key={lang} className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/10 text-white/70 border border-white/10">
+                              {lang}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <p className="text-white/40 text-[13px] leading-snug">{project.hook}</p>
                   </div>
-                </div>
-              </article>
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
         </div>
 
-        <div className="w-full max-w-7xl">
-          <div className="liquid-panel p-8 border border-white/10 rounded-3xl bg-white/5">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {condensedProjects.map((project, idx) => (
-                <div key={`${project.title}-${idx}`} className="flex flex-col gap-2">
-                  <div className="flex items-center gap-3">
-                    <span className="font-bold text-white uppercase tracking-wider">{project.title}</span>
-                    {"languages" in project && project.languages && (
-                      <div className="flex gap-2">
-                        {project.languages.map(lang => (
-                          <span key={lang} className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/70 border border-white/10">
-                            {lang}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+        {/* Right column: Featured Projects Grid */}
+        <div className="lg:w-2/3">
+          <div className="for-fun-featured-grid">
+            {featuredProjects.map((project, idx) => (
+              <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
+                <article
+                  role="button"
+                  tabIndex={0}
+                  className="projects-v2-card projects-page-card-optimized cursor-pointer h-full"
+                  onClick={() => setActiveGridProject(project as any)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault()
+                      setActiveGridProject(project as any)
+                    }
+                  }}
+                >
+                  <div className="projects-v2-card-text flex flex-col items-center justify-center text-center">
+                    <div className="projects-v2-card-header-row">
+                      <h3 className="projects-page-card-title text-xl">{project.title}</h3>
+                    </div>
+                    <p className="projects-page-card-subtitle mt-2 text-xs">{project.hook}</p>
                   </div>
-                  <p className="text-white/50 text-sm leading-relaxed">{project.hook}</p>
-                </div>
-              ))}
-            </div>
+
+                  <div className="projects-v2-card-visual mt-6">
+                    <div className="projects-v2-card-visual-inner">
+                      {project.image ? (
+                        <Image
+                          src={project.image}
+                          alt={`${project.title} screenshot`}
+                          className="projects-v2-card-img !max-h-[16rem]"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-white/5 flex items-center justify-center min-h-[16rem]">
+                          <Sparkles className="h-8 w-8 text-white/20" />
+                        </div>
+                      )}
+                      <div className="projects-v2-card-img-wash" aria-hidden="true" />
+                    </div>
+                  </div>
+                </article>
+              </div>
+            ))}
           </div>
         </div>
 
@@ -3570,7 +3582,7 @@ export function PortfolioPage() {
         }
 
         .projects-marquee-viewport {
-          height: 400px;
+          height: 85vh;
           overflow-y: auto;
           position: relative;
           padding-right: 0.5rem;
@@ -3614,7 +3626,7 @@ export function PortfolioPage() {
         .projects-marquee-track {
           display: grid;
           grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: 1.25rem;
+          gap: 1.5rem;
         }
 
 
@@ -3623,7 +3635,7 @@ export function PortfolioPage() {
 
         .projects-v2-card-slot {
           min-height: 0;
-          height: auto;
+          height: 100%;
         }
 
         .projects-v2-card {
@@ -3631,15 +3643,15 @@ export function PortfolioPage() {
           flex-direction: column;
           align-items: center;
           text-align: center;
-          height: auto;
-          min-height: 0;
-          padding: 0.85rem 1rem;
-          border-radius: 1.5rem;
+          height: 100%;
+          min-height: 520px;
+          padding: 2.5rem;
+          border-radius: 2.5rem;
           background:
             linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
             radial-gradient(circle at top left, rgb(240 244 255 / 0.12), transparent 40%);
           contain: layout style paint;
-          gap: 0.6rem;
+          gap: 1.25rem;
         }
 
         .projects-v2-card-text {
@@ -3748,7 +3760,7 @@ export function PortfolioPage() {
           width: auto;
           height: auto;
           max-width: 100%;
-          max-height: 12rem;
+          max-height: 24rem;
           object-fit: contain;
           display: block;
         }
