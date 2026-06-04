@@ -1736,92 +1736,56 @@ function ForFunSection() {
   const [activeGridProject, setActiveGridProject] = useState<GridProject | null>(null)
   
   const featuredProjects = forFunProjects.filter(p => p.isFeatured)
-  const condensedProjects = forFunProjects.filter(p => !p.isFeatured)
 
   return (
     <SectionShell id="for-fun">
-      <div className="w-full flex flex-col xl:flex-row gap-10 xl:gap-16 py-12 relative px-6 sm:px-10 lg:px-16 items-stretch">
-        {/* Column 1: Writing */}
-        <div className="xl:w-[22%] flex flex-col justify-center">
-          <div className="space-y-6">
-            <span className="section-eyebrow">Lifestyle</span>
-            <h2 className="font-display-serif section-title !mt-0 !text-5xl">For Fun</h2>
-            <p className="section-copy !text-sm leading-relaxed opacity-70">
-              Beyond the code and research, I&apos;m a system-thinker at heart—whether it&apos;s on the court, mentoring others, or building digital worlds. These are the things that keep me inspired.
-            </p>
-          </div>
-        </div>
-
-        {/* Column 2: Featured Projects Grid */}
-        <div className="xl:w-[53%]">
-          <div className="for-fun-featured-grid !gap-6">
-            {featuredProjects.map((project, idx) => (
-              <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
-                <article
-                  role="button"
-                  tabIndex={0}
-                  className="projects-v2-card projects-page-card-optimized cursor-pointer h-full !p-8 !rounded-[2.5rem]"
-                  onClick={() => setActiveGridProject(project as any)}
-                  onKeyDown={(event) => {
-                    if (event.key === "Enter" || event.key === " ") {
-                      event.preventDefault()
-                      setActiveGridProject(project as any)
-                    }
-                  }}
-                >
-                  <div className="projects-v2-card-text flex flex-col items-center justify-center text-center">
-                    <div className="projects-v2-card-header-row">
-                      <h3 className="projects-page-card-title text-2xl">{project.title}</h3>
-                    </div>
-                    <p className="projects-page-card-subtitle mt-2 text-sm">{project.hook}</p>
+      <div className="w-full flex items-center justify-center py-12 relative px-6 sm:px-10 lg:px-16 h-full">
+        <div className="for-fun-featured-grid w-full max-w-6xl !gap-8">
+          {featuredProjects.map((project, idx) => (
+            <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
+              <article
+                role="button"
+                tabIndex={0}
+                className="projects-v2-card projects-page-card-optimized cursor-pointer h-full !p-8 !rounded-[2.5rem]"
+                onClick={() => setActiveGridProject(project as any)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault()
+                    setActiveGridProject(project as any)
+                  }
+                }}
+              >
+                <div className="projects-v2-card-text flex flex-col items-center justify-center text-center">
+                  <div className="projects-v2-card-header-row">
+                    <h3 className="projects-page-card-title text-2xl">{project.title}</h3>
                   </div>
-
-                  <div className="projects-v2-card-visual mt-8">
-                    <div className="projects-v2-card-visual-inner">
-                      {project.image ? (
-                        <Image
-                          src={project.image}
-                          alt={`${project.title} screenshot`}
-                          className="projects-v2-card-img !max-h-[18rem]"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-white/5 flex items-center justify-center min-h-[18rem]">
-                          <Sparkles className="h-10 w-10 text-white/20" />
-                        </div>
-                      )}
-                      <div className="projects-v2-card-img-wash" aria-hidden="true" />
-                    </div>
-                  </div>
-                </article>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Column 3: Condensed List */}
-        <div className="xl:w-[25%] flex flex-col justify-center">
-          <div className="liquid-panel p-8 border border-white/10 rounded-[2.5rem] bg-white/5 h-full flex flex-col justify-center gap-10">
-            {condensedProjects.map((project, idx) => (
-              <div key={`${project.title}-${idx}`} className="flex flex-col gap-2">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-bold text-white uppercase tracking-wider text-sm">{project.title}</span>
-                  {"languages" in project && project.languages && (
-                    <div className="flex gap-1.5">
-                      {project.languages.map(lang => (
-                        <span key={lang} className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/70 border border-white/10">
-                          {lang}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  <p className="projects-page-card-subtitle mt-2 text-sm">{project.hook}</p>
                 </div>
-                <p className="text-white/40 text-sm leading-relaxed">{project.hook}</p>
-              </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Reuse Project Modal Logic */}
+                <div className="projects-v2-card-visual mt-8">
+                  <div className="projects-v2-card-visual-inner">
+                    {project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={`${project.title} screenshot`}
+                        className="projects-v2-card-img"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-white/5 flex items-center justify-center min-h-[20rem]">
+                        <Sparkles className="h-10 w-10 text-white/20" />
+                      </div>
+                    )}
+                    <div className="projects-v2-card-img-wash" aria-hidden="true" />
+                  </div>
+                </div>
+              </article>
+            </div>
+          ))}
+        </div>
+      </div>
+    </SectionShell>
+  )
+}
         <AnimatePresence>
           {activeGridProject && (
             <motion.div
@@ -3637,7 +3601,7 @@ export function PortfolioPage() {
 
         .projects-v2-card-slot {
           min-height: 0;
-          height: 100%;
+          height: auto;
         }
 
         .projects-v2-card {
@@ -3645,15 +3609,15 @@ export function PortfolioPage() {
           flex-direction: column;
           align-items: center;
           text-align: center;
-          height: 100%;
-          min-height: 580px;
-          padding: 3rem;
-          border-radius: 3rem;
+          height: auto;
+          min-height: 0;
+          padding: 2rem;
+          border-radius: 2.5rem;
           background:
             linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
             radial-gradient(circle at top left, rgb(240 244 255 / 0.12), transparent 40%);
           contain: layout style paint;
-          gap: 1.5rem;
+          gap: 1.25rem;
         }
 
         .projects-v2-card-text {
@@ -3746,7 +3710,8 @@ export function PortfolioPage() {
 
         .projects-v2-card-visual-inner {
           position: relative;
-          border-radius: 0.85rem;
+          width: 100%;
+          border-radius: 1.25rem;
           border: 1px solid rgb(255 255 255 / 0.12);
           background: rgb(0 0 0 / 0.2);
           overflow: hidden;
@@ -3759,11 +3724,11 @@ export function PortfolioPage() {
         }
 
         .projects-v2-card-img {
-          width: auto;
+          width: 100%;
           height: auto;
-          max-width: 100%;
-          max-height: 24rem;
-          object-fit: contain;
+          max-width: none;
+          max-height: none;
+          object-fit: cover;
           display: block;
         }
 
