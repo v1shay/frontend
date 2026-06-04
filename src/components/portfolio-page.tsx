@@ -1782,10 +1782,8 @@ function ForFunSection() {
             </div>
           ))}
         </div>
-      </div>
-    </SectionShell>
-  )
-}
+
+        {/* Modal Logic */}
         <AnimatePresence>
           {activeGridProject && (
             <motion.div
