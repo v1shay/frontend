@@ -307,6 +307,7 @@ const forFunProjects = [
     href: "",
     linkLabel: "Fun",
     image: fblaImage,
+    isFeatured: true,
   },
   {
     title: "github dev program",
@@ -315,6 +316,7 @@ const forFunProjects = [
     href: "",
     linkLabel: "Fun",
     image: githubDevProgramImage,
+    isFeatured: true,
   },
   {
     title: "mentor - TKD",
@@ -323,6 +325,7 @@ const forFunProjects = [
     href: "",
     linkLabel: "Martial Arts",
     image: tkdDojanGroupPhoto,
+    isFeatured: true,
   },
   {
     title: "coach - Athletes4Others",
@@ -331,6 +334,7 @@ const forFunProjects = [
     href: "",
     linkLabel: "Outreach",
     image: lynbrookTeamPhoto,
+    isFeatured: true,
   },
   {
     title: "second brain",
@@ -339,6 +343,7 @@ const forFunProjects = [
     href: "",
     linkLabel: "Fun",
     image: obsidian,
+    isFeatured: false,
   },
   {
     title: "sports",
@@ -347,6 +352,7 @@ const forFunProjects = [
     href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
     linkLabel: "Athletics",
     image: sportsPhoto,
+    isFeatured: false,
   },
   {
     title: "music",
@@ -355,6 +361,7 @@ const forFunProjects = [
     href: "https://open.spotify.com/user/31rmdnittbsvohipqn7zdcjbj6ri",
     linkLabel: "Fun",
     image: spotify,
+    isFeatured: false,
   },
   {
     title: "trilingual",
@@ -363,6 +370,8 @@ const forFunProjects = [
     href: "",
     linkLabel: "Fun",
     image: trilingualImage,
+    isFeatured: false,
+    languages: ["English", "Hindi", "Spanish"],
   },
 ] as const
 
@@ -1725,17 +1734,20 @@ function ProjectGridSection() {
 
 function ForFunSection() {
   const [activeGridProject, setActiveGridProject] = useState<GridProject | null>(null)
+  
+  const featuredProjects = forFunProjects.filter(p => p.isFeatured)
+  const condensedProjects = forFunProjects.filter(p => !p.isFeatured)
 
   return (
     <SectionShell id="for-fun">
-      <div className="w-full flex justify-center py-20 relative">
-        <div className="for-fun-grid px-6 sm:px-10 lg:px-16 w-full max-w-7xl">
-          {forFunProjects.map((project, idx) => (
+      <div className="w-full flex flex-col items-center py-20 relative px-6 sm:px-10 lg:px-16">
+        <div className="for-fun-featured-grid w-full max-w-7xl mb-12">
+          {featuredProjects.map((project, idx) => (
             <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
               <article
                 role="button"
                 tabIndex={0}
-                className="projects-v2-card projects-page-card-optimized cursor-pointer"
+                className="projects-v2-card projects-page-card-optimized cursor-pointer h-full"
                 onClick={() => setActiveGridProject(project as any)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
@@ -1746,12 +1758,12 @@ function ForFunSection() {
               >
                 <div className="projects-v2-card-text flex flex-col items-center justify-center text-center">
                   <div className="projects-v2-card-header-row">
-                    <h3 className="projects-page-card-title text-xl">{project.title}</h3>
+                    <h3 className="projects-page-card-title text-2xl">{project.title}</h3>
                   </div>
-                  <p className="projects-page-card-subtitle mt-1">{project.hook}</p>
+                  <p className="projects-page-card-subtitle mt-2 text-sm">{project.hook}</p>
                 </div>
 
-                <div className="projects-v2-card-visual">
+                <div className="projects-v2-card-visual mt-4">
                   <div className="projects-v2-card-visual-inner">
                     {project.image ? (
                       <Image
@@ -1761,7 +1773,7 @@ function ForFunSection() {
                       />
                     ) : (
                       <div className="w-full h-full bg-white/5 flex items-center justify-center">
-                        <Sparkles className="h-6 w-6 text-white/20" />
+                        <Sparkles className="h-8 w-8 text-white/20" />
                       </div>
                     )}
                     <div className="projects-v2-card-img-wash" aria-hidden="true" />
@@ -1770,6 +1782,30 @@ function ForFunSection() {
               </article>
             </div>
           ))}
+        </div>
+
+        <div className="w-full max-w-7xl">
+          <div className="liquid-panel p-8 border border-white/10 rounded-3xl bg-white/5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {condensedProjects.map((project, idx) => (
+                <div key={`${project.title}-${idx}`} className="flex flex-col gap-2">
+                  <div className="flex items-center gap-3">
+                    <span className="font-bold text-white uppercase tracking-wider">{project.title}</span>
+                    {"languages" in project && project.languages && (
+                      <div className="flex gap-2">
+                        {project.languages.map(lang => (
+                          <span key={lang} className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/70 border border-white/10">
+                            {lang}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-white/50 text-sm leading-relaxed">{project.hook}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Reuse Project Modal Logic */}
@@ -3534,11 +3570,11 @@ export function PortfolioPage() {
         }
 
         .projects-marquee-viewport {
-          height: 640px;
+          height: 400px;
           overflow-y: auto;
           position: relative;
           padding-right: 0.5rem;
-          mask-image: linear-gradient(to bottom, transparent, black 8%, black 92%, transparent);
+          mask-image: linear-gradient(to bottom, black 92%, transparent);
         }
 
         /* Discreet but usable Scrollbar */
@@ -3562,36 +3598,16 @@ export function PortfolioPage() {
           background-clip: padding-box;
         }
 
-        .for-fun-grid {
-          display: flex;
-          flex-wrap: wrap;
+        .for-fun-featured-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
           gap: 1.5rem;
           width: 100%;
-          max-width: 1400px;
-          margin: 0 auto;
-          justify-content: center;
         }
 
-        .for-fun-grid > * {
-          flex: 0 1 calc(25% - 1.5rem);
-          min-width: 260px;
-        }
-
-        @media (max-width: 1200px) {
-          .for-fun-grid > * {
-            flex: 0 1 calc(33.333% - 1.5rem);
-          }
-        }
-
-        @media (max-width: 1024px) {
-          .for-fun-grid > * {
-            flex: 0 1 calc(50% - 1.5rem);
-          }
-        }
-
-        @media (max-width: 640px) {
-          .for-fun-grid > * {
-            flex: 0 1 100%;
+        @media (max-width: 768px) {
+          .for-fun-featured-grid {
+            grid-template-columns: 1fr;
           }
         }
 
