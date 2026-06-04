@@ -1739,14 +1739,14 @@ function ForFunSection() {
 
   return (
     <SectionShell id="for-fun">
-      <div className="w-full flex items-center justify-center py-12 relative px-6 sm:px-10 lg:px-16 h-full">
-        <div className="for-fun-featured-grid w-full max-w-6xl !gap-8">
+      <div className="w-full h-full flex items-center justify-center py-8 relative px-6 sm:px-10 lg:px-16 overflow-hidden">
+        <div className="for-fun-featured-grid w-full max-w-5xl h-[calc(100vh-180px)] grid grid-cols-2 grid-rows-2 gap-6">
           {featuredProjects.map((project, idx) => (
-            <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
+            <div key={`${project.title}-${idx}`} className="h-full min-h-0">
               <article
                 role="button"
                 tabIndex={0}
-                className="projects-v2-card projects-page-card-optimized cursor-pointer h-full !p-8 !rounded-[2.5rem]"
+                className="projects-v2-card projects-page-card-optimized cursor-pointer h-full !p-6 !rounded-[2rem] flex flex-col"
                 onClick={() => setActiveGridProject(project as any)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
@@ -1755,24 +1755,24 @@ function ForFunSection() {
                   }
                 }}
               >
-                <div className="projects-v2-card-text flex flex-col items-center justify-center text-center">
+                <div className="projects-v2-card-text flex flex-col items-center justify-center text-center flex-shrink-0">
                   <div className="projects-v2-card-header-row">
-                    <h3 className="projects-page-card-title text-2xl">{project.title}</h3>
+                    <h3 className="projects-page-card-title text-xl md:text-2xl">{project.title}</h3>
                   </div>
-                  <p className="projects-page-card-subtitle mt-2 text-sm">{project.hook}</p>
+                  <p className="projects-page-card-subtitle mt-1 text-[10px] md:text-xs leading-tight">{project.hook}</p>
                 </div>
 
-                <div className="projects-v2-card-visual mt-8">
-                  <div className="projects-v2-card-visual-inner">
+                <div className="projects-v2-card-visual mt-4 flex-grow min-h-0">
+                  <div className="projects-v2-card-visual-inner h-full">
                     {project.image ? (
                       <Image
                         src={project.image}
                         alt={`${project.title} screenshot`}
-                        className="projects-v2-card-img"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full bg-white/5 flex items-center justify-center min-h-[20rem]">
-                        <Sparkles className="h-10 w-10 text-white/20" />
+                      <div className="w-full h-full bg-white/5 flex items-center justify-center">
+                        <Sparkles className="h-8 w-8 text-white/20" />
                       </div>
                     )}
                     <div className="projects-v2-card-img-wash" aria-hidden="true" />
