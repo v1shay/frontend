@@ -1,4 +1,48 @@
 @import url("https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=satoshi@400,500,700&display=swap");
+
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/TestSohne-Buch-BF663d89cd32e6a.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/TestSohne-Halbfett-BF663d89cd2d67b.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sohne';
+  src: url('/fonts/TestSohne-Fett-BF663d89cca89ff.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -194,7 +238,7 @@ body {
 }
 
 .font-display-serif {
-    font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+    font-family: "Sohne", "Geist", sans-serif !important;
     font-optical-sizing: auto;
 }
 
@@ -231,7 +275,7 @@ body,
 .section-title,
 .research-card-title,
 .research-modal-title {
-    font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+    font-family: "Sohne", "Geist", sans-serif !important;
     font-weight: 700;
     font-optical-sizing: auto;
     font-synthesis: none;

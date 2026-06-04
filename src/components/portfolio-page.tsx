@@ -29,6 +29,7 @@ import spotify from "../../images/other_projects/spotify.png"
 import obsidian from "../../images/other_projects/obsidian.png"
 import githubDevProgramImage from "../../images/other_projects/image copy 2.png"
 import fblaImage from "../../images/other_projects/IMG_8059.jpeg"
+import fblaScreenshot from "../../images/other_projects/fbla_new.png"
 import trilingualImage from "../../images/other_projects/image copy 3.png"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
@@ -306,7 +307,7 @@ const forFunProjects = [
     metrics: [],
     href: "",
     linkLabel: "Fun",
-    image: fblaImage,
+    image: fblaScreenshot,
     isFeatured: true,
   },
   {
@@ -369,8 +370,7 @@ const forFunProjects = [
     metrics: [],
     href: "",
     linkLabel: "Fun",
-    image: trilingualImage,
-    isFeatured: false,
+    isFeatured: true,
     languages: ["English", "Hindi", "Spanish"],
   },
 ] as const
@@ -749,16 +749,6 @@ function HeroSection() {
             className="hero-copy-column"
             style={reduceMotion ? undefined : { y: copyY, opacity: copyOpacity }}
           >
-            <motion.div
-              initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.62, delay: 0.06, ease: [0.22, 1, 0.36, 1] }}
-              className="hero-kicker hero-kicker-animated"
-            >
-              <span className="hero-kicker-sheen" aria-hidden="true" />
-              <Sparkles className="h-3.5 w-3.5" />
-              DIGITAL RESUME
-            </motion.div>
             <h1 className="hero-title mt-6" aria-label="Vishay Agarwal">
               {heroTitleLines.map((line, index) => (
                 <motion.span
@@ -1555,8 +1545,6 @@ function ProjectGridSection() {
     setPaused(isInView)
   }, [isInView, setPaused])
 
-
-
   return (
     <SectionShell id="projects-grid" noSnap>
       <div ref={ref} className="projects-page-shell">
@@ -1565,77 +1553,138 @@ function ProjectGridSection() {
 
 
             <div className="projects-marquee-viewport">
-              <div
-                className="projects-marquee-track"
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(2, 1fr)",
-                  gap: "1.25rem",
-                  paddingBottom: "2rem",
-                }}
-              >
-                {portfolioProjects.map((project, idx) => (
-                  <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
-                    <article
-                      role="button"
-                      tabIndex={0}
-                      className="projects-v2-card projects-page-card-optimized cursor-pointer"
-                      onClick={() => setActiveGridProject(project as any)}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") {
-                          event.preventDefault()
-                          setActiveGridProject(project as any)
-                        }
-                      }}
-                    >
-                      <div className="projects-v2-card-text">
-                        <div className="projects-v2-card-header-row">
-                          <h3 className="projects-page-card-title">{project.title}</h3>
-                          <div
-                            className="projects-v2-card-link-mini"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              window.open(project.href, '_blank', 'noreferrer');
-                            }}
-                          >
-                            <ExternalLink className="h-3 w-3" />
+              <div className="flex flex-row gap-8 p-8 items-start">
+                {/* Column 1 */}
+                <div className="flex flex-col gap-8 flex-1">
+                  {portfolioProjects.filter((_, i) => i % 2 === 0).map((project, idx) => (
+                    <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
+                      <article
+                        role="button"
+                        tabIndex={0}
+                        className="projects-v2-card projects-page-card-optimized cursor-pointer"
+                        onClick={() => setActiveGridProject(project as any)}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault()
+                            setActiveGridProject(project as any)
+                          }
+                        }}
+                      >
+                        <div className="projects-v2-card-text">
+                          <div className="projects-v2-card-header-row">
+                            <h3 className="projects-page-card-title">{project.title}</h3>
+                            <div
+                              className="projects-v2-card-link-mini"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(project.href, '_blank', 'noreferrer');
+                              }}
+                            >
+                              <ExternalLink className="h-3 w-3" />
+                            </div>
+                          </div>
+
+                          <p className="projects-page-card-subtitle">{project.hook}</p>
+
+                          <div className="projects-stats-row-inline">
+                            {project.metrics.map((m, i) => (
+                              <div key={i} className="projects-stat-item-mini">
+                                <span className="projects-stat-value-mini">{m.stat}</span>
+                                <span className="projects-stat-label-mini">{m.label}</span>
+                              </div>
+                            ))}
                           </div>
                         </div>
 
-                        <p className="projects-page-card-subtitle">{project.hook}</p>
+                        <div className="projects-v2-card-visual">
+                          <div className="projects-v2-card-visual-inner">
+                            {"gif" in project && project.gif ? (
+                              /* eslint-disable-next-line @next/next/no-img-element */
+                              <img
+                                src={project.gif}
+                                alt={`${project.title} demo`}
+                                className="projects-v2-card-img"
+                              />
+                            ) : "image" in project && project.image ? (
+                              <Image
+                                src={project.image}
+                                alt={`${project.title} screenshot`}
+                                className="projects-v2-card-img"
+                              />
+                            ) : null}
+                            <div className="projects-v2-card-img-wash" aria-hidden="true" />
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  ))}
+                </div>
 
-                        <div className="projects-stats-row-inline">
-                          {project.metrics.map((m, i) => (
-                            <div key={i} className="projects-stat-item-mini">
-                              <span className="projects-stat-value-mini">{m.stat}</span>
-                              <span className="projects-stat-label-mini">{m.label}</span>
+                {/* Column 2 */}
+                <div className="flex flex-col gap-8 flex-1">
+                  {portfolioProjects.filter((_, i) => i % 2 !== 0).map((project, idx) => (
+                    <div key={`${project.title}-${idx}`} className="projects-v2-card-slot">
+                      <article
+                        role="button"
+                        tabIndex={0}
+                        className="projects-v2-card projects-page-card-optimized cursor-pointer"
+                        onClick={() => setActiveGridProject(project as any)}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault()
+                            setActiveGridProject(project as any)
+                          }
+                        }}
+                      >
+                        <div className="projects-v2-card-text">
+                          <div className="projects-v2-card-header-row">
+                            <h3 className="projects-page-card-title">{project.title}</h3>
+                            <div
+                              className="projects-v2-card-link-mini"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                window.open(project.href, '_blank', 'noreferrer');
+                              }}
+                            >
+                              <ExternalLink className="h-3 w-3" />
                             </div>
-                          ))}
-                        </div>
-                      </div>
+                          </div>
 
-                      <div className="projects-v2-card-visual">
-                        <div className="projects-v2-card-visual-inner">
-                          {"gif" in project && project.gif ? (
-                            /* eslint-disable-next-line @next/next/no-img-element */
-                            <img
-                              src={project.gif}
-                              alt={`${project.title} demo`}
-                              className="projects-v2-card-img"
-                            />
-                          ) : "image" in project && project.image ? (
-                            <Image
-                              src={project.image}
-                              alt={`${project.title} screenshot`}
-                              className="projects-v2-card-img"
-                            />
-                          ) : null}
-                          <div className="projects-v2-card-img-wash" aria-hidden="true" />
+                          <p className="projects-page-card-subtitle">{project.hook}</p>
+
+                          <div className="projects-stats-row-inline">
+                            {project.metrics.map((m, i) => (
+                              <div key={i} className="projects-stat-item-mini">
+                                <span className="projects-stat-value-mini">{m.stat}</span>
+                                <span className="projects-stat-label-mini">{m.label}</span>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    </article>
-                  </div>
-                ))}
+
+                        <div className="projects-v2-card-visual">
+                          <div className="projects-v2-card-visual-inner">
+                            {"gif" in project && project.gif ? (
+                              /* eslint-disable-next-line @next/next/no-img-element */
+                              <img
+                                src={project.gif}
+                                alt={`${project.title} demo`}
+                                className="projects-v2-card-img"
+                              />
+                            ) : "image" in project && project.image ? (
+                              <Image
+                                src={project.image}
+                                alt={`${project.title} screenshot`}
+                                className="projects-v2-card-img"
+                              />
+                            ) : null}
+                            <div className="projects-v2-card-img-wash" aria-hidden="true" />
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -1734,117 +1783,62 @@ function ProjectGridSection() {
 
 function ForFunSection() {
   const [activeGridProject, setActiveGridProject] = useState<GridProject | null>(null)
-  
-  const featuredProjects = forFunProjects.filter(p => p.isFeatured)
-  const condensedProjects = forFunProjects.filter(p => !p.isFeatured)
-
-  const fbla = featuredProjects.find(p => p.title === "fbla")
-  const github = featuredProjects.find(p => p.title.includes("github"))
-  const mentor = featuredProjects.find(p => p.title.includes("mentor"))
-  const coach = featuredProjects.find(p => p.title.includes("coach"))
 
   return (
     <SectionShell id="for-fun">
-      <div className="w-full h-full flex flex-col lg:flex-row-reverse gap-12 lg:gap-16 py-12 relative px-6 sm:px-10 lg:px-16 items-center overflow-hidden">
-        {/* Right Column: Condensed List (Writing removed) */}
-        <div className="lg:w-1/4 flex flex-col justify-center">
-          <div className="liquid-panel p-6 border border-white/10 rounded-3xl bg-white/5 space-y-6">
-            {condensedProjects.map((project, idx) => (
-              <div key={`${project.title}-${idx}`} className="flex flex-col gap-1.5">
-                <div className="flex items-center gap-3">
-                  <span className="font-bold text-white uppercase tracking-wider text-[10px]">{project.title}</span>
-                  {"languages" in project && project.languages && (
-                    <div className="flex gap-1.5">
-                      {project.languages.map(lang => (
-                        <span key={lang} className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/10 text-white/70 border border-white/10">
-                          {lang}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                {!("languages" in project) && (
-                  <p className="text-white/40 text-[11px] leading-snug">{project.hook}</p>
+      <div className="w-full min-h-[calc(100vh-92px)] lg:h-[calc(100vh-92px)] py-8 px-6 sm:px-10 lg:px-16 overflow-y-auto lg:overflow-hidden">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-6 h-fit lg:h-full w-full">
+          {forFunProjects.map((project, idx) => (
+            <article
+              key={`${project.title}-${idx}`}
+              role="button"
+              tabIndex={0}
+              className="projects-v2-card projects-page-card-optimized cursor-pointer h-full !p-5 !rounded-[2.25rem] flex flex-col overflow-hidden relative group justify-between"
+              onClick={() => setActiveGridProject(project as any)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault()
+                  setActiveGridProject(project as any)
+                }
+              }}
+            >
+              <div className="projects-v2-card-text flex flex-col items-center justify-center text-center flex-shrink-0 mb-3 w-full">
+                <h3 className="projects-page-card-title text-base tracking-wider font-bold text-white">{project.title.toLowerCase()}</h3>
+                <p className="font-display-serif mt-1.5 text-[11px] leading-relaxed opacity-60 text-white/70 max-w-[95%]">
+                  {project.hook}
+                </p>
+              </div>
+              <div className="flex-grow min-h-0 w-full flex items-center justify-center relative">
+                {"image" in project && project.image ? (
+                  <div className="relative max-h-full max-w-full rounded-2xl border border-white/10 bg-white/5 p-1.5 shadow-md overflow-hidden transition-transform duration-500 group-hover:scale-105">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      className="max-h-[140px] lg:max-h-[190px] w-auto h-auto object-contain rounded-xl"
+                    />
+                    <div className="projects-v2-card-img-wash" aria-hidden="true" />
+                  </div>
+                ) : "languages" in project && project.languages ? (
+                  <div className="flex flex-col gap-1.5 w-full justify-center items-center px-4">
+                    {project.languages.map(lang => (
+                      <div
+                        key={lang}
+                        className="w-full py-1.5 px-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10 text-center text-[10px] font-bold text-white/90 font-display-serif"
+                      >
+                        {lang}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4 flex items-center justify-center">
+                    <Sparkles className="h-8 w-8 text-white/20" />
+                  </div>
                 )}
               </div>
-            ))}
-          </div>
+            </article>
+          ))}
         </div>
 
-        {/* Left Column: Bento Grid */}
-        <div className="lg:w-3/4 h-full max-h-[calc(100vh-180px)] w-full">
-          <div className="for-fun-bento-grid h-full grid grid-cols-6 grid-rows-6 gap-4">
-            {/* FBLA - Tall & Skinny (Taking full height) */}
-            <article
-              className="col-span-2 row-span-6 projects-v2-card !p-6 !rounded-3xl cursor-pointer flex flex-col"
-              onClick={() => setActiveGridProject(fbla as any)}
-            >
-              <div className="projects-v2-card-text flex flex-col items-center justify-center text-center flex-shrink-0 mb-4">
-                <h3 className="projects-page-card-title text-xl">{fbla?.title}</h3>
-                <p className="projects-page-card-subtitle mt-1 text-[10px] leading-tight opacity-60">{fbla?.hook}</p>
-              </div>
-              <div className="projects-v2-card-visual flex-grow min-h-0">
-                <div className="projects-v2-card-visual-inner h-full">
-                  <Image src={fblaImage} alt="FBLA" className="w-full h-full object-cover" />
-                  <div className="projects-v2-card-img-wash" aria-hidden="true" />
-                </div>
-              </div>
-            </article>
-
-            {/* Coach - Wide */}
-            <article
-              className="col-span-4 row-span-2 projects-v2-card !p-6 !rounded-3xl cursor-pointer flex flex-row gap-6 items-center"
-              onClick={() => setActiveGridProject(coach as any)}
-            >
-              <div className="projects-v2-card-visual w-1/3 h-full min-h-0">
-                <div className="projects-v2-card-visual-inner h-full">
-                  <Image src={lynbrookTeamPhoto} alt="Coach" className="w-full h-full object-cover" />
-                  <div className="projects-v2-card-img-wash" aria-hidden="true" />
-                </div>
-              </div>
-              <div className="projects-v2-card-text flex flex-col items-start justify-center text-left w-2/3">
-                <h3 className="projects-page-card-title text-xl !text-left">{coach?.title}</h3>
-                <p className="projects-page-card-subtitle mt-1 text-xs leading-tight opacity-60">{coach?.hook}</p>
-              </div>
-            </article>
-
-            {/* Mentor - Wide */}
-            <article
-              className="col-span-4 row-span-2 projects-v2-card !p-6 !rounded-3xl cursor-pointer flex flex-row gap-6 items-center"
-              onClick={() => setActiveGridProject(mentor as any)}
-            >
-              <div className="projects-v2-card-visual w-1/3 h-full min-h-0">
-                <div className="projects-v2-card-visual-inner h-full">
-                  <Image src={tkdDojanGroupPhoto} alt="Mentor" className="w-full h-full object-cover" />
-                  <div className="projects-v2-card-img-wash" aria-hidden="true" />
-                </div>
-              </div>
-              <div className="projects-v2-card-text flex flex-col items-start justify-center text-left w-2/3">
-                <h3 className="projects-page-card-title text-xl !text-left">{mentor?.title}</h3>
-                <p className="projects-page-card-subtitle mt-1 text-xs leading-tight opacity-60">{mentor?.hook}</p>
-              </div>
-            </article>
-
-            {/* GitHub - Rectangular */}
-            <article
-              className="col-span-4 row-span-2 projects-v2-card !p-6 !rounded-3xl cursor-pointer flex flex-row gap-6 items-center"
-              onClick={() => setActiveGridProject(github as any)}
-            >
-              <div className="projects-v2-card-visual w-1/3 h-full min-h-0">
-                <div className="projects-v2-card-visual-inner h-full">
-                  <Image src={githubDevProgramImage} alt="GitHub Dev" className="w-full h-full object-cover" />
-                  <div className="projects-v2-card-img-wash" aria-hidden="true" />
-                </div>
-              </div>
-              <div className="projects-v2-card-text flex flex-col items-start justify-center text-left w-2/3">
-                <h3 className="projects-page-card-title text-xl !text-left">{github?.title}</h3>
-                <p className="projects-page-card-subtitle mt-1 text-xs leading-tight opacity-60">{github?.hook}</p>
-              </div>
-            </article>
-          </div>
-        </div>
-
-        {/* Modal Logic */}
         <AnimatePresence>
           {activeGridProject && (
             <motion.div
@@ -1877,8 +1871,18 @@ function ForFunSection() {
                   </div>
 
                   <div className="space-y-4">
-                    <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title}</h2>
+                    <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title.toLowerCase()}</h2>
                     <p className="text-white/60 leading-relaxed">{activeGridProject.hook}</p>
+
+                    {"languages" in activeGridProject && (activeGridProject as any).languages && (
+                      <div className="flex flex-wrap gap-2 pt-2">
+                        {(activeGridProject as any).languages.map((lang: string) => (
+                          <span key={lang} className="px-3 py-1 rounded-full bg-white/10 text-white/80 border border-white/10 text-xs font-medium">
+                            {lang}
+                          </span>
+                        ))}
+                      </div>
+                    )}
 
                     <div className="flex flex-wrap gap-4 pt-2">
                       {activeGridProject.metrics.map((m, i) => (
@@ -3465,6 +3469,12 @@ export function PortfolioPage() {
           text-align: center;
         }
 
+        .projects-page-card-hook-display {
+          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+          color: rgb(255 255 255 / 0.85);
+          font-weight: 500;
+        }
+
         .projects-page-card-body {
           display: grid;
           align-content: center;
@@ -3505,7 +3515,7 @@ export function PortfolioPage() {
         }
 
         .projects-stat-value {
-          font-family: "Clash Display", sans-serif;
+          font-family: var(--font-sohne), var(--font-geist), sans-serif;
           font-size: clamp(1rem, 1.2vw, 1.3rem);
           font-weight: 700;
           color: white;
