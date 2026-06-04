@@ -1738,19 +1738,16 @@ function ForFunSection() {
   const featuredProjects = forFunProjects.filter(p => p.isFeatured)
   const condensedProjects = forFunProjects.filter(p => !p.isFeatured)
 
+  const fbla = featuredProjects.find(p => p.title === "fbla")
+  const github = featuredProjects.find(p => p.title.includes("github"))
+  const mentor = featuredProjects.find(p => p.title.includes("mentor"))
+  const coach = featuredProjects.find(p => p.title.includes("coach"))
+
   return (
     <SectionShell id="for-fun">
-      <div className="w-full h-full flex flex-col lg:flex-row gap-12 lg:gap-16 py-12 relative px-6 sm:px-10 lg:px-16 items-center overflow-hidden">
-        {/* Left Column: Writing & Condensed List */}
-        <div className="lg:w-1/3 flex flex-col justify-center space-y-8">
-          <div className="space-y-4">
-            <span className="section-eyebrow">Lifestyle</span>
-            <h2 className="font-display-serif section-title !mt-0 !text-5xl">For Fun</h2>
-            <p className="section-copy !text-sm leading-relaxed opacity-60">
-              Beyond the code and research, I&apos;m a system-thinker at heart—whether it&apos;s on the court, mentoring others, or building digital worlds.
-            </p>
-          </div>
-
+      <div className="w-full h-full flex flex-col lg:flex-row-reverse gap-12 lg:gap-16 py-12 relative px-6 sm:px-10 lg:px-16 items-center overflow-hidden">
+        {/* Right Column: Condensed List (Writing removed) */}
+        <div className="lg:w-1/4 flex flex-col justify-center">
           <div className="liquid-panel p-6 border border-white/10 rounded-3xl bg-white/5 space-y-6">
             {condensedProjects.map((project, idx) => (
               <div key={`${project.title}-${idx}`} className="flex flex-col gap-1.5">
@@ -1774,58 +1771,74 @@ function ForFunSection() {
           </div>
         </div>
 
-        {/* Right Column: Bento Grid */}
-        <div className="lg:w-2/3 h-full max-h-[calc(100vh-180px)] w-full">
+        {/* Left Column: Bento Grid */}
+        <div className="lg:w-3/4 h-full max-h-[calc(100vh-180px)] w-full">
           <div className="for-fun-bento-grid h-full grid grid-cols-6 grid-rows-6 gap-4">
-            {/* Coach - Large Portrait */}
+            {/* FBLA - Tall & Skinny (Taking full height) */}
             <article
-              className="col-span-3 row-span-4 projects-v2-card !p-4 !rounded-3xl cursor-pointer"
-              onClick={() => setActiveGridProject(featuredProjects.find(p => p.title.includes("coach")) as any)}
+              className="col-span-2 row-span-6 projects-v2-card !p-6 !rounded-3xl cursor-pointer flex flex-col"
+              onClick={() => setActiveGridProject(fbla as any)}
             >
-              <div className="projects-v2-card-visual-inner h-full">
-                <Image src={lynbrookTeamPhoto} alt="Coach" className="w-full h-full object-cover" />
-                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">Coach</span>
+              <div className="projects-v2-card-text flex flex-col items-center justify-center text-center flex-shrink-0 mb-4">
+                <h3 className="projects-page-card-title text-xl">{fbla?.title}</h3>
+                <p className="projects-page-card-subtitle mt-1 text-[10px] leading-tight opacity-60">{fbla?.hook}</p>
+              </div>
+              <div className="projects-v2-card-visual flex-grow min-h-0">
+                <div className="projects-v2-card-visual-inner h-full">
+                  <Image src={fblaImage} alt="FBLA" className="w-full h-full object-cover" />
+                  <div className="projects-v2-card-img-wash" aria-hidden="true" />
                 </div>
               </div>
             </article>
 
-            {/* FBLA - Wide */}
+            {/* Coach - Wide */}
             <article
-              className="col-span-3 row-span-2 projects-v2-card !p-4 !rounded-3xl cursor-pointer"
-              onClick={() => setActiveGridProject(featuredProjects.find(p => p.title === "fbla") as any)}
+              className="col-span-4 row-span-2 projects-v2-card !p-6 !rounded-3xl cursor-pointer flex flex-row gap-6 items-center"
+              onClick={() => setActiveGridProject(coach as any)}
             >
-              <div className="projects-v2-card-visual-inner h-full">
-                <Image src={fblaImage} alt="FBLA" className="w-full h-full object-cover" />
-                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">FBLA</span>
+              <div className="projects-v2-card-visual w-1/3 h-full min-h-0">
+                <div className="projects-v2-card-visual-inner h-full">
+                  <Image src={lynbrookTeamPhoto} alt="Coach" className="w-full h-full object-cover" />
+                  <div className="projects-v2-card-img-wash" aria-hidden="true" />
                 </div>
+              </div>
+              <div className="projects-v2-card-text flex flex-col items-start justify-center text-left w-2/3">
+                <h3 className="projects-page-card-title text-xl !text-left">{coach?.title}</h3>
+                <p className="projects-page-card-subtitle mt-1 text-xs leading-tight opacity-60">{coach?.hook}</p>
               </div>
             </article>
 
-            {/* GitHub - Square */}
+            {/* Mentor - Wide */}
             <article
-              className="col-span-3 row-span-2 projects-v2-card !p-4 !rounded-3xl cursor-pointer"
-              onClick={() => setActiveGridProject(featuredProjects.find(p => p.title.includes("github")) as any)}
+              className="col-span-4 row-span-2 projects-v2-card !p-6 !rounded-3xl cursor-pointer flex flex-row gap-6 items-center"
+              onClick={() => setActiveGridProject(mentor as any)}
             >
-              <div className="projects-v2-card-visual-inner h-full">
-                <Image src={githubDevProgramImage} alt="GitHub Dev" className="w-full h-full object-cover" />
-                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">GitHub Dev</span>
+              <div className="projects-v2-card-visual w-1/3 h-full min-h-0">
+                <div className="projects-v2-card-visual-inner h-full">
+                  <Image src={tkdDojanGroupPhoto} alt="Mentor" className="w-full h-full object-cover" />
+                  <div className="projects-v2-card-img-wash" aria-hidden="true" />
                 </div>
+              </div>
+              <div className="projects-v2-card-text flex flex-col items-start justify-center text-left w-2/3">
+                <h3 className="projects-page-card-title text-xl !text-left">{mentor?.title}</h3>
+                <p className="projects-page-card-subtitle mt-1 text-xs leading-tight opacity-60">{mentor?.hook}</p>
               </div>
             </article>
 
-            {/* Mentor - Tall */}
+            {/* GitHub - Rectangular */}
             <article
-              className="col-span-6 row-span-2 projects-v2-card !p-4 !rounded-3xl cursor-pointer"
-              onClick={() => setActiveGridProject(featuredProjects.find(p => p.title.includes("mentor")) as any)}
+              className="col-span-4 row-span-2 projects-v2-card !p-6 !rounded-3xl cursor-pointer flex flex-row gap-6 items-center"
+              onClick={() => setActiveGridProject(github as any)}
             >
-              <div className="projects-v2-card-visual-inner h-full">
-                <Image src={tkdDojanGroupPhoto} alt="Mentor" className="w-full h-full object-cover" />
-                <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm px-3 py-1 rounded-full border border-white/10">
-                  <span className="text-[10px] font-bold text-white uppercase tracking-widest">Mentor</span>
+              <div className="projects-v2-card-visual w-1/3 h-full min-h-0">
+                <div className="projects-v2-card-visual-inner h-full">
+                  <Image src={githubDevProgramImage} alt="GitHub Dev" className="w-full h-full object-cover" />
+                  <div className="projects-v2-card-img-wash" aria-hidden="true" />
                 </div>
+              </div>
+              <div className="projects-v2-card-text flex flex-col items-start justify-center text-left w-2/3">
+                <h3 className="projects-page-card-title text-xl !text-left">{github?.title}</h3>
+                <p className="projects-page-card-subtitle mt-1 text-xs leading-tight opacity-60">{github?.hook}</p>
               </div>
             </article>
           </div>
