@@ -11,6 +11,12 @@ import neurosense from "../../images/neuro.png"                          // Neur
 import phytovisionImage from "../../images/tomato.png"                   // Phyto-Vision tomato leaf CNN
 import sentinelImage from "../../images/image copy 33.png"   // Sentinel-LLM hallucination leaderboard chart
 import softwareintern from "../../images/substack.png"                   // Substack graph crawler / Chapman internship
+// ── Institution backgrounds ──────────────────────────────────────────────────
+import chapmanBg from "../../images/chapman.jpg"                         // Chapman University campus background
+import berkeleyBg from "../../images/berkeley.jpg"                       // UC Berkeley / LBNL campus background
+import ucscBg from "../../images/ucsc.jpg"                               // UCSC campus background
+import berkeleyPanel from "../../images/berkeley-a.png"                  // Berkeley watershed map (inner panel)
+import ucscPanel from "../../images/ucsc-a.png"                          // UCSC AIEA Lab screenshot (inner panel)
 // ── Basketball ────────────────────────────────────────────────────────────────
 import vishayDribbling from "../../images/athletes.jpeg"                 // Vishay dribbling in Lynbrook jersey mid-game
 import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynbrook freshman basketball team group photo
@@ -118,6 +124,16 @@ type ResearchProject = {
   actions: ProjectAction[]
 }
 
+type InstitutionCard = {
+  id: string
+  institution: string
+  title: string
+  description: string
+  bgImage: StaticImageData
+  panelImage: StaticImageData
+  actions: ProjectAction[]
+}
+
 type GridProject = {
   title: string
   hook: string
@@ -138,79 +154,93 @@ type PillarSlide = {
   actions?: ProjectAction[]
 }
 
-const researchProjects: readonly ResearchProject[] = [
+const institutionCards: readonly InstitutionCard[] = [
   {
-    id: "chamtern",
-    title: "Software & Research Intern",
-    subtitle: "CHAMPMAN UNIVERSITY",
-    hook: "Built a linear-algebra–driven ingestion/analytics system for large-scale Substack networks at Chapman University",
-    metrics: [
-      { stat: "+30%", label: "SPEED" },
-      { stat: "+20%", label: "PERF" },
-      { stat: "PGSQL", label: "BACKEND" },
-    ],
-    image: softwareintern,
-    logoLabel: "C.U",
-    accent: "from-[#f0f4ff]/40 via-[#dcb58f]/18 to-transparent",
+    id: "chapman-research",
+    institution: "",
+    title: "Research Intern",
+    description: "Mathematical Foundations of Computer Science Lab at Chapman University",
+    bgImage: chapmanBg,
+    panelImage: softwareintern,
     actions: [{ label: "GitHub", href: "https://github.com/v1shay/substack", kind: "github" }],
   },
   {
-    id: "neuro-sense",
-    title: "Neuro-Sense",
-    subtitle: "Machine Learning",
-    hook: "Published and built a voice-based Parkinson’s detection pipeline, indexed by the International Journal for Research, Google Scholar, OIPub and ResearchGate",
-    metrics: [
-      { stat: "91%", label: "ACCURACY" },
-      { stat: "195", label: "TRIALS" },
-    ],
-    image: neurosense,
-    logoLabel: "BIO",
-    accent: "from-[#fff4ea]/34 via-[#c88f6a]/18 to-transparent",
-    actions: [
-      { label: "GitHub", href: "https://github.com/v1shay/neuro-sense", kind: "github" },
-      { label: "Publication", href: "https://www.aijfr.com/research-paper.php?id=3711/", kind: "github" },
-    ],
-  },
-  {
-    id: "phytovision",
-    title: "Phyto-Vision",
-    subtitle: "Neural Networks / Computer Vision",
-    hook: "Built a neural network for plant disease detection, presented to UCSC professors for greenhouse deployment",
-    metrics: [
-      { stat: "95%+", label: "ACCURACY" },
-      { stat: "395K+", label: "IMAGES TRAINED ON" },
-      { stat: "5", label: "DISEASE CLASSES TESTED" },
-    ],
-    image: phytovisionImage,
-    logoLabel: "CV",
-    accent: "from-[#d0fff2]/30 via-[#5cae9f]/16 to-transparent",
+    id: "ucsc-research",
+    institution: " ",
+    title: "Engineering Intern",
+    description: "AIEA Lab at UC Santa Cruz",
+    bgImage: ucscBg,
+    panelImage: ucscPanel,
     actions: [{ label: "GitHub", href: "https://github.com/v1shay/phyto-vision", kind: "github" }],
   },
   {
-    id: "echo-os",
-    title: "Echo-OS",
-    subtitle: "ElevenLabs 2026 Hackathon Winner | March 2026",
-    hook: "Built an autonomous AI agent for voice-powered computer use, winning an ElevenLabs-backed hackathon",
-    metrics: [
-      { stat: "1ST", label: "PLACE" },
-      { stat: "120+", label: "TEAMS" },
-      { stat: "VECTOR-DB RAG", label: "MEMORY" },
-    ],
-    image: sentinelImage,
-    logoLabel: "AI Agent",
-    accent: "from-[#eff3ff]/30 via-[#94a3ff]/16 to-transparent",
-    actions: [{ label: "GitHub", href: "https://github.com/v1shay/jarvis", kind: "github" }],
+    id: "berkeley-research",
+    institution: "",
+    title: "Machine Learning Intern",
+    description: "Lawrence Berkeley National Laboratory at UC Berkeley",
+    bgImage: berkeleyBg,
+    panelImage: berkeleyPanel,
+    actions: [{ label: "GitHub", href: "https://github.com/v1shay", kind: "github" }],
   },
+
 ] as const
+
 
 const portfolioProjects = [
   {
+    title: "Echo-OS",
+    hook: (
+      <>
+        Voice-powered computer use for blind users;{" "}
+        <strong>winner at ElevenLabs 2026</strong>
+      </>
+    ),
+    href: "https://github.com/v1shay/jarvis",
+    linkLabel: "GitHub",
+    image: sentinelImage,
+    gif: null as string | null,
+  },
+  {
+    title: "Neuro-Sense",
+    hook: (
+      <>
+        Machine learning model for Parkinson&apos;s detection through speech;{" "}
+        <strong>
+          published and indexed by International Journal for Research, Google
+          Scholar, OIPub, and ResearchGate
+        </strong>
+      </>
+    ),
+    href: "https://github.com/v1shay/neuro-sense",
+    linkLabel: "GitHub",
+    image: neurosense,
+    gif: null as string | null,
+  },
+  {
+    title: "Phyto-Vision",
+    hook: (
+      <>
+        Neural network for detecting plant diseases with{" "}
+        <strong>95%+ accuracy across 395K+ images</strong>;{" "}
+        <strong>
+          presented to the UCSC Environmental Studies Lab for greenhouse use
+        </strong>
+      </>
+    ),
+    href: "https://github.com/v1shay/phyto-vision",
+    linkLabel: "GitHub",
+    image: phytovisionImage,
+    gif: null as string | null,
+  },
+  {
     title: "ML-Labs",
-    hook: "An autonomous research lab at the tip of your fingers",
-    metrics: [
-      { stat: "19 AGENTS", label: "MODEL ARCHITECTURE" },
-      { stat: "8 RESEARCH PHASES", label: "SYSTEM" },
-    ],
+    hook: (
+      <>
+        An autonomous research lab of{" "}
+        <strong>19 specialized AI agents</strong>;{" "}
+        <strong>LUMA Hacks 2026 Finalist</strong>
+      </>
+    ),
     href: "https://github.com/v1shay/ml-labs",
     linkLabel: "GitHub",
     image: null as StaticImageData | null,
@@ -218,24 +248,26 @@ const portfolioProjects = [
   },
   {
     title: "ArchLLM",
-    hook: "Token optimization for long-context AI model systems, designed around real GPU limits, beats RAG baselines",
-    metrics: [
-      { stat: "+95%", label: "ADHERENCE" },
-      { stat: "Apache 2.0", label: "LICENSE" },
-      { stat: "-30%", label: "HBM" },
-    ],
+    hook: (
+      <>
+        Token optimization for long-context AI models designed around real GPU
+        limits with <strong>+95% adherence</strong> and{" "}
+        <strong>-30% HBM pressure</strong>
+      </>
+    ),
     href: "https://github.com/v1shay/archLLM-sim",
     linkLabel: "GitHub",
     image: archLlmScreenshot,
+    gif: null as string | null,
   },
   {
     title: "Vox-Agent",
-    hook: "Turn your AirPods into an AI-powered note-taking system",
-    metrics: [
-      { stat: "CoreAudio", label: "STREAM ISOLATION" },
-      { stat: "<100ms", label: "LATENCY" },
-      { stat: "CPU Optimization", label: "ALGORITHMS" },
-    ],
+    hook: (
+      <>
+        Turn your AirPods into an AI-powered note-taking system with{" "}
+        <strong>&lt;100ms latency</strong>
+      </>
+    ),
     href: "https://github.com/v1shay/vox-agent",
     linkLabel: "GitHub",
     image: voxAgentScreenshot,
@@ -244,10 +276,6 @@ const portfolioProjects = [
   {
     title: "Sift",
     hook: "Turns GitHub into a live, explorable universe via linear algebra",
-    metrics: [
-      { stat: "MIT", label: "LICENSE" },
-      { stat: "Vector Embeddings", label: "RECALL" },
-    ],
     href: "https://github.com/v1shay/sift",
     linkLabel: "GitHub",
     image: null as StaticImageData | null,
@@ -255,24 +283,25 @@ const portfolioProjects = [
   },
   {
     title: "Sentinel-LLM",
-    hook: "Production-level LLM hallucination detection, tested against top AI models",
-    metrics: [
-      { stat: "NLP", label: "PIPELINE" },
-      { stat: "Apache 2.0", label: "LICENSE" },
-      { stat: "Linear Binary", label: "CLASSIFICATION" },
-    ],
+    hook: (
+      <>
+        Production-level LLM hallucination detection{" "}
+        <strong>tested against top AI models</strong>
+      </>
+    ),
     href: "https://github.com/v1shay/sentinel-LLM",
     linkLabel: "GitHub",
     image: sentinelLlmChart,
+    gif: null as string | null,
   },
   {
     title: "Neural-Lens",
-    hook: "Low-latency data analysis, right in your browser",
-    metrics: [
-      { stat: "<500ms", label: "LATENCY" },
-      { stat: "Edge", label: "EXECUTION" },
-      { stat: "MV3", label: "COMPLIANT" },
-    ],
+    hook: (
+      <>
+        Low-latency data analysis directly in your browser with{" "}
+        <strong>&lt;500ms latency</strong>
+      </>
+    ),
     href: "https://github.com/v1shay/neural-lens",
     linkLabel: "GitHub",
     image: null as StaticImageData | null,
@@ -280,8 +309,7 @@ const portfolioProjects = [
   },
   {
     title: "AlgoType",
-    hook: "USACO and LeetCode code typing practice with global leaderboards/custom syntax",
-    metrics: [],
+    hook: "USACO and LeetCode code typing practice with global leaderboards and custom syntax",
     href: "https://github.com/v1shay/algo-type",
     linkLabel: "GitHub",
     image: null as string | null,
@@ -289,16 +317,20 @@ const portfolioProjects = [
   },
   {
     title: "Freelance Development",
-    hook: "Shipped production-level storefronts for local businesses",
-    metrics: [
-      { stat: "+100%", label: "INCREASED TRAFFIC" },
-    ],
+    hook: (
+      <>
+        Shipped production-level storefronts for local businesses, generating{" "}
+        <strong>100%+ increased traffic</strong>
+      </>
+    ),
     href: "https://taquizas-chapala.vercel.app",
     linkLabel: "Website",
     image: null as StaticImageData | null,
     gif: "/images/other_projects/Convert to GIF project.gif",
   },
 ] as const
+
+
 
 const forFunProjects = [
   {
@@ -1119,33 +1151,33 @@ function ReadmeViewer({ repoUrl }: { repoUrl: string }) {
 }
 
 
-function ResearchProjectDetailBody({ project }: { project: ResearchProject }) {
-  const githubAction = project.actions.find(a => a.kind === "github")
+function InstitutionCardDetail({ card, onClose }: { card: InstitutionCard; onClose: () => void }) {
+  const githubAction = card.actions.find(a => a.kind === "github")
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    document.body.style.overflow = "hidden"
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown)
+      document.body.style.overflow = ""
+    }
+  }, [onClose])
 
   return (
     <div className="research-modal-strictly-readme">
       <div className="flex flex-col md:flex-row gap-8">
-        {/* Sidebar with project info */}
         <div className="md:w-1/3 space-y-6">
           <div className="research-modal-topline">
-            <span className="research-logo-slot research-logo-slot-large">{project.logoLabel}</span>
-            <span className="research-card-tag">{project.subtitle}</span>
+            <span className="research-card-tag">{card.institution}</span>
           </div>
-
-          <h3 className="research-modal-title text-4xl">{project.title}</h3>
-          <p className="research-modal-description text-lg opacity-80">{project.hook}</p>
-
-          <div className="projects-stats-grid !justify-start !gap-6">
-            {project.metrics.map((m, i) => (
-              <div key={i} className="projects-stat-item !items-start">
-                <span className="projects-stat-value !text-2xl">{m.stat}</span>
-                <span className="projects-stat-label">{m.label}</span>
-              </div>
-            ))}
-          </div>
+          <h3 className="research-modal-title text-4xl">{card.title}</h3>
+          <p className="research-modal-description text-lg opacity-80">{card.description}</p>
 
           <div className="research-card-actions !justify-start !mt-10">
-            {project.actions.map((action) => (
+            {card.actions.map((action) => (
               <a
                 key={action.label}
                 href={action.href ? toExternalHref(action.href) : "#"}
@@ -1163,7 +1195,6 @@ function ResearchProjectDetailBody({ project }: { project: ResearchProject }) {
           </div>
         </div>
 
-        {/* README Content */}
         <div className="md:w-2/3 border-t md:border-t-0 md:border-l border-white/10 pt-8 md:pt-0 md:pl-10">
           {githubAction?.href ? (
             <ReadmeViewer repoUrl={githubAction.href} />
@@ -1178,156 +1209,165 @@ function ResearchProjectDetailBody({ project }: { project: ResearchProject }) {
   )
 }
 
-
 function ResearchShowcase() {
-  const [activeProjectId, setActiveProjectId] = useState<string | null>(null)
-  const activeProject =
-    researchProjects.find((project) => project.id === activeProjectId) ?? null
+  const [activeCardId, setActiveCardId] = useState<string | null>(null)
+  const activeCard = institutionCards.find((c) => c.id === activeCardId) ?? null
 
-  useEffect(() => {
-    if (!activeProjectId) return
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setActiveProjectId(null)
-      }
-    }
-
-    window.addEventListener("keydown", handleKeyDown)
-    document.body.style.overflow = "hidden"
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown)
-      document.body.style.overflow = ""
-    }
-  }, [activeProjectId])
+  const handleClose = () => setActiveCardId(null)
 
   return (
     <>
-      <SectionShell
-        id="research"
-      >
-        <div className="research-editorial-shell">
-          <div className="research-grid-frame">
-            <div className="research-card-grid">
-              {researchProjects.map((project, index) => (
-                <Reveal key={project.id} delay={0.1 + index * 0.08} className="research-card-slot">
-                  <motion.div
-                    role="button"
-                    tabIndex={0}
-                    whileHover={{ y: -10, scale: 1.01, rotateX: -2, rotateY: index % 2 === 0 ? -2 : 2 }}
-                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-                    className="research-card liquid-panel"
-                    onClick={() => setActiveProjectId(project.id)}
-                    onKeyDown={(event) => {
-                      if (event.key === "Enter" || event.key === " ") {
-                        event.preventDefault()
-                        setActiveProjectId(project.id)
-                      }
-                    }}
-                  >
-                    <div
-                      className={cn(
-                        "research-card-sheen bg-gradient-to-br",
-                        project.accent
-                      )}
-                      aria-hidden="true"
+      <SectionShell id="research">
+        <div className="inst-grid-shell">
+          {/* Top row: Berkeley spanning the full width */}
+          <div className="inst-grid-top">
+            {institutionCards.slice(2).map((card, index) => (
+              <Reveal key={card.id} delay={0.1 + index * 0.1} className="inst-card-slot inst-card-slot--wide">
+                <motion.div
+                  role="button"
+                  tabIndex={0}
+                  whileHover={{ scale: 1.015 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="inst-card inst-card--featured"
+                  onClick={() => setActiveCardId(card.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault()
+                      setActiveCardId(card.id)
+                    }
+                  }}
+                >
+                  {/* Background campus image */}
+                  <div className="inst-card-bg-wrap">
+                    <Image
+                      src={card.bgImage}
+                      alt={`${card.institution} campus`}
+                      className="inst-card-bg-img"
+                      fill
                     />
+                    <div className="inst-card-bg-overlay" aria-hidden="true" />
+                  </div>
 
-                    <div className="research-card-image-wrap">
-                      <Image
-                        src={project.image}
-                        alt={`${project.title} placeholder artwork`}
-                        className="research-card-image"
-                      />
-                      <div className="research-card-image-wash" aria-hidden="true" />
-                    </div>
-                    <div className="research-card-body">
-                      <p className="research-mini-kicker">{project.subtitle}</p>
-                      <h3 className="research-card-title">{project.title}</h3>
-                      <p className="research-card-hook">{project.hook}</p>
-                      <div className="projects-stats-grid projects-stats-grid--research">
-                        {project.metrics.map((m, i) => (
-                          <div key={i} className="projects-stat-item">
-                            <span className="projects-stat-value">{m.stat}</span>
-                            <span className="projects-stat-label">{m.label}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="research-card-footer">
-                        <button
-                          type="button"
-                          className="research-card-link research-card-detail-button"
-                          onClick={(event) => {
-                            event.stopPropagation()
-                            setActiveProjectId(project.id)
-                          }}
-                        >
-                          Open detail
-                          <ChevronRight className="h-4 w-4" />
-                        </button>
-                        <div className="research-card-actions">
-                          {project.actions.map((action) =>
-                            action.disabled || !action.href ? (
-                              <span
-                                key={`${project.id}-${action.label}`}
-                                className="research-card-action research-card-action-disabled"
-                              >
-                                {action.label}
-                              </span>
-                            ) : (
-                              <a
-                                key={`${project.id}-${action.label}`}
-                                href={toExternalHref(action.href)}
-                                target="_blank"
-                                rel="noreferrer"
-                                className="research-card-action"
-                                onClick={(event) => event.stopPropagation()}
-                              >
-                                {action.label}
-                                <ExternalLink className="h-3.5 w-3.5" />
-                              </a>
-                            )
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                </Reveal>
-              ))}
-            </div>
+                  {/* Floating inner panel image */}
+                  <div className="inst-card-panel">
+                    <Image
+                      src={card.panelImage}
+                      alt={`${card.title} preview`}
+                      className="inst-card-panel-img"
+                    />
+                  </div>
+
+                  {/* Text content */}
+                  <div className="inst-card-content">
+                    <p className="inst-card-institution">{card.institution}</p>
+                    <h3 className="inst-card-title">{card.title}</h3>
+                    <p className="inst-card-description">{card.description}</p>
+                    <button
+                      type="button"
+                      className="inst-card-detail-link"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveCardId(card.id)
+                      }}
+                    >
+                      DETAIL
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                </motion.div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Bottom row: Chapman + UCSC at equal widths */}
+          <div className="inst-grid-bottom">
+            {institutionCards.slice(0, 2).map((card, index) => (
+              <Reveal key={card.id} delay={0.3 + index * 0.1} className="inst-card-slot">
+                <motion.div
+                  role="button"
+                  tabIndex={0}
+                  whileHover={{ scale: 1.015 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="inst-card"
+                  onClick={() => setActiveCardId(card.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault()
+                      setActiveCardId(card.id)
+                    }
+                  }}
+                >
+                  <div className="inst-card-bg-wrap">
+                    <Image
+                      src={card.bgImage}
+                      alt={`${card.institution} campus`}
+                      className="inst-card-bg-img"
+                      fill
+                    />
+                    <div className="inst-card-bg-overlay" aria-hidden="true" />
+                  </div>
+
+                  <div className="inst-card-panel">
+                    <Image
+                      src={card.panelImage}
+                      alt={`${card.title} preview`}
+                      className="inst-card-panel-img"
+                    />
+                  </div>
+
+                  <div className="inst-card-content">
+                    <p className="inst-card-institution">{card.institution}</p>
+                    <h3 className="inst-card-title">{card.title}</h3>
+                    <p className="inst-card-description">{card.description}</p>
+                    <button
+                      type="button"
+                      className="inst-card-detail-link"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveCardId(card.id)
+                      }}
+                    >
+                      DETAIL
+                      <ChevronRight className="h-3.5 w-3.5" />
+                    </button>
+                  </div>
+                </motion.div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </SectionShell>
 
-      {activeProject ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className="research-modal-backdrop"
-          onClick={() => setActiveProjectId(null)}
-        >
+      <AnimatePresence>
+        {activeCard && (
           <motion.div
-            initial={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
-            transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
-            className="research-modal liquid-panel"
-            onClick={(event) => event.stopPropagation()}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="research-modal-backdrop"
+            onClick={handleClose}
           >
-            <button
-              type="button"
-              className="research-modal-close"
-              aria-label="Close project detail"
-              onClick={() => setActiveProjectId(null)}
+            <motion.div
+              initial={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: 36, scale: 0.96, filter: "blur(10px)" }}
+              transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+              className="research-modal liquid-panel"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X className="h-4 w-4" />
-            </button>
-
-            <ResearchProjectDetailBody project={activeProject} />
+              <button
+                type="button"
+                className="research-modal-close"
+                aria-label="Close detail"
+                onClick={handleClose}
+              >
+                <X className="h-4 w-4" />
+              </button>
+              <InstitutionCardDetail card={activeCard} onClose={handleClose} />
+            </motion.div>
           </motion.div>
-        </motion.div>
-      ) : null}
+        )}
+      </AnimatePresence>
     </>
   )
 }
@@ -1585,15 +1625,6 @@ function ProjectGridSection() {
                           </div>
 
                           <p className="projects-page-card-subtitle">{project.hook}</p>
-
-                          <div className="projects-stats-row-inline">
-                            {project.metrics.map((m, i) => (
-                              <div key={i} className="projects-stat-item-mini">
-                                <span className="projects-stat-value-mini">{m.stat}</span>
-                                <span className="projects-stat-label-mini">{m.label}</span>
-                              </div>
-                            ))}
-                          </div>
                         </div>
 
                         <div className="projects-v2-card-visual">
@@ -1651,15 +1682,6 @@ function ProjectGridSection() {
                           </div>
 
                           <p className="projects-page-card-subtitle">{project.hook}</p>
-
-                          <div className="projects-stats-row-inline">
-                            {project.metrics.map((m, i) => (
-                              <div key={i} className="projects-stat-item-mini">
-                                <span className="projects-stat-value-mini">{m.stat}</span>
-                                <span className="projects-stat-label-mini">{m.label}</span>
-                              </div>
-                            ))}
-                          </div>
                         </div>
 
                         <div className="projects-v2-card-visual">
@@ -1733,15 +1755,6 @@ function ProjectGridSection() {
                           <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title}</h2>
                           <p className="text-white/60 leading-relaxed">{activeGridProject.hook}</p>
 
-                          <div className="flex flex-wrap gap-4 pt-2">
-                            {activeGridProject.metrics.map((m, i) => (
-                              <div key={i} className="flex flex-col">
-                                <span className="text-xl font-bold text-white">{m.stat}</span>
-                                <span className="text-[10px] uppercase tracking-widest text-white/40">{m.label}</span>
-                              </div>
-                            ))}
-                          </div>
-
                           <a
                             href={activeGridProject.href}
                             target="_blank"
@@ -1770,11 +1783,6 @@ function ProjectGridSection() {
             </AnimatePresence>
           </div>
 
-          <aside className="projects-page-aside flex items-center justify-center">
-            <div className="w-full h-fit max-w-2xl">
-              <GitHubTerminal />
-            </div>
-          </aside>
         </div>
       </div>
     </SectionShell>
@@ -1786,9 +1794,10 @@ function ForFunSection() {
 
   return (
     <SectionShell id="for-fun">
-      <div className="w-full min-h-[calc(100vh-92px)] lg:h-[calc(100vh-92px)] py-8 px-6 sm:px-10 lg:px-16 overflow-y-auto lg:overflow-hidden">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-6 h-fit lg:h-full w-full">
-          {forFunProjects.map((project, idx) => (
+      <div className="for-fun-page-shell">
+        <div className="for-fun-page-layout">
+          <div className="for-fun-grid">
+            {forFunProjects.map((project, idx) => (
             <article
               key={`${project.title}-${idx}`}
               role="button"
@@ -1836,7 +1845,14 @@ function ForFunSection() {
                 )}
               </div>
             </article>
-          ))}
+            ))}
+          </div>
+
+          <aside className="for-fun-terminal">
+            <div className="for-fun-terminal-inner">
+              <GitHubTerminal />
+            </div>
+          </aside>
         </div>
 
         <AnimatePresence>
@@ -1883,15 +1899,6 @@ function ForFunSection() {
                         ))}
                       </div>
                     )}
-
-                    <div className="flex flex-wrap gap-4 pt-2">
-                      {activeGridProject.metrics.map((m, i) => (
-                        <div key={i} className="flex flex-col">
-                          <span className="text-xl font-bold text-white">{m.stat}</span>
-                          <span className="text-[10px] uppercase tracking-widest text-white/40">{m.label}</span>
-                        </div>
-                      ))}
-                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -2466,6 +2473,172 @@ export function PortfolioPage() {
             transform: translateX(24%);
             opacity: 0;
           }
+        }
+
+        /* ── Institution Grid (Research) ──────────────── */
+        .inst-grid-shell {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+          width: 100%;
+          height: 100%;
+          min-height: 0;
+        }
+
+        .inst-grid-top {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+          flex: 1;
+          min-height: 0;
+        }
+
+        .inst-grid-bottom {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 1.5rem;
+          flex: 1;
+          min-height: 0;
+        }
+
+        .inst-card-slot {
+          height: 100%;
+          min-height: 0;
+        }
+
+        .inst-card-slot--wide {
+          grid-column: 1 / -1;
+        }
+
+        .inst-card {
+          position: relative;
+          height: 100%;
+          width: 100%;
+          border-radius: 2rem;
+          border: 1px solid rgb(255 255 255 / 0.14);
+          overflow: hidden;
+          background: #111;
+          display: flex;
+          align-items: center;
+          padding: 2.5rem;
+          gap: 2.5rem;
+          cursor: pointer;
+          transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .inst-card:hover {
+          transform: scale(1.005);
+          border-color: rgb(255 255 255 / 0.25);
+        }
+
+        .inst-card-bg-wrap {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+        }
+
+        .inst-card-bg-img {
+          object-fit: cover;
+          opacity: 0.82;
+          filter: saturate(0.65) contrast(0.92) brightness(1.08);
+        }
+
+        .inst-card-bg-overlay {
+          position: absolute;
+          inset: 0;
+          background:
+            linear-gradient(
+              90deg,
+              rgba(255, 255, 255, 0.1) 0%,
+              rgba(255, 255, 255, 0.04) 38%,
+              rgba(0, 0, 0, 0.18) 62%,
+              rgba(0, 0, 0, 0.48) 100%
+            );
+        }
+
+        .inst-card-panel {
+          position: relative;
+          z-index: 2;
+          flex: 0 0 42%;
+          aspect-ratio: 16/10;
+          border-radius: 1.5rem;
+          overflow: hidden;
+          border: 1px solid rgb(255 255 255 / 0.12);
+          background: rgba(0,0,0,0.4);
+          box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .inst-card-panel-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .inst-card--featured .inst-card-panel {
+          flex-basis: 32%;
+          max-width: 38rem;
+        }
+
+        .inst-card-content {
+          position: relative;
+          z-index: 2;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+
+        .inst-card-institution {
+          font-family: var(--font-sans-display);
+          font-size: 0.75rem;
+          letter-spacing: 0.2em;
+          text-transform: uppercase;
+          color: rgba(255, 255, 255, 0.78);
+          margin-bottom: 0.75rem;
+          text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+        }
+
+        .inst-card-title {
+          font-family: \"Sohne\", \"Geist\", sans-serif !important;
+          font-size: clamp(1.8rem, 2.5vw, 2.8rem);
+          font-weight: 700;
+          letter-spacing: -0.04em;
+          color: white;
+          margin-bottom: 1rem;
+          line-height: 1.1;
+          text-shadow:
+            0 2px 8px rgba(0, 0, 0, 0.8),
+            0 8px 24px rgba(0, 0, 0, 0.45);
+        }
+
+        .inst-card-description {
+          font-size: 1.15rem;
+          line-height: 1.6;
+          color: rgba(255, 255, 255, 0.88);
+          max-width: 36ch;
+          margin-left: auto;
+          margin-right: auto;
+          margin-bottom: 2rem;
+          text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+        }
+
+        .inst-card-detail-link {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-size: 0.85rem;
+          font-weight: 600;
+          letter-spacing: 0.1em;
+          color: rgba(255, 255, 255, 0.78);
+          text-shadow: 0 1px 6px rgba(0, 0, 0, 0.9);
+          transition: color 0.2s ease, transform 0.2s ease;
+        }
+
+        .inst-card:hover .inst-card-detail-link {
+          color: white;
+          transform: translateX(4px);
         }
 
         .research-editorial-shell {
@@ -3358,6 +3531,8 @@ export function PortfolioPage() {
         .projects-page-container {
           display: flex;
           flex-direction: column;
+          align-items: center;
+          justify-content: center;
           gap: 2.5rem;
           width: 100%;
           height: 100%;
@@ -3367,19 +3542,16 @@ export function PortfolioPage() {
         @media (min-width: 1024px) {
           .projects-page-container {
             flex-direction: row;
-            gap: 2rem;
+            gap: 0;
             align-items: stretch;
+            justify-content: center;
           }
 
           .projects-page-content {
-            flex: 0 0 61%;
+            flex: 0 1 96rem;
+            width: min(100%, 96rem);
             min-width: 0;
-          }
-
-          .projects-page-aside {
-            flex: 1;
-            min-width: 0;
-            display: flex;
+            margin-inline: auto;
           }
         }
 
@@ -3644,6 +3816,46 @@ export function PortfolioPage() {
           background-clip: padding-box;
         }
 
+        .for-fun-page-shell {
+          width: 100%;
+          height: calc(100vh - 116px);
+          min-height: calc(100vh - 116px);
+          padding: 1.25rem;
+          overflow: hidden;
+        }
+
+        .for-fun-page-layout {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.3fr);
+          gap: 1.25rem;
+          width: 100%;
+          height: 100%;
+          min-height: 0;
+        }
+
+        .for-fun-grid {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          grid-template-rows: repeat(2, minmax(0, 1fr));
+          gap: 1rem;
+          width: 100%;
+          height: 100%;
+          min-height: 0;
+        }
+
+        .for-fun-terminal {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 0;
+          min-height: 0;
+        }
+
+        .for-fun-terminal-inner {
+          width: 100%;
+          max-width: 34rem;
+        }
+
         .for-fun-featured-grid {
           display: grid;
           grid-template-columns: repeat(2, 1fr);
@@ -3651,7 +3863,32 @@ export function PortfolioPage() {
           width: 100%;
         }
 
+        @media (max-width: 1180px) {
+          .for-fun-page-shell {
+            overflow-y: auto;
+          }
+
+          .for-fun-page-layout {
+            grid-template-columns: 1fr;
+            height: auto;
+          }
+
+          .for-fun-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            grid-template-rows: none;
+            height: auto;
+          }
+
+          .for-fun-terminal {
+            min-height: 18rem;
+          }
+        }
+
         @media (max-width: 768px) {
+          .for-fun-grid {
+            grid-template-columns: 1fr;
+          }
+
           .for-fun-featured-grid {
             grid-template-columns: 1fr;
           }
@@ -3694,7 +3931,7 @@ export function PortfolioPage() {
           flex-direction: column;
           align-items: center;
           width: 100%;
-          gap: 0.25rem;
+          gap: 0.7rem;
           flex: 0 0 auto;
         }
 
@@ -3708,7 +3945,10 @@ export function PortfolioPage() {
 
         .projects-v2-card-header-row .projects-page-card-title {
           margin-bottom: 0;
-          font-size: 1.15rem;
+          font-size: clamp(1.7rem, 2.25vw, 2.45rem);
+          font-weight: 650;
+          line-height: 1.02;
+          letter-spacing: -0.045em;
         }
 
         .projects-v2-card-link-mini {
@@ -3732,40 +3972,42 @@ export function PortfolioPage() {
         }
 
         .projects-page-card-subtitle {
-          font-size: 0.72rem;
-          font-weight: 400;
-          color: rgb(255 255 255 / 0.5);
-          line-height: 1.4;
-          max-width: 44ch;
+          font-size: clamp(0.98rem, 1.2vw, 1.18rem);
+          font-weight: 450;
+          color: rgb(255 255 255 / 0.76);
+          line-height: 1.5;
+          max-width: 58ch;
           margin: 0;
+          text-wrap: balance;
         }
 
         .projects-stats-row-inline {
           display: flex;
           flex-wrap: wrap;
           justify-content: center;
-          gap: 1rem;
-          margin-top: 0.15rem;
+          gap: 1.35rem;
+          margin-top: 0.25rem;
         }
 
         .projects-stat-item-mini {
           display: flex;
           align-items: baseline;
-          gap: 0.25rem;
+          gap: 0.38rem;
         }
 
         .projects-stat-value-mini {
-          font-size: 0.68rem;
-          font-weight: 700;
-          color: rgb(255 255 255 / 0.9);
+          font-size: clamp(0.92rem, 1.05vw, 1.08rem);
+          font-weight: 750;
+          color: white;
+          letter-spacing: -0.02em;
         }
 
         .projects-stat-label-mini {
-          font-size: 0.55rem;
-          font-weight: 600;
-          color: rgb(255 255 255 / 0.4);
+          font-size: clamp(0.64rem, 0.7vw, 0.74rem);
+          font-weight: 650;
+          color: rgb(255 255 255 / 0.62);
           text-transform: uppercase;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.07em;
         }
 
         .projects-v2-card-visual {
@@ -4050,6 +4292,39 @@ export function PortfolioPage() {
 
           .hero-portrait-mask {
             height: min(48vh, 28rem);
+          }
+
+          .inst-grid-shell {
+            height: auto;
+            max-height: none;
+            gap: 1.25rem;
+          }
+
+          .inst-grid-top,
+          .inst-grid-bottom {
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+          }
+
+          .inst-card {
+            flex-direction: column;
+            padding: 1.5rem;
+            gap: 1.5rem;
+            height: auto;
+          }
+
+          .inst-card-panel {
+            flex: 0 0 auto;
+            width: 100%;
+          }
+
+          .inst-card-title {
+            font-size: 2rem;
+          }
+
+          .inst-card-description {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
           }
 
           .research-editorial-panel,
