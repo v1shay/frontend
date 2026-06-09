@@ -136,7 +136,8 @@ type InstitutionCard = {
 
 type GridProject = {
   title: string
-  hook: string
+  badge?: string
+  hook: React.ReactNode
   metrics: { stat: string; label: string }[]
   href: string
   linkLabel: string
@@ -189,26 +190,25 @@ const institutionCards: readonly InstitutionCard[] = [
 const portfolioProjects = [
   {
     title: "Echo-OS",
+    badge: "1st @ ElevenLabs 2026",
     hook: (
       <>
-        Voice-powered computer use for blind users;{" "}
-        <strong>winner at ElevenLabs 2026</strong>
+        Voice-first accessibility agent built with <strong>STT/TTS pipelines</strong>,
+        <strong> RAG memory</strong>, and <strong>computer-control tooling</strong> for
+        blind users
       </>
     ),
-    href: "https://github.com/v1shay/jarvis",
+    href: "https://github.com/v1shay/echo-OS",
     linkLabel: "GitHub",
     image: sentinelImage,
     gif: null as string | null,
   },
   {
     title: "Neuro-Sense",
+    badge: "Published & Indexed",
     hook: (
       <>
-        Machine learning model for Parkinson&apos;s detection through speech;{" "}
-        <strong>
-          published and indexed by International Journal for Research, Google
-          Scholar, OIPub, and ResearchGate
-        </strong>
+        Parkinson&apos;s <strong>speech-screening model</strong> achieving <strong>91% accuracy</strong>, with publication indexing across <strong>Google Scholar</strong>, <strong>OIPub</strong>, and <strong>ResearchGate</strong>
       </>
     ),
     href: "https://github.com/v1shay/neuro-sense",
@@ -218,13 +218,11 @@ const portfolioProjects = [
   },
   {
     title: "Phyto-Vision",
+    badge: "Presented @ UCSC",
     hook: (
       <>
-        Neural network for detecting plant diseases with{" "}
-        <strong>95%+ accuracy across 395K+ images</strong>;{" "}
-        <strong>
-          presented to the UCSC Environmental Studies Lab for greenhouse use
-        </strong>
+        Neural network for plant disease trained on <strong>395K+ images</strong> with
+        <strong> 95%+ accuracy</strong>, presented to the Loik Labaratory for greenhouse use
       </>
     ),
     href: "https://github.com/v1shay/phyto-vision",
@@ -234,11 +232,11 @@ const portfolioProjects = [
   },
   {
     title: "ML-Labs",
+    badge: "Finalist @ LUMA Hacks",
     hook: (
       <>
-        An autonomous research lab of{" "}
-        <strong>19 specialized AI agents</strong>;{" "}
-        <strong>LUMA Hacks 2026 Finalist</strong>
+        Autonomous research lab powered by <strong>19 specialized agents</strong>, working across
+        <strong> 8 lifecycle stages</strong>; Top 1% / 400 teams 
       </>
     ),
     href: "https://github.com/v1shay/ml-labs",
@@ -248,11 +246,11 @@ const portfolioProjects = [
   },
   {
     title: "ArchLLM",
+    badge: "GPU Architectures",
     hook: (
       <>
-        Token optimization for long-context AI models designed around real GPU
-        limits with <strong>+95% adherence</strong> and{" "}
-        <strong>-30% HBM pressure</strong>
+        <strong>C++</strong> memory simulator for long-context AI systems, modeling
+        <strong>GPU memory pressure</strong> with <strong>+95% adherence</strong>, and <strong>-30% HBM pressure</strong>
       </>
     ),
     href: "https://github.com/v1shay/archLLM-sim",
@@ -261,11 +259,13 @@ const portfolioProjects = [
     gif: null as string | null,
   },
   {
-    title: "Vox-Agent",
+    title: "Vox",
+    badge: "Turn any microphone into an Agent",
     hook: (
       <>
-        Turn your AirPods into an AI-powered note-taking system with{" "}
-        <strong>&lt;100ms latency</strong>
+        Bluetooth-integrated AI note-taking stack using <strong>real-time audio</strong>,
+        <strong> Whisper transcription</strong>, and <strong>&lt;50ms latency </strong>
+         for ambient capture.
       </>
     ),
     href: "https://github.com/v1shay/vox-agent",
@@ -275,18 +275,26 @@ const portfolioProjects = [
   },
   {
     title: "Sift",
-    hook: "Turns GitHub into a live, explorable universe via linear algebra",
-    href: "https://github.com/v1shay/sift",
+    badge: "GitHub vectorized into a 3D Universe",
+    hook: (
+      <>
+        GitHub intelligence engine leveraging <strong>linear algebra</strong> and <strong>Three.js </strong>
+         to map repositories into a spatial interface
+      </>
+    ),
+    href: "https://sift-opensource.vercel.app",
     linkLabel: "GitHub",
     image: null as StaticImageData | null,
     gif: "/images/sift-demo.gif",
   },
   {
     title: "Sentinel-LLM",
+    badge: "Model Eval",
     hook: (
       <>
-        Production-level LLM hallucination detection{" "}
-        <strong>tested against top AI models</strong>
+        Hallucination-detection benchmark pipeline with <strong>TF-IDF features</strong>,
+        <strong> logistic regression</strong>, and evaluations against
+        <strong> top AI models</strong>
       </>
     ),
     href: "https://github.com/v1shay/sentinel-LLM",
@@ -296,10 +304,12 @@ const portfolioProjects = [
   },
   {
     title: "Neural-Lens",
+    badge: "Chrome extension",
     hook: (
       <>
-        Low-latency data analysis directly in your browser with{" "}
-        <strong>&lt;500ms latency</strong>
+        Chrome MV3 analysis layer using <strong>edge execution</strong>,
+        <strong> JavaScript</strong>, and <strong>&lt;500ms latency</strong> for in-browser
+        data reasoning
       </>
     ),
     href: "https://github.com/v1shay/neural-lens",
@@ -309,18 +319,26 @@ const portfolioProjects = [
   },
   {
     title: "AlgoType",
-    hook: "USACO and LeetCode code typing practice with global leaderboards and custom syntax",
-    href: "https://github.com/v1shay/algo-type",
+    badge: "USACO/LeetCode Practice",
+    hook: (
+      <>
+        Competitive-programming trainer with <strong>USACO/LeetCode prompts</strong>,
+        <strong> custom syntax</strong>, and <strong>global leaderboards</strong>
+      </>
+    ),
+    href: "https://algo-type.vercel.app",
     linkLabel: "GitHub",
     image: null as string | null,
     gif: "/images/other_projects/algotype.gif",
   },
   {
     title: "Freelance Development",
+    badge: "Production Work",
     hook: (
       <>
-        Shipped production-level storefronts for local businesses, generating{" "}
-        <strong>100%+ increased traffic</strong>
+        Local-business storefront work across <strong>Next.js</strong>,
+        driving
+        <strong> 100%+ increased traffic</strong>
       </>
     ),
     href: "https://taquizas-chapala.vercel.app",
@@ -1612,7 +1630,12 @@ function ProjectGridSection() {
                       >
                         <div className="projects-v2-card-text">
                           <div className="projects-v2-card-header-row">
-                            <h3 className="projects-page-card-title">{project.title}</h3>
+                            <div className="projects-v2-title-stack">
+                              <h3 className="projects-page-card-title">{project.title}</h3>
+                              {"badge" in project && project.badge ? (
+                                <span className="projects-v2-award-badge">{project.badge}</span>
+                              ) : null}
+                            </div>
                             <div
                               className="projects-v2-card-link-mini"
                               onClick={(e) => {
@@ -1669,7 +1692,12 @@ function ProjectGridSection() {
                       >
                         <div className="projects-v2-card-text">
                           <div className="projects-v2-card-header-row">
-                            <h3 className="projects-page-card-title">{project.title}</h3>
+                            <div className="projects-v2-title-stack">
+                              <h3 className="projects-page-card-title">{project.title}</h3>
+                              {"badge" in project && project.badge ? (
+                                <span className="projects-v2-award-badge">{project.badge}</span>
+                              ) : null}
+                            </div>
                             <div
                               className="projects-v2-card-link-mini"
                               onClick={(e) => {
@@ -1752,7 +1780,12 @@ function ProjectGridSection() {
                         </div>
 
                         <div className="space-y-4">
-                          <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title}</h2>
+                          <div className="projects-v2-modal-heading">
+                            <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title}</h2>
+                            {activeGridProject.badge ? (
+                              <span className="projects-v2-award-badge projects-v2-award-badge-modal">{activeGridProject.badge}</span>
+                            ) : null}
+                          </div>
                           <p className="text-white/60 leading-relaxed">{activeGridProject.hook}</p>
 
                           <a
@@ -3943,6 +3976,51 @@ export function PortfolioPage() {
           width: 100%;
         }
 
+
+        .projects-v2-title-stack {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          flex-wrap: wrap;
+          gap: 0.65rem;
+          min-width: 0;
+        }
+
+        .projects-v2-award-badge {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 2rem;
+          padding: 0.42rem 0.82rem;
+          border-radius: 999px;
+          border: 1px solid rgb(255 255 255 / 0.18);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.06)),
+            radial-gradient(circle at 20% 0%, rgb(255 255 255 / 0.18), transparent 52%);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.18),
+            0 10px 24px rgb(0 0 0 / 0.16);
+          color: rgb(255 255 255 / 0.9);
+          font-size: clamp(0.68rem, 0.82vw, 0.82rem);
+          font-weight: 760;
+          letter-spacing: 0.11em;
+          line-height: 1;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+
+        .projects-v2-modal-heading {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+        }
+
+        .projects-v2-award-badge-modal {
+          min-height: 2.15rem;
+          padding-inline: 0.95rem;
+        }
+
         .projects-v2-card-header-row .projects-page-card-title {
           margin-bottom: 0;
           font-size: clamp(1.7rem, 2.25vw, 2.45rem);
@@ -3979,6 +4057,11 @@ export function PortfolioPage() {
           max-width: 58ch;
           margin: 0;
           text-wrap: balance;
+        }
+
+        .projects-page-card-subtitle strong {
+          color: rgb(255 255 255 / 0.96);
+          font-weight: 760;
         }
 
         .projects-stats-row-inline {
