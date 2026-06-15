@@ -4,6 +4,8 @@ import type { ComponentProps, ReactNode } from "react"
 import { Component } from "react"
 import { createContext, useContext, useMemo, useState } from "react"
 import { ShaderGradient, ShaderGradientCanvas } from "@shadergradient/react"
+import { useThree } from "@react-three/fiber"
+import { useEffect } from "react"
 
 import { shaderGradientConfig } from "@/lib/shader-config"
 
@@ -145,16 +147,48 @@ export function useShaderPalette() {
   return context
 }
 
-function ShaderScene({ colorSteps, isPaused }: { colorSteps: Record<ShaderColorKey, number>, isPaused: boolean }) {
+/**
+ * Renders the shader once, then switches React Three Fiber to on-demand
+ * rendering so the GPU stops drawing every frame. This keeps the exact frozen
+ * gradient look while eliminating the continuous render loop that caused lag.
+ */
+function FreezeFrame() {
+  const invalidate = useThree((state) => state.invalidate)
+  const setFrameloop = useThree((state) => state.setFrameloop)
+
+  useEffect(() => {
+    setFrameloop("demand")
+
+    // Paint a short burst of frames so the environment map and material fully
+    // settle into the frozen image, then stop rendering entirely.
+    let frameId = 0
+    let count = 0
+    const settle = () => {
+      invalidate()
+      count += 1
+      if (count < 120) {
+        frameId = requestAnimationFrame(settle)
+      }
+    }
+    frameId = requestAnimationFrame(settle)
+
+    return () => cancelAnimationFrame(frameId)
+  }, [invalidate, setFrameloop])
+
+  return null
+}
+
+function ShaderScene({ colorSteps }: { colorSteps: Record<ShaderColorKey, number> }) {
   const paletteConfig = useMemo(
     () => ({
       ...shaderGradientConfig,
-      animate: isPaused ? "off" : "on",
+      // Frozen: the time-based animation is disabled so uTime never advances.
+      animate: "off",
       color1: shaderColorCycles[0].values[colorSteps.color1],
       color2: shaderColorCycles[1].values[colorSteps.color2],
       color3: shaderColorCycles[2].values[colorSteps.color3],
     }),
-    [colorSteps, isPaused]
+    [colorSteps]
   )
 
   return (
@@ -165,6 +199,7 @@ function ShaderScene({ colorSteps, isPaused }: { colorSteps: Record<ShaderColorK
         fov={45}
         style={{ width: "100%", height: "100%", transform: 'translateZ(0)' }}
       >
+        <FreezeFrame />
         <ShaderGradient
           {...(paletteConfig as unknown as ShaderGradientProps)}
         />
@@ -174,7 +209,7 @@ function ShaderScene({ colorSteps, isPaused }: { colorSteps: Record<ShaderColorK
 }
 
 export function ShaderBackground() {
-  const { controls, isPaused } = useShaderPalette()
+  const { controls } = useShaderPalette()
 
   const colorSteps = useMemo<Record<ShaderColorKey, number>>(
     () => ({
@@ -187,7 +222,7 @@ export function ShaderBackground() {
 
   return (
     <ShaderErrorBoundary fallback={<div className="shader-fallback" aria-hidden="true" />}>
-      <ShaderScene colorSteps={colorSteps} isPaused={isPaused} />
+      <ShaderScene colorSteps={colorSteps} />
     </ShaderErrorBoundary>
   )
 }

@@ -80,7 +80,7 @@ import {
   useSpring,
   useTransform,
   type Variants,
-} from "motion/react"
+} from "@/lib/motion-static"
 import {
   ArrowRight,
   ChevronRight,
@@ -2215,13 +2215,10 @@ export function PortfolioPage() {
         }
 
         html {
-          scroll-snap-type: y mandatory;
           scroll-padding-top: 92px;
-          overscroll-behavior-y: none;
         }
 
         body {
-          scroll-snap-type: none;
           margin: 0;
           padding: 0;
         }
@@ -2231,8 +2228,6 @@ export function PortfolioPage() {
         }
 
         .snap-section {
-          scroll-snap-align: start;
-          scroll-snap-stop: always;
           contain: layout style paint;
         }
 
@@ -2370,7 +2365,7 @@ export function PortfolioPage() {
           width: 38%;
           background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.36), transparent);
           transform: skewX(-20deg);
-          animation: hero-kicker-sheen 6.8s ease-in-out infinite;
+          opacity: 0;
           pointer-events: none;
         }
 
@@ -2475,8 +2470,7 @@ export function PortfolioPage() {
             linear-gradient(120deg, transparent 24%, rgb(255 255 255 / 0.18) 40%, transparent 56%),
             linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent 18%);
           mix-blend-mode: screen;
-          opacity: 0.72;
-          animation: hero-image-sheen 8.2s ease-in-out infinite;
+          opacity: 0;
           pointer-events: none;
         }
 
