@@ -7,19 +7,21 @@ import heroImage from "../../images/hero.jpeg"
 import githubProgramLogo from "../../images/GitHub_Invertocat_Black_Clearspace.png"
 
 // ── Research / ML projects ────────────────────────────────────────────────────
-import neurosense from "../../images/neuro.png"                          // NeuroSense confusion-matrix paper figure
-import phytovisionImage from "../../images/tomato.png"                   // Phyto-Vision tomato leaf CNN
-import sentinelImage from "../../images/image copy 33.png"   // Sentinel-LLM hallucination leaderboard chart
-import softwareintern from "../../images/substack.png"                   // Substack graph crawler / Chapman internship
+import neurosense from "../../images/neuro.png"
+import phytovisionImage from "../../images/tomato.png"
+import sentinelImage from "../../images/image copy 33.png"
+import softwareintern from "../../images/substack.png"
+
 // ── Institution backgrounds ──────────────────────────────────────────────────
-import chapmanBg from "../../images/chapman.jpg"                         // Chapman University campus background
-import berkeleyBg from "../../images/berkeley.jpg"                       // UC Berkeley / LBNL campus background
-import ucscBg from "../../images/ucsc.jpg"                               // UCSC campus background
-import berkeleyPanel from "../../images/berkeley-a.png"                  // Berkeley watershed map (inner panel)
-import ucscPanel from "../../images/ucsc-a.png"                          // UCSC AIEA Lab screenshot (inner panel)
+import chapmanBg from "../../images/chapman.jpg"
+import berkeleyBg from "../../images/berkeley.jpg"
+import ucscBg from "../../images/ucsc.jpg"
+import berkeleyPanel from "../../images/berkeley-a.png"
+import ucscPanel from "../../images/ucsc-a.png"
+
 // ── Basketball ────────────────────────────────────────────────────────────────
-import vishayDribbling from "../../images/athletes.jpeg"                 // Vishay dribbling in Lynbrook jersey mid-game
-import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"         // Lynbrook freshman basketball team group photo
+import vishayDribbling from "../../images/athletes.jpeg"
+import lynbrookTeamPhoto from "../../images/basketballteam.jpeg"
 import sportsPhoto from "../../images/IMG_6976.jpeg"
 import athletes from "../../images/image copy 15.png"
 import cs from "../../images/image copy 14.png"
@@ -39,36 +41,79 @@ import fblaScreenshot from "../../images/other_projects/fbla_new.png"
 import trilingualImage from "../../images/other_projects/image copy 3.png"
 
 // ── TaeKwonDo ─────────────────────────────────────────────────────────────────
-import tkdBlockBreaking from "../../images/tkd.png"                      // Vishay breaking concrete blocks at belt test
-import tkdDojanGroupPhoto from "../../images/tkd2.jpeg"                  // Full TKD dojang black-belt ceremony group photo
-import tkdKickIcon from "../../images/image copy 10.png"                 // Taekwondo kick silhouette icon
-import worldTaekwondoLogo from "../../images/image copy 11.png"          // World Taekwondo federation logo
+import tkdBlockBreaking from "../../images/tkd.png"
+import tkdDojanGroupPhoto from "../../images/tkd2.jpeg"
+import tkdKickIcon from "../../images/image copy 10.png"
+import worldTaekwondoLogo from "../../images/image copy 11.png"
 
 // ── NovaSTEM ──────────────────────────────────────────────────────────────────
-import novaStemOutdoorDemo from "../../images/novastem1.jpeg"            // Vishay doing STEM experiment demo for kids outdoors
-import novaStemBalloonScience from "../../images/novastem2.jpeg"         // Vishay teaching balloon science at Good Samaritan
+import novaStemOutdoorDemo from "../../images/novastem1.jpeg"
+import novaStemBalloonScience from "../../images/novastem2.jpeg"
 
 // ── Uplift Art Foundation ─────────────────────────────────────────────────────
-import upliftCardsSpread from "../../images/art.jpeg"                    // Spread of get-well cards made for pediatric patients
-import upliftCardsDisplay from "../../images/art2.jpeg"                  // Cards displayed upright on a table before delivery
+import upliftCardsSpread from "../../images/art.jpeg"
+import upliftCardsDisplay from "../../images/art2.jpeg"
 
-// ── School / partner logos (CS4All outreach schools) ─────────────────────────
-import sundayFriendsLogo from "../../images/image copy.png"              // Sunday Friends nonprofit logo
-import harkerLogo from "../../images/image copy 2.png"                   // The Harker School eagle logo
-import monteVistaLogo from "../../images/image copy 3.png"               // Monte Vista bear mascot logo
-import vikingMascotLogo from "../../images/image copy 4.png"             // Viking mascot logo (school outreach)
-import dilworthDragonsLogo from "../../images/image copy 5.png"          // Dilworth Dragons elementary logo
-import millerMustangsLogo from "../../images/image copy 6.png"           // Miller Middle School Mustangs logo
-import upliftHawkLogo from "../../images/image copy 7.png"               // Uplift Art Foundation hawk logo
-import deVargasStemLogo from "../../images/image copy 8.png"             // De Vargas STEM school logo
-import goodSamaritanPenguinLogo from "../../images/image copy 9.png"     // Good Samaritan Preschool penguin logo
-import goodSamaritanLogo from "../../images/image.png"                   // Good Samaritan Preschool text logo
+// ── School / partner logos ────────────────────────────────────────────────────
+import sundayFriendsLogo from "../../images/image copy.png"
+import harkerLogo from "../../images/image copy 2.png"
+import monteVistaLogo from "../../images/image copy 3.png"
+import vikingMascotLogo from "../../images/image copy 4.png"
+import dilworthDragonsLogo from "../../images/image copy 5.png"
+import millerMustangsLogo from "../../images/image copy 6.png"
+import upliftHawkLogo from "../../images/image copy 7.png"
+import deVargasStemLogo from "../../images/image copy 8.png"
+import goodSamaritanPenguinLogo from "../../images/image copy 9.png"
+import goodSamaritanLogo from "../../images/image.png"
 
 // ── Other Projects visuals ───────────────────────────────────────────────────
 import mlLabsIcon from "../../images/other_projects/ml-labs-icon.png"
 import archLlmScreenshot from "../../images/other_projects/image.png"
 import sentinelLlmChart from "../../images/other_projects/image copy.png"
 import voxAgentScreenshot from "../../images/other_projects/PNG image.png"
+
+// ── IDO public assets ─────────────────────────────────────────────────────────
+// actual folder: frontend/public/ido
+// public assets must be referenced from root: /ido/filename
+const idoDemoSequence = [
+  {
+    src: "/ido/blender.gif",
+    alt: "IDO Blender demo",
+    durationMs: 10100,
+    objectPosition: "100% 50%",
+    objectFit: "cover",
+  },
+  {
+    src: "/ido/openscad.gif",
+    alt: "IDO OpenSCAD demo",
+    durationMs: 8800,
+  },
+] as const
+
+const idoBlenderGridImages = [
+  "/ido/blender1.jpeg",
+  "/ido/blender2.jpeg",
+  "/ido/blender3.jpeg",
+  "/ido/blender4.jpeg",
+  "/ido/blender5.jpeg",
+  "/ido/blender6.png",
+] as const
+
+const idoOpenScadGridImages = [
+  "/ido/Screenshot 2026-06-12 at 11.13.46\u202fPM.png",
+  "/ido/Screenshot 2026-06-12 at 11.14.03\u202fPM.png",
+  "/ido/Screenshot 2026-06-12 at 11.14.35\u202fPM.png",
+  "/ido/Screenshot 2026-06-12 at 11.15.27\u202fPM.png",
+  "/ido/Screenshot 2026-06-12 at 11.16.15\u202fPM.png",
+  "/ido/Screenshot 2026-06-12 at 11.16.36\u202fPM.png",
+  "/ido/Screenshot 2026-06-12 at 11.18.47\u202fPM.png",
+  "/ido/Screenshot 2026-06-14 at 7.03.16\u202fPM.png",
+  "/ido/Screenshot 2026-06-14 at 7.03.52\u202fPM.png",
+  "/ido/Screenshot 2026-06-14 at 10.28.23\u202fPM.png",
+  "/ido/Screenshot 2026-06-14 at 12.49.27\u202fAM.png",
+  "/ido/Screenshot 2026-06-15 at 3.12.01\u202fPM.png",
+] as const
+
 import { useEffect, useRef, useState, type CSSProperties } from "react"
 import {
   motion,
@@ -80,7 +125,7 @@ import {
   useSpring,
   useTransform,
   type Variants,
-} from "motion/react"
+} from "@/lib/motion-static"
 import {
   ArrowRight,
   ChevronRight,
@@ -90,7 +135,6 @@ import {
   X,
   Loader2,
 } from "lucide-react"
-
 
 import { cn } from "@/lib/utils"
 import { GitHubTerminal } from "./github-terminal"
@@ -138,12 +182,40 @@ type GridProject = {
   title: string
   badge?: string
   hook: React.ReactNode
-  metrics: { stat: string; label: string }[]
+  metrics?: { stat: string; label: string }[]
   href: string
   linkLabel: string
-  image?: StaticImageData | null
+  image?: StaticImageData | string | null
   gif?: string | null
 }
+
+type IdoDemo = {
+  src: string
+  label: string
+  durationMs: number
+  objectPosition?: string
+  objectFit?: "cover" | "contain"
+}
+
+type IdoLightboxMedia = {
+  src: string
+  alt: string
+}
+
+const idoDemos: IdoDemo[] = [
+  {
+    src: idoDemoSequence[0].src,
+    label: "Blender adapter demo",
+    durationMs: idoDemoSequence[0].durationMs,
+    objectPosition: idoDemoSequence[0].objectPosition,
+    objectFit: idoDemoSequence[0].objectFit,
+  },
+  {
+    src: idoDemoSequence[1].src,
+    label: "OpenSCAD adapter demo",
+    durationMs: idoDemoSequence[1].durationMs,
+  },
+]
 
 type PillarSlide = {
   title: string
@@ -662,7 +734,6 @@ function GitHubBanner({ isVisible, onClose }: { isVisible: boolean; onClose: () 
 
 function StickyNavbar() {
   const activeSection = useActiveSection(navItems.map((item) => item.id))
-  const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [bannerDismissed, setBannerDismissed] = useState(false)
   const { scrollY } = useScroll()
@@ -671,11 +742,6 @@ function StickyNavbar() {
     setScrolled(latest > 24)
   })
 
-  useEffect(() => {
-    const close = () => setMobileOpen(false)
-    window.addEventListener("hashchange", close)
-    return () => window.removeEventListener("hashchange", close)
-  }, [])
 
   return (
     <motion.header
@@ -702,46 +768,13 @@ function StickyNavbar() {
           ))}
         </nav>
 
-        <div className="nav-actions">
-          <button
-            type="button"
-            className="nav-mobile-toggle"
-            aria-label={mobileOpen ? "Close menu" : "Open menu"}
-            onClick={() => setMobileOpen((open) => !open)}
-          >
-            {mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-          </button>
-        </div>
+        <div className="nav-actions" aria-hidden="true" />
       </div>
 
       <GitHubBanner
         isVisible={activeSection === "hero" && !scrolled && !bannerDismissed}
         onClose={() => setBannerDismissed(true)}
       />
-
-      <motion.div
-        initial={false}
-        animate={mobileOpen ? "open" : "closed"}
-        variants={{
-          open: { height: "auto", opacity: 1, marginTop: 12 },
-          closed: { height: 0, opacity: 0, marginTop: 0 },
-        }}
-        transition={{ duration: 0.25, ease: "easeOut" }}
-        className="nav-mobile-wrap"
-      >
-        <div className="liquid-panel nav-mobile-panel">
-          {navItems.map((item) => (
-            <a
-              key={item.id}
-              href={`#${item.id}`}
-              className="nav-mobile-link"
-              onClick={() => setMobileOpen(false)}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
-      </motion.div>
     </motion.header>
   )
 }
@@ -1593,6 +1626,191 @@ function PillarsSection() {
   )
 }
 
+function SequentialIdoDemo({
+  demos,
+  onOpenMedia,
+}: {
+  demos: IdoDemo[]
+  onOpenMedia: (media: IdoLightboxMedia) => void
+}) {
+  const [activeDemoIndex, setActiveDemoIndex] = useState(0)
+  const [demoCycle, setDemoCycle] = useState(0)
+  const activeDemo = demos[activeDemoIndex]
+  const activeDemoObjectFit = activeDemo.objectFit ?? "cover"
+  const activeDemoObjectPosition = activeDemo.objectPosition ?? "50% 50%"
+  const activeDemoSrc = `${activeDemo.src}?cycle=${demoCycle}&fit=${activeDemoObjectFit}&pos=${encodeURIComponent(activeDemoObjectPosition)}`
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setActiveDemoIndex((index) => (index + 1) % demos.length)
+      setDemoCycle((cycle) => cycle + 1)
+    }, activeDemo.durationMs)
+
+    return () => window.clearTimeout(timer)
+  }, [activeDemo.durationMs, activeDemoIndex, demos.length])
+
+  return (
+    <div className="ido-demo-shell">
+      <div className="ido-demo-topbar">
+        <div className="ido-demo-dots" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+        <span className="ido-demo-label">{activeDemo.label}</span>
+        <span className="ido-demo-cycle">{activeDemoIndex + 1}/{demos.length}</span>
+      </div>
+      <div className="ido-demo-stage">
+        <img
+          key={activeDemoSrc}
+          src={activeDemoSrc}
+          alt={activeDemo.label}
+          style={{
+            "--ido-object-fit": activeDemoObjectFit,
+            "--ido-object-position": activeDemoObjectPosition,
+          } as CSSProperties}
+          className="ido-demo-media"
+          onClick={() => onOpenMedia({
+            src: `${activeDemo.src}?modal=${Date.now()}`,
+            alt: activeDemo.label,
+          })}
+        />
+      </div>
+    </div>
+  )
+}
+
+function IdoImageGrid({
+  images,
+  label,
+  onOpenMedia,
+}: {
+  images: readonly string[]
+  label: string
+  onOpenMedia: (media: IdoLightboxMedia) => void
+}) {
+  return (
+    <div className="ido-image-grid" aria-label={label}>
+      {images.map((src, index) => (
+        <div key={`${label}-${index}`} className="ido-image-cell">
+          <img
+            src={src}
+            alt={`${label} ${index + 1}`}
+            className="ido-image"
+            loading="lazy"
+            onClick={() => onOpenMedia({ src, alt: `${label} ${index + 1}` })}
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function IdoMediaLightbox({
+  media,
+  onClose,
+}: {
+  media: IdoLightboxMedia | null
+  onClose: () => void
+}) {
+  useEffect(() => {
+    if (!media) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose()
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [media, onClose])
+
+  return (
+    <AnimatePresence>
+      {media ? (
+        <motion.div
+          className="ido-lightbox-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
+          onClick={onClose}
+        >
+          <motion.div
+            className="ido-lightbox-frame"
+            initial={{ opacity: 0, scale: 0.96, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.98, y: 8 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img src={media.src} alt={media.alt} className="ido-lightbox-media" />
+          </motion.div>
+        </motion.div>
+      ) : null}
+    </AnimatePresence>
+  )
+}
+
+function IdoHeroProject() {
+  const [lightboxMedia, setLightboxMedia] = useState<IdoLightboxMedia | null>(null)
+
+  return (
+    <article className="ido-hero-project liquid-panel">
+      <div className="ido-hero-main">
+        <div className="ido-hero-copy">
+          <div className="ido-title-row">
+            <h2 className="ido-title">i d ō</h2>
+            <span className="projects-v2-award-badge ido-award-badge">
+              Winner @ AWS x Anthropic Harness Engineering Hack
+            </span>
+          </div>
+          <p className="ido-lede">
+            Universal harness for AI-driven 3D design across any modeling software
+          </p>
+          <div className="ido-action-row">
+            <a
+              href="https://github.com/v1shay/ido"
+              target="_blank"
+              rel="noreferrer"
+              className="ido-primary-link"
+            >
+              View GitHub
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+            <span className="ido-secondary-chip"></span>
+          </div>
+        </div>
+
+        <SequentialIdoDemo demos={idoDemos} onOpenMedia={setLightboxMedia} />
+      </div>
+
+      <div className="ido-detail-grid">
+        <section className="ido-detail-card">
+          <div className="ido-detail-copy">
+            <p className="ido-detail-kicker"></p>
+            <h3 className="ido-detail-title">what people have built with Idō for Blender:</h3>
+            <p className="ido-detail-text">
+            </p>
+          </div>
+          <IdoImageGrid images={idoBlenderGridImages} label="Blender output" onOpenMedia={setLightboxMedia} />
+        </section>
+
+        <section className="ido-detail-card ido-detail-card-reverse">
+          <div className="ido-detail-copy">
+            <p className="ido-detail-kicker"></p>
+            <h3 className="ido-detail-title">what people have built with Idō for OpenSCAD:</h3>
+            <p className="ido-detail-text">
+            </p>
+          </div>
+          <IdoImageGrid images={idoOpenScadGridImages} label="OpenSCAD output" onOpenMedia={setLightboxMedia} />
+        </section>
+      </div>
+
+      <IdoMediaLightbox media={lightboxMedia} onClose={() => setLightboxMedia(null)} />
+    </article>
+  )
+}
+
 function ProjectGridSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { amount: 0.15, once: true })
@@ -1608,7 +1826,7 @@ function ProjectGridSection() {
       <div ref={ref} className="projects-page-shell">
         <div className="projects-page-container">
           <div className="projects-page-content">
-
+            <IdoHeroProject />
 
             <div className="projects-marquee-viewport">
               <div className="flex flex-row gap-8 p-8 items-start">
@@ -2015,6 +2233,12 @@ export function PortfolioPage() {
           position: fixed;
           inset: 0 0 auto 0;
           z-index: 30;
+          pointer-events: none;
+        }
+
+        .nav-shell,
+        .github-banner {
+          pointer-events: auto;
         }
 
         .nav-shell {
@@ -2031,7 +2255,7 @@ export function PortfolioPage() {
 
         .github-banner-wrap {
           position: absolute;
-          top: 100%;
+          top: calc(100% + 0.35rem);
           left: 0;
           right: 0;
           padding: 0.75rem 1.5rem;
@@ -2215,13 +2439,10 @@ export function PortfolioPage() {
         }
 
         html {
-          scroll-snap-type: y mandatory;
           scroll-padding-top: 92px;
-          overscroll-behavior-y: none;
         }
 
         body {
-          scroll-snap-type: none;
           margin: 0;
           padding: 0;
         }
@@ -2231,8 +2452,6 @@ export function PortfolioPage() {
         }
 
         .snap-section {
-          scroll-snap-align: start;
-          scroll-snap-stop: always;
           contain: layout style paint;
         }
 
@@ -2307,12 +2526,22 @@ export function PortfolioPage() {
         }
 
         #projects-grid.section-anchor {
-          padding-top: 92px !important;
-          padding-bottom: 0 !important;
+          height: auto !important;
+          min-height: 100vh !important;
+          max-height: none !important;
+          overflow: visible !important;
+          padding-top: 86px !important;
+          padding-bottom: 3rem !important;
           padding-left: 0 !important;
           padding-right: 0 !important;
           width: 100vw !important;
           max-width: 100vw !important;
+        }
+
+        #projects-grid .section-shell {
+          height: auto !important;
+          min-height: auto !important;
+          display: block;
         }
 
         #contact.section-anchor {
@@ -2370,7 +2599,7 @@ export function PortfolioPage() {
           width: 38%;
           background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.36), transparent);
           transform: skewX(-20deg);
-          animation: hero-kicker-sheen 6.8s ease-in-out infinite;
+          opacity: 0;
           pointer-events: none;
         }
 
@@ -2475,8 +2704,7 @@ export function PortfolioPage() {
             linear-gradient(120deg, transparent 24%, rgb(255 255 255 / 0.18) 40%, transparent 56%),
             linear-gradient(180deg, rgb(255 255 255 / 0.06), transparent 18%);
           mix-blend-mode: screen;
-          opacity: 0.72;
-          animation: hero-image-sheen 8.2s ease-in-out infinite;
+          opacity: 0;
           pointer-events: none;
         }
 
@@ -3550,39 +3778,321 @@ export function PortfolioPage() {
           line-height: 1.5;
         }
 
-        .projects-page-shell {
-          flex: 1;
-          min-height: 0;
-          height: 100%;
+        .ido-hero-project {
           width: 100%;
-          max-width: none;
-          margin-inline: auto;
+          min-height: auto;
           display: grid;
+          grid-template-rows: auto auto;
+          gap: clamp(0.7rem, 1vw, 1.1rem);
+          padding: clamp(0.85rem, 1.35vw, 1.45rem);
+          border-radius: clamp(1.25rem, 2vw, 2.1rem);
+          border: 1px solid rgb(255 255 255 / 0.14);
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.045)),
+            radial-gradient(circle at 16% 8%, rgb(255 255 255 / 0.14), transparent 34%),
+            radial-gradient(circle at 84% 24%, rgb(167 197 255 / 0.12), transparent 38%);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.18),
+            0 28px 70px rgb(0 0 0 / 0.18);
+          overflow: hidden;
+        }
+
+        .ido-hero-main {
+          display: grid;
+          grid-template-columns: minmax(18rem, 0.86fr) minmax(0, 1.14fr);
+          gap: clamp(0.75rem, 1.4vw, 1.35rem);
+          min-height: 0;
           align-items: stretch;
         }
 
-        .projects-page-container {
+        .ido-hero-copy {
           display: flex;
           flex-direction: column;
+          justify-content: center;
+          min-width: 0;
+          padding-inline: clamp(0.25rem, 1vw, 1rem);
+        }
+
+        .ido-title-row {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: clamp(0.7rem, 1vw, 1rem);
+        }
+
+        .ido-title {
+          margin: 0;
+          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif;
+          font-size: clamp(4.7rem, 9vw, 8.9rem);
+          line-height: 0.82;
+          letter-spacing: -0.085em;
+          color: white;
+        }
+
+        .ido-award-badge {
+          align-self: center;
+          max-width: 100%;
+        }
+
+        .ido-lede {
+          max-width: 43rem;
+          margin: clamp(0.65rem, 1vw, 1rem) 0 0;
+          color: rgb(255 255 255 / 0.78);
+          font-size: clamp(0.95rem, 1.18vw, 1.25rem);
+          line-height: 1.45;
+          font-weight: 470;
+          text-wrap: balance;
+        }
+
+        .ido-action-row {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 0.8rem;
+          margin-top: clamp(0.85rem, 1.2vw, 1.2rem);
+        }
+
+        .ido-primary-link,
+        .ido-secondary-chip {
+          display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 2.5rem;
+          min-height: 2.25rem;
+          padding: 0.6rem 0.9rem;
+          border-radius: 999px;
+          font-size: 0.72rem;
+          font-weight: 780;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+        }
+
+        .ido-primary-link {
+          gap: 0.45rem;
+          background: white;
+          color: rgb(8 10 18);
+          transition: transform 180ms ease, opacity 180ms ease;
+        }
+
+        .ido-primary-link:hover {
+          transform: translateY(-1px);
+          opacity: 0.92;
+        }
+
+        .ido-secondary-chip {
+          border: 1px solid rgb(255 255 255 / 0.14);
+          background: rgb(255 255 255 / 0.08);
+          color: rgb(255 255 255 / 0.76);
+        }
+
+        .ido-demo-shell {
+          display: grid;
+          grid-template-rows: auto minmax(0, 1fr);
+          min-width: 0;
+          height: clamp(15rem, 27vw, 21rem);
+          min-height: 0;
+          border-radius: clamp(1rem, 1.5vw, 1.45rem);
+          border: 1px solid rgb(255 255 255 / 0.14);
+          background: rgb(3 5 12 / 0.45);
+          overflow: hidden;
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.11),
+            0 22px 48px rgb(0 0 0 / 0.18);
+        }
+
+        .ido-demo-topbar {
+          display: grid;
+          grid-template-columns: auto minmax(0, 1fr) auto;
+          align-items: center;
+          gap: 0.8rem;
+          min-height: 2.25rem;
+          padding: 0.5rem 0.72rem;
+          border-bottom: 1px solid rgb(255 255 255 / 0.1);
+          background: linear-gradient(180deg, rgb(255 255 255 / 0.1), rgb(255 255 255 / 0.035));
+        }
+
+        .ido-demo-dots {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.36rem;
+        }
+
+        .ido-demo-dots span {
+          width: 0.48rem;
+          height: 0.48rem;
+          border-radius: 999px;
+          background: rgb(255 255 255 / 0.34);
+        }
+
+        .ido-demo-label,
+        .ido-demo-cycle {
+          color: rgb(255 255 255 / 0.62);
+          font-size: 0.67rem;
+          font-weight: 700;
+          letter-spacing: 0.11em;
+          text-transform: uppercase;
+          white-space: nowrap;
+        }
+
+        .ido-demo-label {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .ido-demo-stage {
+          position: relative;
+          display: grid;
+          place-items: center;
+          min-height: 0;
+          background: radial-gradient(circle at 50% 32%, rgb(255 255 255 / 0.06), transparent 48%);
+        }
+
+        .ido-demo-media {
           width: 100%;
           height: 100%;
+          object-fit: var(--ido-object-fit, cover) !important;
+          object-position: var(--ido-object-position, 50% 50%) !important;
+          display: block;
+          cursor: pointer;
+        }
+
+        .ido-lightbox-backdrop {
+          position: fixed;
+          inset: 0;
+          z-index: 80;
+          display: grid;
+          place-items: center;
+          padding: clamp(1rem, 3vw, 3rem);
+          background: rgb(5 6 10 / 0.54);
+          backdrop-filter: blur(28px) saturate(125%);
+          -webkit-backdrop-filter: blur(28px) saturate(125%);
+        }
+
+        .ido-lightbox-frame {
+          width: min(94vw, 84rem);
+          height: min(86vh, 52rem);
+          display: grid;
+          place-items: center;
+          overflow: hidden;
+          border-radius: clamp(1rem, 2vw, 1.8rem);
+          border: 1px solid rgb(255 255 255 / 0.14);
+          background: rgb(7 8 12 / 0.68);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.14),
+            0 34px 90px rgb(0 0 0 / 0.34);
+        }
+
+        .ido-lightbox-media {
+          width: 100%;
+          height: 100%;
+          object-fit: contain;
+          display: block;
+        }
+
+        .ido-detail-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: clamp(0.65rem, 1vw, 1rem);
           min-height: 0;
         }
 
-        @media (min-width: 1024px) {
-          .projects-page-container {
-            flex-direction: row;
-            gap: 0;
-            align-items: stretch;
-            justify-content: center;
-          }
+        .ido-detail-card {
+          display: grid;
+          grid-template-rows: auto minmax(0, 1fr);
+          gap: clamp(0.45rem, 0.7vw, 0.72rem);
+          align-items: stretch;
+          min-width: 0;
+          min-height: 0;
+          padding: clamp(0.5rem, 0.65vw, 0.7rem);
+          border-radius: 1.1rem;
+          border: 1px solid rgb(255 255 255 / 0.11);
+          background: rgb(255 255 255 / 0.055);
+        }
 
+        .ido-detail-card-reverse {
+          grid-template-rows: auto minmax(0, 1fr);
+        }
+
+        .ido-detail-copy {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          min-width: 0;
+        }
+
+        .ido-detail-kicker {
+          margin: 0 0 0.45rem;
+          color: rgb(255 255 255 / 0.48);
+          font-size: 0.62rem;
+          font-weight: 760;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+        }
+
+        .ido-detail-title {
+          margin: 0;
+          color: white;
+          font-size: clamp(0.86rem, 0.95vw, 1.02rem);
+          line-height: 1;
+          letter-spacing: -0.025em;
+        }
+
+        .ido-detail-text {
+          margin: 0.65rem 0 0;
+          color: rgb(255 255 255 / 0.64);
+          font-size: clamp(0.78rem, 0.9vw, 0.95rem);
+          line-height: 1.45;
+        }
+
+        .ido-image-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          grid-auto-rows: auto;
+          gap: 0.34rem;
+          min-width: 0;
+          min-height: 0;
+          align-content: start;
+        }
+
+        .ido-detail-card-reverse .ido-image-grid {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        .ido-image-cell {
+          position: relative;
+          min-width: 0;
+          min-height: 0;
+          aspect-ratio: 16 / 10;
+          border-radius: 0.55rem;
+          overflow: hidden;
+          border: 1px solid rgb(255 255 255 / 0.1);
+          background: rgb(0 0 0 / 0.22);
+        }
+
+        .ido-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          cursor: pointer;
+        }
+
+        .projects-page-shell {
+          width: 100%;
+          max-width: none;
+          margin-inline: auto;
+          display: block;
+          padding: clamp(0.55rem, 1vw, 1rem);
+        }
+
+        .projects-page-container {
+          width: 100%;
+          min-height: 0;
+          overflow: visible;
+        }
+
+        @media (min-width: 1024px) {
           .projects-page-content {
-            flex: 0 1 96rem;
-            width: min(100%, 96rem);
+            width: min(100%, 104rem);
             min-width: 0;
             margin-inline: auto;
           }
@@ -3821,11 +4331,9 @@ export function PortfolioPage() {
         }
 
         .projects-marquee-viewport {
-          height: calc(100vh - 92px);
-          overflow-y: auto;
           position: relative;
-          padding-right: 0.5rem;
-          mask-image: linear-gradient(to bottom, black 95%, transparent);
+          margin-top: clamp(1.1rem, 1.7vw, 1.8rem);
+          padding-bottom: 2rem;
         }
 
         /* Discreet but usable Scrollbar */
@@ -3894,6 +4402,41 @@ export function PortfolioPage() {
           grid-template-columns: repeat(2, 1fr);
           gap: 1.5rem;
           width: 100%;
+        }
+
+        @media (max-width: 1180px) {
+          .ido-hero-project {
+            min-height: auto;
+          }
+
+          .ido-hero-main,
+          .ido-detail-grid,
+          .ido-detail-card,
+          .ido-detail-card-reverse {
+            grid-template-columns: 1fr;
+          }
+
+          .ido-demo-shell {
+            min-height: min(58vw, 34rem);
+          }
+        }
+
+        @media (max-width: 760px) {
+          .ido-title {
+            font-size: clamp(4.2rem, 22vw, 6.5rem);
+          }
+
+          .ido-image-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .ido-detail-card-reverse .ido-image-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+
+          .ido-detail-card {
+            border-radius: 1.25rem;
+          }
         }
 
         @media (max-width: 1180px) {
@@ -4340,16 +4883,32 @@ export function PortfolioPage() {
         }
 
         @media (max-width: 767px) {
+          .nav-shell {
+            grid-template-columns: auto minmax(0, 1fr);
+            padding-inline: 1rem;
+          }
+
           .nav-links {
+            display: flex;
+            justify-content: flex-start;
+            overflow-x: auto;
+            scrollbar-width: none;
+          }
+
+          .nav-links::-webkit-scrollbar {
             display: none;
           }
 
-          .nav-palette-controls {
-            display: none;
-          }
-
+          .nav-actions,
+          .nav-palette-controls,
           .nav-mobile-palettes {
-            display: grid;
+            display: none;
+          }
+
+          .nav-link {
+            padding: 0.62rem 0.72rem;
+            font-size: 0.72rem;
+            white-space: nowrap;
           }
 
           .hero-grid {
