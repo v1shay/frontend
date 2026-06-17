@@ -71,6 +71,7 @@ import mlLabsIcon from "../../images/other_projects/ml-labs-icon.png"
 import archLlmScreenshot from "../../images/other_projects/image.png"
 import sentinelLlmChart from "../../images/other_projects/image copy.png"
 import voxAgentScreenshot from "../../images/other_projects/PNG image.png"
+import ecoScanImage from "../../images/eco-scan.png"
 
 // ── IDO public assets ─────────────────────────────────────────────────────────
 // actual folder: frontend/public/ido
@@ -328,6 +329,20 @@ const portfolioProjects = [
     href: "https://github.com/v1shay/archLLM-sim",
     linkLabel: "GitHub",
     image: archLlmScreenshot,
+    gif: null as string | null,
+  },
+  {
+    title: "Eco Scan",
+    badge: "Top 5 @ EcoHacks",
+    hook: (
+      <>
+        Biodiversity intelligence for <strong>400+ animals</strong> on the
+        <strong> California Coast</strong>; recognized as a <strong>Top 5</strong> project at EcoHacks
+      </>
+    ),
+    href: "https://github.com/v1shay/eco-scan",
+    linkLabel: "GitHub",
+    image: ecoScanImage,
     gif: null as string | null,
   },
   {
