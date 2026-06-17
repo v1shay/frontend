@@ -54,7 +54,7 @@
   --page-height: calc(100svh - var(--nav-height));
   --font-sans-display: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif;
   --font-body-luxury: var(--font-body-google), "Cormorant Garamond", "Iowan Old Style", "Garamond", "Times New Roman", serif;
-  --font-serif-display: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif;
+  --font-serif-display: var(--font-serif-google), "Cormorant Garamond", serif;
   --card: oklch(0.22 0.03 262 / 72%);
   --card-foreground: oklch(0.98 0.01 95);
   --popover: oklch(0.22 0.03 262 / 92%);
@@ -238,7 +238,7 @@ body {
 }
 
 .font-display-serif {
-    font-family: "Sohne", "Geist", sans-serif !important;
+    font-family: var(--font-serif-display) !important;
     font-optical-sizing: auto;
 }
 
@@ -274,8 +274,16 @@ body,
 .hero-title,
 .section-title,
 .research-card-title,
-.research-modal-title {
-    font-family: "Sohne", "Geist", sans-serif !important;
+.research-modal-title,
+.inst-card-title,
+.pillar-title,
+.pillar-title-large,
+.ido-title,
+.ido-detail-title,
+.projects-page-card-title,
+.contact-panel-title,
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif-display) !important;
     font-weight: 700;
     font-optical-sizing: auto;
     font-synthesis: none;

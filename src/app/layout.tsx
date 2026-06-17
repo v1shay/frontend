@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google"
+import { Plus_Jakarta_Sans, Space_Grotesk, Cormorant_Garamond } from "next/font/google"
 import { ShaderBackground, ShaderPaletteProvider } from "@/components/shader-background"
 import "./globals.css"
 
@@ -13,6 +13,12 @@ const bodyFont = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-body-google",
   weight: ["400", "500", "600", "700"],
+})
+
+const serifFont = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-serif-google",
+  weight: ["300", "400", "500", "600", "700"],
 })
 
 import type { Viewport } from "next"
@@ -36,7 +42,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`} style={{ overflowX: 'hidden' }}>
+    <html lang="en" className={`${displayFont.variable} ${bodyFont.variable} ${serifFont.variable}`} style={{ overflowX: 'hidden' }}>
       <body className={`${bodyFont.className} min-h-dvh antialiased overflow-x-hidden`}>
         <ShaderPaletteProvider>
           <div className="site-shell">

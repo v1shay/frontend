@@ -2619,7 +2619,7 @@ export function PortfolioPage() {
         }
 
         .hero-title {
-          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+          font-family: var(--font-serif-display) !important;
           font-weight: 500;
           font-optical-sizing: auto;
           margin-top: 1.5rem;
@@ -2877,7 +2877,7 @@ export function PortfolioPage() {
         }
 
         .inst-card-title {
-          font-family: \"Sohne\", \"Geist\", sans-serif !important;
+          font-family: var(--font-serif-display) !important;
           font-size: clamp(1.8rem, 2.5vw, 2.8rem);
           font-weight: 700;
           letter-spacing: -0.04em;
@@ -2961,7 +2961,7 @@ export function PortfolioPage() {
 
         .research-editorial-title {
           margin-top: 0.85rem;
-          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+          font-family: var(--font-serif-display) !important;
           font-size: clamp(2rem, 3.2vw, 3.4rem);
           line-height: 1;
           letter-spacing: -0.05em;
@@ -3148,7 +3148,7 @@ export function PortfolioPage() {
         .research-modal-title {
           margin-top: 0.5rem;
           margin-bottom: 1rem;
-          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+          font-family: var(--font-serif-display) !important;
           font-size: clamp(1.45rem, 1.5vw, 1.8rem);
           font-optical-sizing: auto;
           line-height: 1.04;
@@ -3755,7 +3755,7 @@ export function PortfolioPage() {
         }
 
         .pillar-title {
-          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+          font-family: var(--font-serif-display) !important;
           font-size: clamp(1.6rem, 2vw, 2.2rem);
           color: white;
           margin-bottom: 0.8rem;
@@ -3763,7 +3763,7 @@ export function PortfolioPage() {
         }
 
         .pillar-title-large {
-          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+          font-family: var(--font-serif-display) !important;
           font-size: clamp(2rem, 2.65vw, 2.9rem);
           color: white;
           margin-bottom: 0.8rem;
@@ -3837,7 +3837,7 @@ export function PortfolioPage() {
 
         .ido-title {
           margin: 0;
-          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif;
+          font-family: var(--font-serif-display);
           font-size: clamp(4.7rem, 9vw, 8.9rem);
           line-height: 0.82;
           letter-spacing: -0.085em;
@@ -4046,6 +4046,7 @@ export function PortfolioPage() {
         .ido-detail-title {
           margin: 0;
           color: white;
+          font-family: var(--font-serif-display);
           font-size: clamp(0.86rem, 0.95vw, 1.02rem);
           line-height: 1;
           letter-spacing: -0.025em;
@@ -4188,7 +4189,7 @@ export function PortfolioPage() {
         }
 
         .projects-page-card-title {
-          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+          font-family: var(--font-serif-display) !important;
           font-size: clamp(1.3rem, 1.6vw, 1.8rem);
           line-height: 0.98;
           letter-spacing: -0.05em;
@@ -4200,7 +4201,7 @@ export function PortfolioPage() {
         }
 
         .projects-page-card-hook-display {
-          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+          font-family: var(--font-serif-display) !important;
           color: rgb(255 255 255 / 0.85);
           font-weight: 500;
         }
@@ -4806,7 +4807,7 @@ export function PortfolioPage() {
         }
 
         .contact-panel-title {
-          font-family: "Clash Display", "Satoshi", var(--font-display-google), "Plus Jakarta Sans", "Space Grotesk", "SF Pro Display", "Segoe UI", sans-serif !important;
+          font-family: var(--font-serif-display) !important;
           font-size: clamp(2rem, 2.6vw, 3rem);
           line-height: 0.98;
           letter-spacing: -0.05em;
