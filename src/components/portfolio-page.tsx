@@ -142,12 +142,12 @@ import { GitHubTerminal } from "./github-terminal"
 import { useShaderPalette } from "./shader-background"
 
 const navItems = [
-  { id: "hero", label: "Home" },
-  { id: "research", label: "Research & Projects" },
-  { id: "experience", label: "Clubs & Non-profit Work" },
-  { id: "projects-grid", label: "Other Projects" },
-  { id: "for-fun", label: "For Fun" },
-  { id: "contact", label: "Contact" },
+  { id: "hero", label: "HOME" },
+  { id: "research", label: "EXPERIENCE" },
+  { id: "experience", label: "NONPROFIT WORK" },
+  { id: "projects-grid", label: "PROJECTS" },
+  { id: "for-fun", label: "NOTES" },
+  { id: "contact", label: "CONTACT" },
 ] as const
 
 type ProjectAction = {
@@ -262,7 +262,7 @@ const institutionCards: readonly InstitutionCard[] = [
 
 const portfolioProjects = [
   {
-    title: "Echo-OS",
+    title: "echoOS",
     badge: "1st @ ElevenLabs 2026",
     hook: (
       <>
@@ -290,7 +290,7 @@ const portfolioProjects = [
     gif: null as string | null,
   },
   {
-    title: "Phyto-Vision",
+    title: "PhytoVision",
     badge: "Presented @ UCSC",
     hook: (
       <>
@@ -304,7 +304,7 @@ const portfolioProjects = [
     gif: null as string | null,
   },
   {
-    title: "ML-Labs",
+    title: "ML Labs",
     badge: "Finalist @ LUMA Hacks",
     hook: (
       <>
@@ -375,7 +375,7 @@ const portfolioProjects = [
     gif: "/images/sift-demo.gif",
   },
   {
-    title: "Sentinel-LLM",
+    title: "SentinelLLM",
     badge: "Model Eval",
     hook: (
       <>
@@ -390,7 +390,7 @@ const portfolioProjects = [
     gif: null as string | null,
   },
   {
-    title: "Neural-Lens",
+    title: "Neural Lens",
     badge: "Chrome extension",
     hook: (
       <>
@@ -2079,7 +2079,7 @@ function ForFunSection() {
             >
               <div className="projects-v2-card-text flex flex-col items-center justify-center text-center flex-shrink-0 mb-3 w-full">
                 <h3 className="projects-page-card-title text-base tracking-wider font-bold text-white">{project.title.toLowerCase()}</h3>
-                <p className="font-display-serif mt-1.5 text-[11px] leading-relaxed opacity-60 text-white/70 max-w-[95%]">
+                <p className="font-display-serif mt-1.5 text-[11px] leading-relaxed text-white/85 max-w-[95%]">
                   {project.hook}
                 </p>
               </div>
@@ -2154,7 +2154,7 @@ function ForFunSection() {
 
                   <div className="space-y-4">
                     <h2 className="text-3xl font-display-serif text-white">{activeGridProject.title.toLowerCase()}</h2>
-                    <p className="text-white/60 leading-relaxed">{activeGridProject.hook}</p>
+                    <p className="text-white/85 leading-relaxed">{activeGridProject.hook}</p>
 
                     {"languages" in activeGridProject && (activeGridProject as any).languages && (
                       <div className="flex flex-wrap gap-2 pt-2">
@@ -2620,7 +2620,7 @@ export function PortfolioPage() {
 
         .hero-title {
           font-family: var(--font-serif-display) !important;
-          font-weight: 500;
+          font-weight: 600;
           font-optical-sizing: auto;
           margin-top: 1.5rem;
           max-width: 100%;
@@ -2892,7 +2892,7 @@ export function PortfolioPage() {
         .inst-card-description {
           font-size: 1.15rem;
           line-height: 1.6;
-          color: rgba(255, 255, 255, 0.88);
+          color: rgba(255, 255, 255, 0.94);
           max-width: 36ch;
           margin-left: auto;
           margin-right: auto;
@@ -4819,7 +4819,7 @@ export function PortfolioPage() {
           max-width: 58ch;
           font-size: clamp(0.98rem, 1vw, 1.08rem);
           line-height: 1.7;
-          color: rgb(255 255 255 / 0.74);
+          color: rgb(255 255 255 / 0.86);
         }
 
         .contact-button-grid {

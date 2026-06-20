@@ -57,7 +57,7 @@ const shaderColorCycles = [
     key: "color2",
     label: "Tone 2",
     values: [
-      "#dbba95",
+      "#d2b99f",
       "#ffd0b5",
       "#ff9f7a",
       "#ff6b6b",
@@ -72,7 +72,7 @@ const shaderColorCycles = [
     key: "color3",
     label: "Tone 3",
     values: [
-      "#e1cdb2",
+      "#dbcbb8",
       "#fff1db",
       "#f8ffae",
       "#aaf8b8",
@@ -147,33 +147,45 @@ export function useShaderPalette() {
   return context
 }
 
+const CAPPED_SHADER_FPS = 15
+
 /**
- * Renders the shader once, then switches React Three Fiber to on-demand
- * rendering so the GPU stops drawing every frame. This keeps the exact frozen
- * gradient look while eliminating the continuous render loop that caused lag.
+ * Uses on-demand rendering to keep the native shader animation well below the
+ * display refresh rate. The loop stops entirely when motion is unnecessary.
  */
-function FreezeFrame() {
-  const invalidate = useThree((state) => state.invalidate)
+function CappedFrameLoop() {
+  const advance = useThree((state) => state.advance)
   const setFrameloop = useThree((state) => state.setFrameloop)
 
   useEffect(() => {
-    setFrameloop("demand")
+    setFrameloop("never")
 
-    // Paint a short burst of frames so the environment map and material fully
-    // settle into the frozen image, then stop rendering entirely.
-    let frameId = 0
-    let count = 0
-    const settle = () => {
-      invalidate()
-      count += 1
-      if (count < 120) {
-        frameId = requestAnimationFrame(settle)
+    let intervalId: number | undefined
+
+    const syncLoop = () => {
+      if (intervalId !== undefined) {
+        window.clearInterval(intervalId)
+        intervalId = undefined
       }
-    }
-    frameId = requestAnimationFrame(settle)
 
-    return () => cancelAnimationFrame(frameId)
-  }, [invalidate, setFrameloop])
+      if (!document.hidden) {
+        intervalId = window.setInterval(
+          () => advance(performance.now()),
+          1000 / CAPPED_SHADER_FPS
+        )
+      }
+
+      advance(performance.now())
+    }
+
+    syncLoop()
+    document.addEventListener("visibilitychange", syncLoop)
+
+    return () => {
+      if (intervalId !== undefined) window.clearInterval(intervalId)
+      document.removeEventListener("visibilitychange", syncLoop)
+    }
+  }, [advance, setFrameloop])
 
   return null
 }
@@ -182,8 +194,7 @@ function ShaderScene({ colorSteps }: { colorSteps: Record<ShaderColorKey, number
   const paletteConfig = useMemo(
     () => ({
       ...shaderGradientConfig,
-      // Frozen: the time-based animation is disabled so uTime never advances.
-      animate: "off",
+      animate: "on",
       color1: shaderColorCycles[0].values[colorSteps.color1],
       color2: shaderColorCycles[1].values[colorSteps.color2],
       color3: shaderColorCycles[2].values[colorSteps.color3],
@@ -199,7 +210,7 @@ function ShaderScene({ colorSteps }: { colorSteps: Record<ShaderColorKey, number
         fov={45}
         style={{ width: "100%", height: "100%", transform: 'translateZ(0)' }}
       >
-        <FreezeFrame />
+        <CappedFrameLoop />
         <ShaderGradient
           {...(paletteConfig as unknown as ShaderGradientProps)}
         />
