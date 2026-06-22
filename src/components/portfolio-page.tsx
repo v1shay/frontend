@@ -5,6 +5,7 @@ import Image, { type StaticImageData } from "next/image"
 // ── Hero ──────────────────────────────────────────────────────────────────────
 import heroImage from "../../images/hero.jpeg"
 import githubProgramLogo from "../../images/GitHub_Invertocat_Black_Clearspace.png"
+import linkedinLogo from "../../images-removebg-preview.png"
 
 // ── Research / ML projects ────────────────────────────────────────────────────
 import neurosense from "../../images/neuro.png"
@@ -232,7 +233,7 @@ const institutionCards: readonly InstitutionCard[] = [
   {
     id: "chapman-research",
     institution: "",
-    title: "Research Intern",
+    title: "Computational Research Intern",
     description: "Built backend pipelines for large-scale data modeling with the Mathematical Foundations of CS Lab at Chapman University",
     bgImage: chapmanBg,
     panelImage: softwareintern,
@@ -241,7 +242,7 @@ const institutionCards: readonly InstitutionCard[] = [
   {
     id: "ucsc-research",
     institution: " ",
-    title: "Engineering Intern",
+    title: "AI Engineering Intern",
     description: "Training compact deep learning and XAI neural architectures at the AIEA Lab at UC Santa Cruz",
     bgImage: ucscBg,
     panelImage: ucscPanel,
@@ -250,7 +251,7 @@ const institutionCards: readonly InstitutionCard[] = [
   {
     id: "berkeley-research",
     institution: "",
-    title: "Machine Learning Intern",
+    title: "Machine Learning Research Intern",
     description: "Building multi-modal agents for hydrological data interpretation with integrated physics at Berkeley Labs",
     bgImage: berkeleyBg,
     panelImage: berkeleyPanel,
@@ -527,6 +528,11 @@ const contactButtons = [
     label: "BASKETBALL",
     image: basketballLogo,
     href: "https://www.lynbrookvikings.com/player/vishay-agarwal/",
+  },
+  {
+    label: "LINKEDIN",
+    image: linkedinLogo,
+    href: "https://www.linkedin.com/in/vishay-agarwal-a194a6416/",
   },
   {
     label: "RESUME",
@@ -1785,14 +1791,14 @@ function IdoHeroProject() {
           <div className="ido-action-row">
             <a
               href="https://github.com/v1shay/ido"
-              target="_blank"
+              target=""
               rel="noreferrer"
               className="ido-primary-link"
             >
               View GitHub
               <ExternalLink className="h-3.5 w-3.5" />
             </a>
-            <span className="ido-secondary-chip"></span>
+            <span className="ido-secondary-chip">Open-Source</span>
           </div>
         </div>
 
@@ -4896,6 +4902,172 @@ export function PortfolioPage() {
           text-transform: uppercase;
           color: rgb(255 255 255 / 0.8);
           text-align: center;
+        }
+
+
+        /* ── Premium glow treatment for project stats/actions ─────────────── */
+        .projects-v2-award-badge,
+        .projects-v2-card-link-mini,
+        .projects-page-card-link,
+        .projects-stat-item,
+        .projects-stat-item-mini,
+        .ido-primary-link,
+        .ido-secondary-chip,
+        .pillar-action,
+        .research-card-action,
+        .inst-card-detail-link,
+        .contact-button-tile {
+          position: relative;
+          isolation: isolate;
+          overflow: visible;
+          border-color: rgb(125 211 252 / 0.26);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.22),
+            inset 0 -1px 0 rgb(125 211 252 / 0.08),
+            0 0 0 1px rgb(255 255 255 / 0.04),
+            0 12px 28px rgb(0 0 0 / 0.16),
+            0 0 24px rgb(125 211 252 / 0.10);
+          transition:
+            transform 220ms ease,
+            border-color 220ms ease,
+            box-shadow 220ms ease,
+            background 220ms ease,
+            color 220ms ease,
+            text-shadow 220ms ease;
+        }
+
+        .projects-v2-award-badge::before,
+        .projects-v2-card-link-mini::before,
+        .projects-page-card-link::before,
+        .projects-stat-item::before,
+        .projects-stat-item-mini::before,
+        .ido-primary-link::before,
+        .ido-secondary-chip::before,
+        .pillar-action::before,
+        .research-card-action::before,
+        .inst-card-detail-link::before,
+        .contact-button-tile::before {
+          content: "";
+          position: absolute;
+          inset: -3px;
+          z-index: -1;
+          border-radius: inherit;
+          background:
+            radial-gradient(circle at 28% 18%, rgb(255 255 255 / 0.44), transparent 26%),
+            radial-gradient(circle at 50% 50%, rgb(125 211 252 / 0.35), transparent 68%);
+          opacity: 0;
+          filter: blur(10px);
+          transition: opacity 220ms ease, transform 220ms ease;
+          pointer-events: none;
+        }
+
+        .projects-v2-award-badge::after,
+        .projects-v2-card-link-mini::after,
+        .projects-page-card-link::after,
+        .projects-stat-item::after,
+        .projects-stat-item-mini::after,
+        .ido-primary-link::after,
+        .ido-secondary-chip::after,
+        .pillar-action::after,
+        .research-card-action::after,
+        .inst-card-detail-link::after,
+        .contact-button-tile::after {
+          content: "";
+          position: absolute;
+          inset: 1px;
+          z-index: -1;
+          border-radius: inherit;
+          background: linear-gradient(135deg, rgb(255 255 255 / 0.18), transparent 42%, rgb(125 211 252 / 0.12));
+          opacity: 0.55;
+          pointer-events: none;
+        }
+
+        .projects-v2-award-badge:hover,
+        .projects-v2-card-link-mini:hover,
+        .projects-page-card-link:hover,
+        .projects-stat-item:hover,
+        .projects-stat-item-mini:hover,
+        .ido-primary-link:hover,
+        .ido-secondary-chip:hover,
+        .pillar-action:hover,
+        .research-card-action:hover,
+        .inst-card-detail-link:hover,
+        .contact-button-tile:hover {
+          transform: translateY(-2px) scale(1.015);
+          border-color: rgb(125 211 252 / 0.62);
+          color: white;
+          text-shadow: 0 0 14px rgb(255 255 255 / 0.38);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.28),
+            inset 0 -1px 0 rgb(125 211 252 / 0.18),
+            0 0 0 1px rgb(125 211 252 / 0.18),
+            0 16px 34px rgb(0 0 0 / 0.22),
+            0 0 28px rgb(125 211 252 / 0.28),
+            0 0 72px rgb(125 211 252 / 0.16);
+        }
+
+        .projects-v2-award-badge:hover::before,
+        .projects-v2-card-link-mini:hover::before,
+        .projects-page-card-link:hover::before,
+        .projects-stat-item:hover::before,
+        .projects-stat-item-mini:hover::before,
+        .ido-primary-link:hover::before,
+        .ido-secondary-chip:hover::before,
+        .pillar-action:hover::before,
+        .research-card-action:hover::before,
+        .inst-card-detail-link:hover::before,
+        .contact-button-tile:hover::before {
+          opacity: 1;
+          transform: scale(1.04);
+        }
+
+        .projects-v2-award-badge,
+        .projects-page-card-link,
+        .pillar-action,
+        .research-card-action,
+        .inst-card-detail-link,
+        .ido-secondary-chip {
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.18), rgb(255 255 255 / 0.055)),
+            radial-gradient(circle at 20% 0%, rgb(125 211 252 / 0.22), transparent 56%),
+            rgb(255 255 255 / 0.055);
+        }
+
+        .ido-primary-link {
+          background:
+            linear-gradient(180deg, rgb(255 255 255), rgb(215 244 255)),
+            radial-gradient(circle at 30% 0%, rgb(125 211 252 / 0.45), transparent 62%);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.65),
+            0 14px 28px rgb(0 0 0 / 0.18),
+            0 0 30px rgb(125 211 252 / 0.22);
+        }
+
+        .projects-stat-item,
+        .projects-stat-item-mini {
+          border: 1px solid rgb(125 211 252 / 0.2);
+          border-radius: 999px;
+          background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.04)),
+            radial-gradient(circle at 18% 0%, rgb(125 211 252 / 0.16), transparent 58%);
+          padding: 0.48rem 0.82rem;
+          backdrop-filter: blur(18px) saturate(140%);
+        }
+
+        .projects-stat-item-mini {
+          padding: 0.42rem 0.7rem;
+        }
+
+        .projects-v2-card:hover .projects-v2-award-badge,
+        .projects-v2-card:hover .projects-v2-card-link-mini,
+        .ido-hero-project:hover .ido-award-badge,
+        .ido-hero-project:hover .ido-primary-link {
+          border-color: rgb(125 211 252 / 0.5);
+          box-shadow:
+            inset 0 1px 0 rgb(255 255 255 / 0.26),
+            0 14px 32px rgb(0 0 0 / 0.2),
+            0 0 32px rgb(125 211 252 / 0.2),
+            0 0 76px rgb(125 211 252 / 0.12);
         }
 
         @media (max-width: 767px) {
